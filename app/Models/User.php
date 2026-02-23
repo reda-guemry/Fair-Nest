@@ -18,10 +18,22 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
+        'reputation',
+        'status',
+        'reason',
     ];
+
+    public function colocations()
+    {
+        return $this->belongsToMany(Colocation::class)
+                    ->using(ColocationUser::class) 
+                    ->withPivot(['id', 'role', 'joined_at', 'left_at', 'status']) 
+                    ->withTimestamps();
+    }
 
     /**
      * The attributes that should be hidden for serialization.
