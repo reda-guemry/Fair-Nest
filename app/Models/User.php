@@ -25,6 +25,7 @@ class User extends Authenticatable
         'reputation',
         'status',
         'reason',
+        'is_global_admin' , 
     ];
 
     public function colocations()
