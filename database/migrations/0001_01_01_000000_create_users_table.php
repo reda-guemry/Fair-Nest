@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('reputation')->default(0) ; 
             $table->boolean('status')->default(1) ;
             $table->text('reason')->nullable() ; 
+            $table->boolean('is_global_admin')->default(0) ;
             $table->rememberToken();
             $table->timestamps();
         });
