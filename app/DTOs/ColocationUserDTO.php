@@ -12,4 +12,6 @@ class ColocationUserDTO
         public ?string $joinedAt = null, 
         public ?string $leftAt = null,   
     ) {}
+
+    
 }
