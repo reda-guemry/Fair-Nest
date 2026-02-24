@@ -13,7 +13,7 @@ class Expense extends Model
         'colocation_id',
         'payer_id',
         'category_id',
-        'titile', 
+        'title', 
         'amount',
     ];
 
