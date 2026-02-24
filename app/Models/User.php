@@ -35,6 +35,32 @@ class User extends Authenticatable
                     ->withTimestamps();
     }
 
+    public function ownedColocations()
+    {
+        return $this->hasOne(Colocation::class, 'owner_id');
+    }
+
+    public function paidExpenses()
+    {
+        return $this->hasMany(Expense::class, 'payer_id');
+    }
+
+    public function debts()
+    {
+        return $this->hasMany(Settlement::class, 'debtor_id');
+    }
+    public function credits()
+    {
+        return $this->hasMany(Settlement::class, 'creditor_id');
+    }
+
+
+    public function sharedExpenses()
+    {
+        return $this->belongsToMany(Expense::class, 'expense_participants')
+                    ->withTimestamps();
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
