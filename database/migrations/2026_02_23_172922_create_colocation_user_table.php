@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,13 +12,12 @@ return new class extends Migration
     {
         Schema::create('colocation_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade') ;
-            $table->foreignId('colocation_id')->constrained()->onDelete('cascade') ;
-            $table->string('role') ;
-            $table->date('joined_at') ;
-            $table->date('left_at')->nullable() ;
-            $table->boolean('status')->default(true) ;
-            
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('colocation_id')->constrained()->onDelete('cascade');
+            $table->string('role')->default('member');
+            $table->date('joined_at');
+            $table->date('left_at')->nullable();
+            $table->string('status')->default('active');
             $table->timestamps();
         });
     }

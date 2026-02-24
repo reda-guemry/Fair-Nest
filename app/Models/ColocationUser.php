@@ -23,7 +23,6 @@ class ColocationUser extends Pivot
         return [
             'joined_at' => 'date',
             'left_at' => 'date',
-            'status' => 'boolean',
         ];
     }
 

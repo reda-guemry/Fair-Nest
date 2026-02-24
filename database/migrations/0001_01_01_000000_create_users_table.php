@@ -19,9 +19,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('reputation')->default(0) ; 
-            $table->boolean('status')->default(1) ;
+            $table->boolean('is_banned')->default(false) ;
             $table->text('reason')->nullable() ; 
-            $table->boolean('is_global_admin')->default(0) ;
+            $table->boolean('is_global_admin')->default(false) ;
             $table->rememberToken();
             $table->timestamps();
         });

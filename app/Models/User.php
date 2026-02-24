@@ -54,6 +54,27 @@ class User extends Authenticatable
         return $this->hasMany(Settlement::class, 'creditor_id');
     }
 
+    public function activeColocation() 
+    {
+        return $this ->colocations()->wherePivot('status' , 'active') ;
+    }
+
+    public function isFree() 
+    {
+        return $this -> activeColocation() === null ; 
+    }
+
+    public function isOwner()
+    {
+        $coloc = $this->activeColocation();
+        return $coloc && $coloc->pivot->role === 'owner';
+    }
+
+    public function isMember()
+    {
+        $coloc = $this->activeColocation();
+        return $coloc && $coloc->pivot->role === 'member';
+    }
 
     public function sharedExpenses()
     {
