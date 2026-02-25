@@ -18,7 +18,8 @@ class UserController extends Controller
     {
         $colocations = $this->colocationService->getColocationsForUser(auth()->id());
 
+        dd($colocations);
 
-        return view('dashboard');
+        return view('dashboard', compact('colocations'));
     }
 }

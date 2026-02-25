@@ -12,12 +12,12 @@ class UserMapper
     {
         return new UserDTO(
             id: $user->id,
-            name: $user->name,
+            name: $user->first_name . ' ' . $user->last_name ,
             email: $user->email,
             reputation: $user->reputation,
             isBanned: $user->is_banned , 
             colocations: $user->colocations ? $user->colocations->map(function($colocation) {
-                return ColocationMapper::toDTO($colocation);
+                return ColocationMapper::toDTOFromUser($colocation);
             })->toArray() : null
         );
     }

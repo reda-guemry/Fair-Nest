@@ -13,13 +13,22 @@ class ColocationMapper
         return new ColocationDTO(
             id: $colocation->id,
             name: $colocation->name,
-            description : $colocation->description ,
+            description : $colocation->description , 
             status: $colocation->status, 
-            membership: $colocation->users ? $colocation->users->map(function($user) {
-                return ColocationUserMapper::toDTO($user);
-            })->toArray() : null
+            membership: $colocation->pivot ? $colocation->pivot->map(fn($member) => ColocationUserMapper::toDtoFromUser($member)) : null
         );
-    }                               
+    }
+
+    public static function toDTOFromUser(Colocation $colocation): ColocationDTO
+    {
+        return new ColocationDTO(
+            id: $colocation->id,
+            name: $colocation->name,
+            description : $colocation->description , 
+            status: $colocation->status, 
+            membership: $colocation->pivot ? [ColocationUserMapper::toDTO($colocation->pivot)] : null
+        );
+    }
 
     public static function toModel(ColocationDTO $dto, ?Colocation $existingModel = null): Colocation
     {

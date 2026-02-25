@@ -6,8 +6,10 @@ use App\DTOs\ColocationDTO;
 use App\DTOs\ColocationUserDTO;
 use App\Mappers\ColocationMapper;
 use App\Mappers\ColocationUserMapper;
+use App\Mappers\UserMapper;
 use App\Repositorys\ColocationRepository;
 use App\Repositorys\ColocationUserRepository;
+use App\Repositorys\UserRepository;
 use Auth;
 use DB;
 use Illuminate\Validation\ValidationException;
@@ -19,8 +21,9 @@ class ColocationService
      * Create a new class instance.
      */
     public function __construct(
-        private ColocationRepository $colocationRepository , 
-        private ColocationUserRepository $colocationUserRepository
+        private ColocationRepository $colocationRepository,
+        private ColocationUserRepository $colocationUserRepository,
+        private UserRepository $userRepository,
     ) {
     }
 
@@ -42,16 +45,16 @@ class ColocationService
             $saveModel = $this->colocationRepository->save($model);
 
             $coloUserDto = new ColocationUserDTO(
-                userId: Auth::id() , 
-                colocationId: $model->id ,
-                role: 'owner' , 
-                status: 'active' , 
-                joinedAt: now()->toDateString()  ,
-            ) ; 
+                userId: Auth::id(),
+                colocationId: $model->id,
+                role: 'owner',
+                status: 'active',
+                joinedAt: now()->toDateString(),
+            );
 
-            $coloUserModel = ColocationUserMapper::toModel($coloUserDto) ; 
+            $coloUserModel = ColocationUserMapper::toModel($coloUserDto);
 
-            $this -> colocationUserRepository -> save($coloUserModel) ;
+            $this->colocationUserRepository->save($coloUserModel);
 
             return ColocationMapper::toDTO($saveModel);
 
@@ -73,7 +76,11 @@ class ColocationService
 
     public function getColocationsForUser($userId)
     {
-        return $this->colocationRepository->getUserColocation($userId);
+        $userCol = $this->userRepository->getUserWithColocations($userId);
+
+        // dd($userCol);
+
+        return UserMapper::toDTO($userCol);
     }
 
 
