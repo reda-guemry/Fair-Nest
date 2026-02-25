@@ -15,6 +15,9 @@ class ColocationMapper
             name: $colocation->name,
             description : $colocation->description ,
             status: $colocation->status, 
+            membership: $colocation->users ? $colocation->users->map(function($user) {
+                return ColocationUserMapper::toDTO($user);
+            })->toArray() : null
         );
     }                               
 

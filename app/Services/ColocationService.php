@@ -71,6 +71,10 @@ class ColocationService
         }
     }
 
+    public function getColocationsForUser($userId)
+    {
+        return $this->colocationRepository->getUserColocation($userId);
+    }
 
 
 }

@@ -10,6 +10,7 @@ class ColocationDTO
         public string $name,
         public ?string $description , 
         public ?string $status = null ,
+        public ?array $membership = null
     ) {}
 
 

@@ -14,6 +14,7 @@ class ColocationUserRepository
         //
     }
 
+    
 
     public function save(ColocationUser $colocationUser) 
     {

@@ -19,6 +19,8 @@ class ColocationRepository
     //     return Colocation::create($data);
     // }
 
+    
+
     public function findById($id)
     {
         return Colocation::find($id);

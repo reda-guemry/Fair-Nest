@@ -13,5 +13,6 @@ class UserDTO
         public string $email,
         public int $reputation,
         public bool $isBanned,
+        public ?array $colocations = null
     ) {}
 }

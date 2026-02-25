@@ -10,13 +10,16 @@ class Colocation extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-        'description' , 
+        'description',
         'status',
     ];
 
     public function members()
     {
-        return $this->belongsToMany(User::class)->using(ColocationUser::class)->withPivot(['id', 'role', 'joined_at', 'left_at', 'status'])->withTimestamps();
+        return $this->belongsToMany(User::class)
+        ->using(ColocationUser::class)
+        ->withPivot(['id', 'role', 'joined_at', 'left_at', 'status'])
+        ->withTimestamps();
     }
 
 
