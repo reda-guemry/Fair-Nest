@@ -18,7 +18,7 @@ class ColocationController extends Controller
     {
         $colocation = $this->colocationService->getColocationDetails($colocationId);
 
-        return view('colocation.show', compact('colocation'));
+        return view('colocation.colocation', compact('colocation'));
     }
     
     public function store(ColocationRequest $request)

@@ -20,7 +20,7 @@
         </div>
     </x-slot>
 
-    <div x-data="{ showExpenseModal: false }" class="py-10 relative">
+    <div x-data="{ showExpenseModal: false, showAddMemberModal: false }" class="py-10 relative">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -129,7 +129,13 @@
                     </div>
 
                     <div class="bg-white p-6 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100">
-                        <h3 class="text-lg font-bold text-[#1A1A1A] mb-4">Colocataires</h3>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-bold text-[#1A1A1A]">Colocataires</h3>
+                            <button @click="showAddMemberModal = true" class="text-sm font-bold text-orange-500 bg-orange-50 hover:bg-orange-100 px-3 py-1.5 rounded-full transition-colors flex items-center gap-1.5 border border-orange-100">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                Ajouter
+                            </button>
+                        </div>
                         
                         <ul class="space-y-3">
                             <li class="flex items-center justify-between">
@@ -236,6 +242,50 @@
                             </button>
                         </div>
                     </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div x-show="showAddMemberModal" style="display: none;" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            <div x-show="showAddMemberModal" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-gray-900/40 backdrop-blur-sm transition-opacity"></div>
+
+            <div class="flex min-h-screen items-center justify-center p-4 text-center sm:p-0">
+                <div x-show="showAddMemberModal" @click.away="showAddMemberModal = false" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" class="relative transform overflow-hidden rounded-[2rem] bg-white text-left shadow-2xl transition-all sm:my-8 sm:w-full sm:max-w-md border border-gray-100 p-8">
+                    
+                    <button @click="showAddMemberModal = false" class="absolute top-6 right-6 text-gray-400 hover:text-[#1A1A1A] transition-colors">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-extrabold text-[#1A1A1A]">Ajouter un membre</h3>
+                        <p class="text-sm text-gray-500 mt-1">Recherchez un utilisateur pour l'inviter.</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                            </div>
+                            <input type="text" placeholder="Rechercher par nom..." class="w-full pl-11 pr-4 py-3 rounded-2xl border-gray-200 shadow-sm focus:border-orange-400 focus:ring focus:ring-orange-400/20 text-sm transition-all bg-gray-50 focus:bg-white">
+                        </div>
+
+                        <div class="border border-gray-100 rounded-2xl overflow-hidden bg-white shadow-sm mt-4">
+                            <div class="p-3 hover:bg-gray-50 transition-colors flex items-center justify-between border-b border-gray-50 last:border-0">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xs">S</div>
+                                    <div>
+                                        <p class="text-sm font-bold text-[#1A1A1A]">Said El Fassi</p>
+                                        <p class="text-xs text-gray-400">said@example.com</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="text-xs font-bold text-[#1A1A1A] bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-full transition-colors">
+                                    Ajouter
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
 
                 </div>
             </div>
