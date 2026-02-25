@@ -36,11 +36,6 @@ class User extends Authenticatable
                     ->withTimestamps();
     }
 
-    public function ownedColocations()
-    {
-        return $this->hasOne(Colocation::class, 'owner_id');
-    }
-
     public function paidExpenses()
     {
         return $this->hasMany(Expense::class, 'payer_id');

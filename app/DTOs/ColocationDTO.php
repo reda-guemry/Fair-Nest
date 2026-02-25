@@ -8,8 +8,8 @@ class ColocationDTO
     public function __construct(
         public ?int $id,
         public string $name,
-        public int $ownerId,
-        public bool $status,
+        public ?string $description , 
+        public ?string $status = null ,
     ) {}
 
 

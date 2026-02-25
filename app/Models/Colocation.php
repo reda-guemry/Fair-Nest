@@ -10,17 +10,9 @@ class Colocation extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-        'owner_id',
+        'description' , 
         'status',
     ];
-
-
-
-    public function owner()
-    {
-        return $this->belongsTo(User::class, 'owner_id');
-    }
-
 
     public function members()
     {
@@ -51,5 +43,5 @@ class Colocation extends Model
         return $this->hasMany(Settlement::class);
     }
 
-    
+
 }

@@ -9,7 +9,7 @@ class ColocationUserDTO
         public int $colocationId,
         public string $role,
         public string $status,
-        public ?string $joinedAt = null, 
+        public ?string $joinedAt = 'active', 
         public ?string $leftAt = null,   
     ) {}
 

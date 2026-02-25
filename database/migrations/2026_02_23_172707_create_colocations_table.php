@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name') ;
             $table->text('description')->nullable() ; 
-            $table->foreignId('owner_id')->constrained('users')->onDelete('cascade') ;
             $table->string('status')->default('active') ; 
             $table->timestamps();
         });

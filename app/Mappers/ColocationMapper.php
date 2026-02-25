@@ -13,8 +13,8 @@ class ColocationMapper
         return new ColocationDTO(
             id: $colocation->id,
             name: $colocation->name,
-            ownerId: $colocation->owner_id,
-            status: (bool) $colocation->status, 
+            description : $colocation->description ,
+            status: $colocation->status, 
         );
     }                               
 
@@ -23,9 +23,9 @@ class ColocationMapper
         $model = $existingModel ?? new Colocation();
 
         $model->name = $dto->name;
-        $model->owner_id = $dto->ownerId;
+        $model->description = $dto->description ; 
         
-        $model->status = $dto->status ?? true;
+        $model->status = $dto->status ?? 'active' ;
 
         return $model;
     }
