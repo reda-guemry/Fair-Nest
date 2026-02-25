@@ -21,7 +21,6 @@
                         class="text-sm font-medium text-gray-600 hover:text-[#1A1A1A] transition-colors border-none">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    
                     <x-nav-link href="#" class="text-sm font-medium text-gray-600 hover:text-[#1A1A1A] transition-colors border-none">
                         {{ __('Dépenses') }}
                     </x-nav-link>

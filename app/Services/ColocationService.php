@@ -45,7 +45,8 @@ class ColocationService
                 userId: Auth::id() , 
                 colocationId: $model->id ,
                 role: 'owner' , 
-                status: 'active' 
+                status: 'active' , 
+                joinedAt: now()->toDateString()  ,
             ) ; 
 
             $coloUserModel = ColocationUserMapper::toModel($coloUserDto) ; 
