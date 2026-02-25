@@ -19,6 +19,14 @@ class UserRepository
             return User::with('colocations')->find($userId);
     }
 
+    public function search($query)
+    {
+        return User::whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ["%{$query}%"]) 
+                    ->orWhere('email' , 'LIKE' , "%$query%")
+                    ->limit(5)
+                    ->get();
+    }
+
 
 
 }

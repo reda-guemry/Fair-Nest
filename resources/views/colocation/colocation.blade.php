@@ -262,30 +262,7 @@
                         <p class="text-sm text-gray-500 mt-1">Recherchez un utilisateur pour l'inviter.</p>
                     </div>
 
-                    <div class="space-y-4">
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <svg class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-                            </div>
-                            <input type="text" placeholder="Rechercher par nom..." class="w-full pl-11 pr-4 py-3 rounded-2xl border-gray-200 shadow-sm focus:border-orange-400 focus:ring focus:ring-orange-400/20 text-sm transition-all bg-gray-50 focus:bg-white">
-                        </div>
-
-                        <div class="border border-gray-100 rounded-2xl overflow-hidden bg-white shadow-sm mt-4">
-                            <div class="p-3 hover:bg-gray-50 transition-colors flex items-center justify-between border-b border-gray-50 last:border-0">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xs">S</div>
-                                    <div>
-                                        <p class="text-sm font-bold text-[#1A1A1A]">Said El Fassi</p>
-                                        <p class="text-xs text-gray-400">said@example.com</p>
-                                    </div>
-                                </div>
-                                <button type="button" class="text-xs font-bold text-[#1A1A1A] bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-full transition-colors">
-                                    Ajouter
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
+                    <livewire:add-member-search />
 
                 </div>
             </div>

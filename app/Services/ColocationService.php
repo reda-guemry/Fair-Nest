@@ -66,7 +66,7 @@ class ColocationService
     public function CheckUserIsFree()
     {
         if (!Auth::user()->is_global_admin) {
-            if (Auth::user()->isFree()) {
+            if (!Auth::user()->isFree()) {
                 throw ValidationException::withMessages([
                     'colocation' => ['Vous avez déjà une colocation active. Un utilisateur standard ne peut en gérer qu\'une seule.']
                 ]);

@@ -57,7 +57,7 @@ class User extends Authenticatable
 
     public function isFree() 
     {
-        return $this -> activeColocation() === null ; 
+        return $this -> activeColocation() -> doesntExist() ; 
     }
 
     public function isOwner()

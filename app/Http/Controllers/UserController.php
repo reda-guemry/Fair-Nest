@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\ColocationService;
+use Auth;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -19,6 +20,8 @@ class UserController extends Controller
         $userColocation = $this->colocationService->getColocationsForUser(auth()->id());
 
         // dd($userColocation );
+
+        // dd(Auth::user()->isFree()) ;
 
         return view('dashboard', compact('userColocation'));
     }
