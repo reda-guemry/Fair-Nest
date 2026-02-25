@@ -74,6 +74,13 @@ class ColocationService
         }
     }
 
+    public function getColocationDetails($colocationId)
+    {
+        $colocation = $this->colocationRepository->getColocationWithMembers($colocationId);
+
+        return ColocationMapper::toDTO($colocation);
+    }
+
     public function getColocationsForUser($userId)
     {
         $userCol = $this->userRepository->getUserWithColocations($userId);

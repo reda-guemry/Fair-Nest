@@ -58,10 +58,6 @@
                             </form>
                         </x-slot>
                     </x-dropdown>
-
-                    <a href="#" class="bg-[#1A1A1A] text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-gray-800 transition-all shadow-sm">
-                        Nouvelle Dépense
-                    </a>
                 </div>
             </div>
 

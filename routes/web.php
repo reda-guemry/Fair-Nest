@@ -9,11 +9,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard',[UserController::class , 'index'] ) ; 
-
-});
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -21,7 +16,12 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function() {
+
+    Route::get('/dashboard',[UserController::class , 'index'] )->name('dashboard'); 
     Route::post('/create/colocation' , [ColocationController::class , 'store']) ->name('create.colocation') ;
+    Route::get('/colocation/{colocation}' , [ColocationController::class , 'show']) ->name('colocation.show') ;
+
+
 }) ; 
 
 require __DIR__.'/auth.php';

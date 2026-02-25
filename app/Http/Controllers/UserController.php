@@ -9,17 +9,17 @@ class UserController extends Controller
 {
 
     public function __construct(
-        private ColocationService  $colocationService
-    )
-    {}
+        private ColocationService $colocationService
+    ) {
+    }
 
 
     public function index()
     {
-        $colocations = $this->colocationService->getColocationsForUser(auth()->id());
+        $userColocation = $this->colocationService->getColocationsForUser(auth()->id());
 
-        dd($colocations);
+        // dd($userColocation );
 
-        return view('dashboard', compact('colocations'));
+        return view('dashboard', compact('userColocation'));
     }
 }

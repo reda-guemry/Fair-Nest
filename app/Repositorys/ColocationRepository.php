@@ -19,7 +19,10 @@ class ColocationRepository
     //     return Colocation::create($data);
     // }
 
-    
+    public function getColocationWithMembers($colocationId)
+    {
+        return Colocation::with('members')->find($colocationId);
+    }
 
     public function findById($id)
     {

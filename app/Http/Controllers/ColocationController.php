@@ -13,6 +13,13 @@ class ColocationController extends Controller
         private ColocationService $colocationService
     )
     {}
+
+    public function show($colocationId)
+    {
+        $colocation = $this->colocationService->getColocationDetails($colocationId);
+
+        return view('colocation.show', compact('colocation'));
+    }
     
     public function store(ColocationRequest $request)
     {
