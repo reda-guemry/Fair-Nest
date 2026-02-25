@@ -3,8 +3,11 @@
 namespace App\Services;
 
 use App\DTOs\ColocationDTO;
+use App\DTOs\ColocationUserDTO;
 use App\Mappers\ColocationMapper;
+use App\Mappers\ColocationUserMapper;
 use App\Repositorys\ColocationRepository;
+use App\Repositorys\ColocationUserRepository;
 use Auth;
 use DB;
 use Illuminate\Validation\ValidationException;
@@ -16,7 +19,8 @@ class ColocationService
      * Create a new class instance.
      */
     public function __construct(
-        private ColocationRepository $colocationRepository
+        private ColocationRepository $colocationRepository , 
+        private ColocationUserRepository $colocationUserRepository
     ) {
     }
 
@@ -25,7 +29,7 @@ class ColocationService
         $this->CheckUserIsFree();
 
         return DB::transaction(function () use ($data) {
-            $dto = new ColocationDTO(
+            $coloDto = new ColocationDTO(
                 id: null,
                 name: $data['name'],
                 description: $data['description'] ?? null,
@@ -33,12 +37,23 @@ class ColocationService
             );
 
 
-            $model = ColocationMapper::toModel($dto);
+            $model = ColocationMapper::toModel($coloDto);
 
             $saveModel = $this->colocationRepository->save($model);
 
+            $coloUserDto = new ColocationUserDTO(
+                userId: Auth::id() , 
+                colocationId: $model->id ,
+                role: 'owner' , 
+                status: 'active' 
+            ) ; 
+
+            $coloUserModel = ColocationUserMapper::toModel($coloUserDto) ; 
+
+            $this -> colocationUserRepository -> save($coloUserModel) ;
+
             return ColocationMapper::toDTO($saveModel);
-            
+
         });
 
 
