@@ -8,11 +8,12 @@ new class extends Component {
 
     public function render()
     {
+        $users = [] ; 
+        
+        if(strlen($this->search) < 1) return view('components.add-member-search' , compact('users')) ; 
+
         $users = app('App\Services\UserService')->getFilteredUsers($this->search) ;
-
-        dd($users) ; 
-
-
+        
         return view('components.add-member-search' , compact('users')) ;
         
     }
@@ -34,6 +35,7 @@ new class extends Component {
     </div>
 
     <div class="border border-gray-100 rounded-2xl overflow-hidden bg-white shadow-sm mt-4">
+        @forelse($users as $user)
         <div
             class="p-3 hover:bg-gray-50 transition-colors flex items-center justify-between border-b border-gray-50 last:border-0">
             <div class="flex items-center gap-3">
@@ -41,15 +43,19 @@ new class extends Component {
                     class="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xs">
                     S</div>
                 <div>
-                    <p class="text-sm font-bold text-[#1A1A1A]">Said El Fassi</p>
-                    <p class="text-xs text-gray-400">said@example.com</p>
+                    <p class="text-sm font-bold text-[#1A1A1A]">{{ $user->name }}</p>
+                    <p class="text-xs text-gray-400">{{ $user->email }}</p>
                 </div>
             </div>
+            
             <button type="button"
                 class="text-xs font-bold text-[#1A1A1A] bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-full transition-colors">
                 Ajouter
             </button>
         </div>        
+        @empty
+            <p class="text-sm font-bold text-[#1A1A1A]">Aucun résultat.</p>
+        @endempty
 
     </div>
 
