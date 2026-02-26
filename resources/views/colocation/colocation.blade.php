@@ -249,11 +249,23 @@
                     <form method="POST" action="#" class="space-y-5">
                         @csrf
 
+                        <input type="hidden" name="colocation_id" value="1">
+
                         <div>
                             <label class="block text-sm font-semibold text-[#1A1A1A] mb-1.5">Qu'avez-vous acheté
                                 ?</label>
                             <input type="text" name="title" placeholder="ex: Courses de la semaine"
                                 class="w-full rounded-2xl border-gray-200 shadow-sm focus:border-orange-400 focus:ring focus:ring-orange-400/20 text-sm py-3 px-4 transition-all">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-[#1A1A1A] mb-1.5">Catégorie</label>
+                            <select name="category_id"
+                                class="w-full rounded-2xl border-gray-200 shadow-sm focus:border-orange-400 focus:ring focus:ring-orange-400/20 text-sm py-3 px-4 transition-all bg-white">
+                                <option value="1">Nourriture</option>
+                                <option value="2">Factures</option>
+                                <option value="3">Loisirs</option>
+                            </select>
                         </div>
 
                         <div>
@@ -269,11 +281,12 @@
 
                         <div>
                             <label class="block text-sm font-semibold text-[#1A1A1A] mb-1.5">Qui a payé ?</label>
-                            <select name="paid_by"
+                            <select name="payer_id"
                                 class="w-full rounded-2xl border-gray-200 shadow-sm focus:border-orange-400 focus:ring focus:ring-orange-400/20 text-sm py-3 px-4 transition-all bg-white">
-                                <option value="me">Moi (Reda)</option>
-                                <option value="yassine">Yassine</option>
-                                <option value="ahmed">Ahmed</option>
+                                @foreach ($colocation->membership as $member)
+
+                                    <option value="{{ $member->userId }}">{{ $member->name }}</option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -281,24 +294,15 @@
                             <label class="block text-sm font-semibold text-[#1A1A1A] mb-2">Pour qui ? (Diviser
                                 entre)</label>
                             <div class="space-y-2">
-                                <label
-                                    class="flex items-center p-3 border border-orange-200 bg-orange-50 rounded-2xl cursor-pointer hover:bg-orange-100 transition-colors">
-                                    <input type="checkbox" name="split_with[]" value="me" checked
-                                        class="w-4 h-4 text-orange-500 border-gray-300 rounded focus:ring-orange-500">
-                                    <span class="ml-3 text-sm font-semibold text-[#1A1A1A]">Moi</span>
-                                </label>
-                                <label
-                                    class="flex items-center p-3 border border-gray-200 rounded-2xl cursor-pointer hover:bg-gray-50 transition-colors">
-                                    <input type="checkbox" name="split_with[]" value="yassine" checked
-                                        class="w-4 h-4 text-orange-500 border-gray-300 rounded focus:ring-orange-500">
-                                    <span class="ml-3 text-sm font-semibold text-gray-700">Yassine</span>
-                                </label>
-                                <label
-                                    class="flex items-center p-3 border border-gray-200 rounded-2xl cursor-pointer hover:bg-gray-50 transition-colors">
-                                    <input type="checkbox" name="split_with[]" value="ahmed"
-                                        class="w-4 h-4 text-orange-500 border-gray-300 rounded focus:ring-orange-500">
-                                    <span class="ml-3 text-sm font-semibold text-gray-700">Ahmed</span>
-                                </label>
+                                @foreach ($colocation->membership as $member)
+                                    <label
+                                        class="flex items-center p-3 border border-orange-200 bg-orange-50 rounded-2xl cursor-pointer hover:bg-orange-100 transition-colors">
+                                        <input type="checkbox" name="split_with[]" value="{{ $member->userId }}" checked
+                                            class="w-4 h-4 text-orange-500 border-gray-300 rounded focus:ring-orange-500">
+                                        <span class="ml-3 text-sm font-semibold text-[#1A1A1A]">{{ $member->name }}</span>
+                                    </label>
+                                @endforeach
+
                             </div>
                             <p class="text-xs text-gray-400 mt-2 italic">Le montant sera divisé équitablement entre les
                                 personnes sélectionnées.</p>
@@ -315,7 +319,6 @@
                             </button>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>

@@ -73,7 +73,7 @@ class InvitationService
         }
 
         if (Carbon::parse($invitation->expiresAt)->isPast()) {
-            dd('slm');
+            // dd('slm');
 
             return false;
         }
@@ -125,7 +125,7 @@ class InvitationService
             if ($invitationModel->status === 'accept') {
                 $this->colocationService->addMemberToColocation($invitationModel->colocation_id, Auth::id());
             }
-            
+
             $this->invitationRepository->save($invitationModel);
         });
 
