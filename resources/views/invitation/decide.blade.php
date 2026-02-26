@@ -9,6 +9,7 @@
         <form action="{{ route('invitation.process') }}" method="POST" class="flex justify-center gap-4">
             @csrf
             <input type="hidden" name="token" value="{{ $invitation->token }}">
+            <input type="hidden" name="email" value="{{ Auth::user()->email }}"> 
 
             
             <button name="action" value="accept" class="bg-indigo-600 text-white px-6 py-2 rounded-full font-bold hover:bg-indigo-700">

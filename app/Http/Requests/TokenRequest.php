@@ -23,6 +23,8 @@ class TokenRequest extends FormRequest
     {
         return [
             'token' => 'required|exists:invitations,token' , 
+            'action' => 'required|in:accept,refuse' ,
+            'email' => 'required|email|exists:users,email' , 
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\InvitationRequest;
+use App\Http\Requests\TokenRequest;
 use App\Services\InvitationService;
 use Illuminate\Http\Request;
 use View;
@@ -12,7 +13,8 @@ class InvitationController extends Controller
 
     public function __construct(
         private InvitationService $invitationService
-    ){}
+    ) {
+    }
 
     public function process(Request $request)
     {
@@ -26,22 +28,33 @@ class InvitationController extends Controller
 
         if (!$invitation) {
             return redirect()->route('dashboard')->with('error', "Invitations dont exist");
-        } 
+        }
 
         // dd($invitation) ; 
 
-        return View('invitation.decide' , compact('invitation')) ;
+        return View('invitation.decide', compact('invitation'));
     }
 
 
-    public function store(InvitationRequest $request) 
+    public function store(InvitationRequest $request)
     {
-        
-        $this -> invitationService -> sendInvitation($request->validated()) ; 
+
+        $this->invitationService->sendInvitation($request->validated());
 
         // dd('Invitation envoyée !') ;
 
-        return redirect()->back()->with('success' , 'Invitation envoyée avec succès') ;
+        return redirect()->back()->with('success', 'Invitation envoyée avec succès');
+    }
+
+    public function decide(TokenRequest $request)
+    {
+        $invitationDto = $this->invitationService->decideInvitation($request->validated());
+
+        if (!$invitationDto) {
+            return redirect()->route('dashboard')->with('success', 'Failed to enter Colocation');
+        }
+
+        return redirect()->route('colocation.show', $invitationDto->colocationId);
     }
 
 

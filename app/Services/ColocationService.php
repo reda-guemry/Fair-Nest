@@ -92,5 +92,23 @@ class ColocationService
         return UserMapper::toDTO($userCol);
     }
 
+    public function addMemberToColocation($colocationId , $userId)
+    {
+        // dd($colocationId , $userId) ;
+
+        $colcoationUser = new ColocationUserDTO(
+            colocationId: $colocationId , 
+            userId: $userId ,
+            role: 'member' ,
+            status: 'active' ,
+            joinedAt: now()->toDateString()
+        ) ;
+
+        $model = ColocationUserMapper::toModel($colcoationUser) ;
+
+        $this -> colocationUserRepository -> save($model) ;
+
+    } 
+
 
 }

@@ -2,7 +2,6 @@
 
 namespace App\Repositorys;
 
-use App\Http\Requests\TokenRequest;
 use App\Models\Colocation;
 use App\Models\Invitation;
 
@@ -16,6 +15,7 @@ class InvitationRepository
 
     public function save(Invitation $invitation)
     {
+        // dd($invitation) ;
         $invitation->save() ; 
         return $invitation ;
     }
@@ -23,11 +23,6 @@ class InvitationRepository
     public function findByToken($token ) 
     {
         return Invitation::where('token' , $token )->first() ;
-    }
-
-    public function decide(TokenRequest $request)
-    {
-
     }
 
 }

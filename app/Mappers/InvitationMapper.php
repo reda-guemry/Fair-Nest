@@ -16,12 +16,13 @@ class InvitationMapper
             email: $invitation->email,
             token: $invitation->token,
             status: $invitation->status,
+            expiresAt: $invitation->expires_at,
         );
     }
 
     public static function toModel(InvitationDTO $dto, ?Invitation $existingModel = null): Invitation
     {
-        $model = $existingModel ?? new Invitation();
+        $model = $existingModel ?? ($dto->id ? Invitation::find($dto->id) : null) ?? new Invitation() ;
 
         $model->colocation_id = $dto->colocationId;
         $model->email = $dto->email;
