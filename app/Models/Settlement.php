@@ -39,4 +39,10 @@ class Settlement extends Model
     {
         return $this->belongsTo(User::class, 'creditor_id');
     }
+
+    public function expense()
+    {
+        return $this->belongsTo(Expense::class);
+    }
+
 }

@@ -36,4 +36,9 @@ class Expense extends Model
         return $this->belongsToMany(User::class, 'expense_participants')
                     ->withTimestamps();
     }
+    public function settlements()
+    {
+        return $this->hasMany(Settlement::class);
+    }
+    
 }

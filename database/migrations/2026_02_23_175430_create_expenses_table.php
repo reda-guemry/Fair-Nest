@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('payer_id')->constrained('users') ->onDelete('cascade') ;
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade') ; 
             $table->string('title') ;
-            $table->bigInteger('amount') ;
+            $table->float('amount') ;
 
             $table->timestamps();
         });

@@ -51,7 +51,7 @@ class InvitationController extends Controller
         $invitationDto = $this->invitationService->decideInvitation($request->validated());
 
         if (!$invitationDto) {
-            return redirect()->route('dashboard')->with('success', 'Failed to enter Colocation');
+            return redirect()->route('dashboard')->with('error', 'Failed to enter Colocation');
         }
 
         return redirect()->route('colocation.show', $invitationDto->colocationId);

@@ -11,6 +11,7 @@ class SettlementDTO
         public float $amount,   
         public string $status,  
         public ?int $id, 
+        public ?int $expenseId,
     ) {}
     
 }
