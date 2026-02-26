@@ -27,6 +27,7 @@ class InvitationMapper
         $model->email = $dto->email;
         $model->token = $dto->token;
         $model->status = $dto->status;
+        $model->expires_at = $dto->expiresAt;
 
         return $model;
     }

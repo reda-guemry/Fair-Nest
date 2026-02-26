@@ -22,8 +22,8 @@ class InvitationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required|users,id' , 
-            'colocation_id' => 'required|colocations,id' , 
+            'user_id' => 'required|exists:users,id' , 
+            'colocation_id' => 'required|exists:colocations,id' , 
         ];
     }
 }

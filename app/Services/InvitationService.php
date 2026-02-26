@@ -3,9 +3,11 @@
 namespace App\Services;
 
 use App\DTOs\InvitationDTO;
+use App\Mail\ColocationInvitation;
 use App\Mappers\InvitationMapper;
 use App\Repositorys\InvitationRepository;
 use App\Repositorys\UserRepository;
+use Mail;
 use Nette\Utils\Random;
 use Str;
 
@@ -34,11 +36,15 @@ class InvitationService
             colocationId: $data['colocation_id'] , 
             email: $userReceive->email , 
             token: $token ,
+            status: 'pending' ,
+            expiresAt: $expiresAt->toDateTimeString()
         ) ;
 
         $model = InvitationMapper::toModel($dto) ; 
+        
+        $this->invitationRepository->save($model) ; 
 
-        return $this->invitationRepository->save($model) ; 
+        Mail::to($userReceive->email)->send(new ColocationInvitation($dto)) ; 
 
     }
 

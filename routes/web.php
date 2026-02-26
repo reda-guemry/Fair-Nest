@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function() {
 
 Route::middleware('auth')->group(function() {
 
-    Route::get('/invitation/store' , [InvitationController::Class , 'store']) -> name('invitation.store') ;
+    Route::post('/invitation/store' , [InvitationController::Class , 'store']) -> name('invitation.store') ;
 
 }) ; 
 

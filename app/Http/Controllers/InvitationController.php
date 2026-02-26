@@ -19,7 +19,9 @@ class InvitationController extends Controller
         
         $this -> invitationService -> sendInvitation($request->validated()) ; 
 
+        // dd('Invitation envoyée !') ;
 
+        return redirect()->back()->with('success' , 'Invitation envoyée avec succès') ;
     }
 
 

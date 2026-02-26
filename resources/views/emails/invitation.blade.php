@@ -19,7 +19,7 @@
             </a>
         </div>
 
-        <p><i>Attention: Ce lien expirera le {{ \Carbon\Carbon::parse($invitation->expires_at)->format('d/m/Y à H:i') }}.</i></p>
+        <p><i>Attention: Ce lien expirera le {{ \Carbon\Carbon::parse($invitation->expiresAt)->format('d/m/Y à H:i') }}.</i></p>
 
         <p>À bientôt,<br>L'équipe Fair-Nest</p>
     </div>
