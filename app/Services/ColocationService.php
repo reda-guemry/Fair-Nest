@@ -78,6 +78,8 @@ class ColocationService
     {
         $colocation = $this->colocationRepository->getColocationWithMembers($colocationId);
 
+        // dd($colocation) ;
+
         return ColocationMapper::toDTO($colocation);
     }
 

@@ -15,7 +15,7 @@ class ColocationMapper
             name: $colocation->name,
             description : $colocation->description , 
             status: $colocation->status, 
-            membership: $colocation->pivot ? $colocation->pivot->map(fn($member) => ColocationUserMapper::toDtoFromUser($member)) : null
+            membership: $colocation->members ? $colocation->members->map(fn($member) => ColocationUserMapper::toDtoFromUser($member))->toArray() : null
         );
     }
 

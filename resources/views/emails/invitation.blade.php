@@ -13,7 +13,7 @@
         <p>Pour accepter l'invitation et rejoindre vos colocataires, veuillez cliquer sur le bouton ci-dessous :</p>
         
         <div style="text-align: center; margin: 30px 0;">
-            <a href="{{ url('/invitations/accept?token=' . $invitation->token) }}" 
+            <a href="{{ url('/invitation?token=' . $invitation->token) }}" 
                style="background-color: #4F46E5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">
                Rejoindre la colocation
             </a>

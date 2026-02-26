@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function() {
 Route::middleware('auth')->group(function() {
 
     Route::post('/invitation/store' , [InvitationController::Class , 'store']) -> name('invitation.store') ;
+    Route::get('/invitation' , [InvitationController::Class , 'process']) -> name('invitation.show') ;
 
 }) ; 
 
