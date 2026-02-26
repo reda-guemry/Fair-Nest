@@ -28,7 +28,7 @@ class ExpenseController extends Controller
             participants: $request->validated()['split_with'] , 
         ) ;
 
-        $this->expenseService->createExpense()
+        $this->expenseService->createExpense($dto) ; 
 
 
         return redirect()->back()->with('success' , 'Dépense créée avec succès') ;

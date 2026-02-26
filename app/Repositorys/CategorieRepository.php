@@ -10,7 +10,6 @@ class CategorieRepository
      * Create a new class instance.
      */
     public function __construct(
-
     ){}
 
     public function all() 

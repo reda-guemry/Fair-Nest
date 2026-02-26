@@ -13,5 +13,6 @@ class CreateExpenseDTO
         public int $amount,
         public array $participants, 
         public ?array $settlements = null,
+        public ?int $id = null,
     ) {}
 }
