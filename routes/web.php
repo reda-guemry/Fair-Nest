@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ColocationController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -9,6 +11,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::middleware('auth') -> group(function () {
+    Route::get('/dashboard/admin' , [AdminController::class , 'index'])->name('dashboard.admin') ;
+    Route::get('/dashboard/categories' , [AdminController::class , 'categoriesShow'])->name('admin.categories') ;
+}) ;
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -21,6 +28,8 @@ Route::middleware('auth')->group(function() {
     Route::get('/dashboard',[UserController::class , 'index'] )->name('dashboard'); 
     Route::post('/create/colocation' , [ColocationController::class , 'store']) ->name('create.colocation') ;
     Route::get('/colocation/{colocation}' , [ColocationController::class , 'show']) ->name('colocation.show') ;
+
+    Route::post('/expenses/store' , [ExpenseController::class , 'store'])->name('expenses.store') ;
 
 
 }) ; 

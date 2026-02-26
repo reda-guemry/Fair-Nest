@@ -37,19 +37,20 @@
                     </p>
                 </div>
 
-
-                @if(Auth::user()->isFree())
-                    <div class="z-10 shrink-0">
-                        <button @click="showModal = true"
-                            class="bg-[#1A1A1A] text-[#FAF9F6] px-6 py-3 rounded-full text-sm font-semibold hover:bg-gray-800 transition-all shadow-md hover:-translate-y-0.5 flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
-                                </path>
-                            </svg>
-                            Créer une colocation
-                        </button>
-                    </div>
+                @if (Auth::user()->is_global_admin || Auth::user()->isFree())
+                    
+                        <div class="z-10 shrink-0">
+                            <button @click="showModal = true"
+                                class="bg-[#1A1A1A] text-[#FAF9F6] px-6 py-3 rounded-full text-sm font-semibold hover:bg-gray-800 transition-all shadow-md hover:-translate-y-0.5 flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
+                                    </path>
+                                </svg>
+                                Créer une colocation
+                            </button>
+                        </div>
                 @endif
+
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">

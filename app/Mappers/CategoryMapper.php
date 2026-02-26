@@ -11,16 +11,14 @@ class CategoryMapper
     {
         return new CategoryDTO(
             id: $category->id,
-            colocationId: $category->colocation_id,
             name: $category->name,
         );
     }
 
     public static function toModel(CategoryDTO $dto, ?Category $existingModel = null): Category
     {
-        $model = $existingModel ?? new Category();
+        $model = $existingModel ??  ($dto->id ? Category::find($dto->id) : null) ?? new Category();
 
-        $model->colocation_id = $dto->colocationId;
         $model->name = $dto->name;
 
         return $model;

@@ -27,6 +27,11 @@
                     <x-nav-link href="#" class="text-sm font-medium text-gray-600 hover:text-[#1A1A1A] transition-colors border-none">
                         {{ __('Colocataires') }}
                     </x-nav-link>
+                    @if (Auth::user()->is_global_admin)
+                        <x-nav-link href="{{route('dashboard.admin')}}" class="text-sm font-medium text-gray-600 hover:text-[#1A1A1A] transition-colors border-none">
+                        {{ __('Admin') }}
+                    </x-nav-link>
+                    @endif
                 </div>
             </div>
 

@@ -246,7 +246,7 @@
                         <p class="text-sm text-gray-500 mt-1">Saisissez les détails de l'achat.</p>
                     </div>
 
-                    <form method="POST" action="#" class="space-y-5">
+                    <form method="POST" action="{{ route('expenses.store') }}" class="space-y-5">
                         @csrf
 
                         <input type="hidden" name="colocation_id" value="1">
@@ -262,9 +262,9 @@
                             <label class="block text-sm font-semibold text-[#1A1A1A] mb-1.5">Catégorie</label>
                             <select name="category_id"
                                 class="w-full rounded-2xl border-gray-200 shadow-sm focus:border-orange-400 focus:ring focus:ring-orange-400/20 text-sm py-3 px-4 transition-all bg-white">
-                                <option value="1">Nourriture</option>
-                                <option value="2">Factures</option>
-                                <option value="3">Loisirs</option>
+                                @foreach ($categories as $categorie)
+                                    <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
+                                @endforeach
                             </select>
                         </div>
 
