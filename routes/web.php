@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ColocationController;
+use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,12 @@ Route::middleware('auth')->group(function() {
     Route::post('/create/colocation' , [ColocationController::class , 'store']) ->name('create.colocation') ;
     Route::get('/colocation/{colocation}' , [ColocationController::class , 'show']) ->name('colocation.show') ;
 
+
+}) ; 
+
+Route::middleware('auth')->group(function() {
+
+    Route::get('/invitation/store/' , [InvitationController::Class , 'store']) -> name('invitation.store ') ;
 
 }) ; 
 

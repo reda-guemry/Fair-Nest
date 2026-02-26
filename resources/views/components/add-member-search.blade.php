@@ -47,14 +47,24 @@ new class extends Component {
                     <p class="text-xs text-gray-400">{{ $user->email }}</p>
                 </div>
             </div>
-            
-            <button type="button"
-                class="text-xs font-bold text-[#1A1A1A] bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-full transition-colors">
-                Ajouter
-            </button>
+
+            <form method="post" action="{{ route(invitation.store) }}" >
+                @csrf
+
+                <input type="hidden" name="user_id" value="{{ $user->id }}">
+                <input type="hidden" name="colocation_id"  >
+
+                <button type="submit"
+                    class="text-xs font-bold text-[#1A1A1A] bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-full transition-colors">
+                    Ajouter
+                </button>
+            </form>
+
+    
+
         </div>        
         @empty
-            <p class="text-sm font-bold text-[#1A1A1A]">Aucun résultat.</p>
+            <p class="p-4 text-center text-gray-400">Aucun utilisateur trouvé.</p>
         @endempty
 
     </div>
