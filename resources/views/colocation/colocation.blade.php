@@ -262,7 +262,7 @@
                         <p class="text-sm text-gray-500 mt-1">Recherchez un utilisateur pour l'inviter.</p>
                     </div>
 
-                    <livewire:add-member-search />
+                    <livewire:add-member-search :colocationId="$colocation->id" />
 
                 </div>
             </div>

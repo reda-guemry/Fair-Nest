@@ -14,6 +14,11 @@ class UserRepository
         //
     }
 
+    public function findByID($userId) 
+    {
+        return User::find($userId) ;
+    }
+
     public function getUserWithColocations($userId)
     {
             return User::with('colocations')->find($userId);

@@ -5,6 +5,12 @@ use Livewire\Component;
 new class extends Component {
 
     public $search = '' ;
+    public $colocationId ; 
+
+    public function mount($colocationId)
+    {
+        $this ->colocationId = $colocationId ;
+    }
 
     public function render()
     {
@@ -48,11 +54,11 @@ new class extends Component {
                 </div>
             </div>
 
-            <form method="post" action="{{ route(invitation.store) }}" >
+            <form method="post" action="{{ route('invitation.store') }}" >
                 @csrf
 
                 <input type="hidden" name="user_id" value="{{ $user->id }}">
-                <input type="hidden" name="colocation_id"  >
+                <input type="hidden" name="colocation_id" value="{{ $colocationId }}" >
 
                 <button type="submit"
                     class="text-xs font-bold text-[#1A1A1A] bg-gray-100 hover:bg-gray-200 px-3 py-1.5 rounded-full transition-colors">

@@ -9,8 +9,8 @@ class InvitationDTO
         public int $colocationId,
         public string $email,
         public string $token,
-        public string $status, 
-        public ?int $id, 
+        public ?int $id = null , 
+        public ?string $status = null, 
         public ?string $expiresAt = null,
     ) {}
 
