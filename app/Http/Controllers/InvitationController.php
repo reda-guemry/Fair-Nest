@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\InvitationRequest;
 use App\Services\InvitationService;
 use Illuminate\Http\Request;
+use View;
 
 class InvitationController extends Controller
 {
@@ -21,13 +22,15 @@ class InvitationController extends Controller
             return redirect()->route('dashboard')->with('error', 'Token d\'invitation manquant.');
         }
 
-        $result = $this->invitationService->processInvitation($token);
+        $invitation = $this->invitationService->processInvitation($token);
 
-        if ($result['success']) {
-            return redirect()->route('dashboard')->with('success', $result['message']);
-        } else {
-            return redirect()->route('dashboard')->with('error', $result['message']);
-        }
+        if (!$invitation) {
+            return redirect()->route('dashboard')->with('error', "Invitations dont exist");
+        } 
+
+        // dd($invitation) ; 
+
+        return View('invitation.decide' , compact('invitation')) ;
     }
 
 

@@ -48,7 +48,18 @@ class InvitationService
 
     }
 
+    public function processInvitation($token) 
+    {
+        $invitation = $this -> invitationRepository -> findByToken($token) ; 
 
+        if(!$invitation)
+        {
+            return false ; 
+        }
+
+        return InvitationMapper::toDTO($invitation) ;
+
+    }
 
 
 }
