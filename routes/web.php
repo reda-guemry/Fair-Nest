@@ -40,6 +40,9 @@ Route::middleware('auth')->group(function() {
     Route::get('/invitation' , [InvitationController::Class , 'process']) -> name('invitation.show') ;
     Route::post('/invitation' , [InvitationController::class , 'decide']) -> name('invitation.process')  ; 
 
+    
+    Route::post('/settlements/pay' , [InvitationController::class , 'cancel']) -> name('settlements.pay')  ;
+
 }) ; 
 
 require __DIR__.'/auth.php';

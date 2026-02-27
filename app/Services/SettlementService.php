@@ -13,7 +13,8 @@ class SettlementService
      * Create a new class instance.
      */
     public function __construct(
-        private SettlementRepository $settlementRepository
+        private SettlementRepository $settlementRepository ,
+        private UserService $userService
     ) {
     }
 
@@ -23,26 +24,35 @@ class SettlementService
         
     }
 
-    public function getPaysUsers($members) 
+    public function PayBettwenUserAndMemnbers($debtor , $members) 
+    {
+        $results = [] ; 
+
+        foreach ($members as $creditor) {
+            if ($debtor->userId !== $creditor->userId) {
+                $totalAmount = $this->NetBalanceBetweenUsers($debtor->userId, $creditor->userId);
+                if ($totalAmount > 0 ) {
+                    $results[] = new TotalSettlementBettwenTwoUserDTO(
+                        userA_Id: $debtor->userId,
+                        userB_Id: $creditor->userId ,
+                        userA_name: $debtor->name ,
+                        userB_name: $creditor->name ,
+                        amount: $totalAmount , 
+                    );
+                }
+            }
+        }
+
+        return $results ; 
+        
+    }
+
+    public function PaysUsers($members) 
     {
         $results = [] ; 
 
         foreach ($members as $debtor) {
-            foreach ($members as $creditor) {
-                if ($debtor->userId !== $creditor->userId) {
-                    $totalAmount = $this->getNetBalanceBetweenUsers($debtor->userId, $creditor->userId);
-                    
-                    if ($totalAmount > 0 ) {
-                        $results[] = new TotalSettlementBettwenTwoUserDTO(
-                            userA_Id: $debtor->userId,
-                            userB_Id: $creditor->userId,
-                            userA_name: $debtor->name,
-                            userB_name: $creditor->name,
-                            amount: $totalAmount , 
-                        );
-                    }
-                }
-            }
+            $results = array_merge($results , $this->PayBettwenUserAndMemnbers($debtor , $members)) ;
         }
 
         // dd($results) ; 
@@ -52,7 +62,7 @@ class SettlementService
     }
 
 
-    public function getNetBalanceBetweenUsers($debtorId , $creditorId) 
+    public function NetBalanceBetweenUsers($debtorId , $creditorId) 
     {
         $userDeptor = $this -> settlementRepository->getTotalAmountBetweenTwoUsers($debtorId , $creditorId) ;
 
@@ -61,6 +71,23 @@ class SettlementService
         return $userDeptor - $usercrediotr ; 
     }
 
+    public function MonSoldeOncolocation($userId , $members) 
+    {
+        $user = $this -> userService->FindById($userId) ;
+
+        // dd($user) ; 
+
+        $pays = $this -> PayBettwenUserAndMemnbers($user , $members) ;
+    
+        $solde = $pays ? array_reduce($pays ,fn($carry , $item)=>  $carry + $item->amount ,0 ) : 0  ;
+
+        // dd($solde) ; 
+
+
+        return $solde ;
+
+
+    }
 
 
 

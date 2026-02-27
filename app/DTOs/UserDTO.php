@@ -8,7 +8,7 @@ class UserDTO
      * Create a new class instance.
      */
     public function __construct(
-        public int $id,
+        public int $userId,
         public string $name,
         public string $email,
         public int $reputation,

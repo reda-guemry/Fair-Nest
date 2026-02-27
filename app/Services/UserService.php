@@ -19,5 +19,9 @@ class UserService
         return $this -> userRepository -> search($query) ->map(fn($user) => UserMapper::toDTO($user)) ; 
     }
 
+    public function FindById($id)
+    {
+        return UserMapper::toDTO($this->userRepository->findById($id)) ;
+    }
 
 }

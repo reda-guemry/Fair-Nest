@@ -11,7 +11,7 @@ class UserMapper
     public static function toDTO(User $user): UserDTO
     {
         return new UserDTO(
-            id: $user->id,
+            userId: $user->id,
             name: $user->first_name . ' ' . $user->last_name ,
             email: $user->email,
             reputation: $user->reputation,
@@ -24,7 +24,7 @@ class UserMapper
 
     public static function toModel(UserDTO $dto, ?User $existingModel = null): User
     {
-        $model = $existingModel ?? new User();
+        $model = $existingModel ?? ($dto->userId ? User::find($dto->userId) : null) ?? new User();
 
         $model->name = $dto->name;
         $model->email = $dto->email;

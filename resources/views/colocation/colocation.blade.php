@@ -115,7 +115,7 @@
                     </div>
                     <div class="z-10">
                         <p class="text-sm font-semibold text-red-400">Mon Solde</p>
-                        <h4 class="text-2xl font-bold text-red-600">- 150 MAD</h4>
+                        <h4 class="text-2xl font-bold text-red-600">- {{ $monSold }} MAD</h4>
                         <p class="text-xs text-red-500 mt-0.5">Je dois de l'argent</p>
                     </div>
                     <svg class="absolute -bottom-4 -right-4 w-32 h-32 text-red-100 opacity-50" fill="currentColor"
@@ -185,22 +185,30 @@
                             Équilibres
                         </h3>
 
-                        @foreach ($WhoPaysWhos as $item)
+                        @foreach ($WhoPaysWhos as $debt)
                             <div class="flex items-center justify-between bg-red-50 p-3 rounded-2xl border border-red-100">
                                 <div class="flex items-center gap-3">
                                     <div
                                         class="w-8 h-8 rounded-full bg-red-200 flex items-center justify-center text-red-700 font-bold text-xs">
                                         Y</div>
-                                    <p class="text-sm font-semibold text-red-700">{{ $item->userA_name }} dois à {{ $item->userB_name }}</p>
+                                    <p class="text-sm font-semibold text-red-700">{{ $debt->userA_name }} dois à
+                                        {{ $debt->userB_name }}</p>
                                 </div>
-                                <span class="font-bold text-red-700">{{ $item->amount }} MAD</span>
+                                <span class="font-bold text-red-700">{{ $debt->amount }} MAD</span>
+
+                                <form action="{{ route('settlements.pay') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="user_a" value="{{ $debt->userA_Id }}">
+                                    <input type="hidden" name="user_b" value="{{ $debt->userB_Id }}">
+                                    <button type="submit">C'est payé</button>
+                                </form>
                             </div>
                         @endforeach
 
                         <div class="space-y-4">
 
 
-                            
+
                         </div>
                     </div>
 
