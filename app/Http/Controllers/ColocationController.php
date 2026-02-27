@@ -22,7 +22,7 @@ class ColocationController extends Controller
 
         $categories = $this->categorieService->getAllCategories();
 
-        dd($colocation) ;
+        // dd($colocation) ;
 
         return view('colocation.colocation', compact('colocation', 'categories'));
     }

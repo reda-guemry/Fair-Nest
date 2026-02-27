@@ -60,9 +60,10 @@ class User extends Authenticatable
         return $this -> activeColocation() -> doesntExist() ; 
     }
 
-    public function isOwner()
+    public function isOwner($colocationId = null)
     {
-        $coloc = $this->activeColocation();
+        $coloc = $this->activeColocation()->where('colocation_id', $colocationId)->first(); ;
+        // dd($coloc) ;
         return $coloc && $coloc->pivot->role === 'owner';
     }
 

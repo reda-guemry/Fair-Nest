@@ -14,7 +14,7 @@
             <div>
                 <div class="flex items-center gap-3">
                     <h2 class="font-extrabold text-3xl text-[#1A1A1A] tracking-tight">
-                        La Villa des Potes
+                        {{ $colocation->name }}
                     </h2>
                     <span
                         class="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full flex items-center gap-1.5">
@@ -22,7 +22,7 @@
                     </span>
                 </div>
                 <p class="text-sm font-medium text-gray-500 mt-1">
-                    Gérez les dépenses et l'équilibre financier de cette maison.
+                    {{ $colocation->description }}
                 </p>
             </div>
         </div>
@@ -32,51 +32,50 @@
         <div class="fixed top-5 right-5 z-[100] space-y-3 w-full max-w-sm">
 
             <div class="mb-8">
-                    @if(session('success'))
-                        <div
-                            class="flex items-center gap-4 p-5 bg-green-50 border border-green-100 rounded-[2rem] shadow-sm">
-                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center shrink-0">
-                                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M5 13l4 4L19 7"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 class="text-md font-bold text-green-800">C'est fait !</h4>
-                                <p class="text-sm text-green-600">{{ session('success') }}</p>
-                            </div>
+                @if(session('success'))
+                    <div class="flex items-center gap-4 p-5 bg-green-50 border border-green-100 rounded-[2rem] shadow-sm">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center shrink-0">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                                </path>
+                            </svg>
                         </div>
-                    @endif
+                        <div>
+                            <h4 class="text-md font-bold text-green-800">C'est fait !</h4>
+                            <p class="text-sm text-green-600">{{ session('success') }}</p>
+                        </div>
+                    </div>
+                @endif
 
-                    @if($errors->any() || session('error'))
-                        <div class="flex items-center gap-4 p-5 bg-red-50 border border-red-100 rounded-[2rem] shadow-sm">
-                            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center shrink-0">
-                                <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div class="flex-1">
-                                <h4 class="text-md font-bold text-red-800">Attention</h4>
-                                <ul class="text-sm text-red-600 list-disc list-inside">
-                                    @if(session('error'))
-                                        <li>{{ session('error') }}</li>
-                                    @endif
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
+                @if($errors->any() || session('error'))
+                    <div class="flex items-center gap-4 p-5 bg-red-50 border border-red-100 rounded-[2rem] shadow-sm">
+                        <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center shrink-0">
+                            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                                </path>
+                            </svg>
                         </div>
-                    @endif
-                </div>
+                        <div class="flex-1">
+                            <h4 class="text-md font-bold text-red-800">Attention</h4>
+                            <ul class="text-sm text-red-600 list-disc list-inside">
+                                @if(session('error'))
+                                    <li>{{ session('error') }}</li>
+                                @endif
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                @endif
+            </div>
 
         </div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                
+
                 <div
                     class="bg-white p-6 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center gap-5">
                     <div class="w-14 h-14 bg-gray-50 rounded-full flex items-center justify-center shrink-0">
@@ -146,27 +145,30 @@
 
                     @foreach ($colocation->expenses as $expenses)
                         <div
-                        class="bg-white p-5 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center justify-between hover:border-gray-200 transition-colors group cursor-pointer">
-                        <div class="flex items-center gap-4">
-                            <div
-                                class="w-12 h-12 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
-                                    </path>
-                                </svg>
+                            class="bg-white p-5 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center justify-between hover:border-gray-200 transition-colors group cursor-pointer">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-md font-bold text-[#1A1A1A]">{{ $expenses->title }}</h4>
+                                    <p class="text-sm text-gray-500 mt-0.5">Payé par <span
+                                            class="font-semibold text-gray-700">{{ $expenses->payername }}</span> • en le
+                                        {{ \Carbon\Carbon::parse($expenses->createdAt)->format('d/m/Y à H\hi') }}
+                                    </p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="text-md font-bold text-[#1A1A1A]">{{ $expenses->title }}</h4>
-                                <p class="text-sm text-gray-500 mt-0.5">Payé par <span
-                                        class="font-semibold text-gray-700">{{ $expenses->payername }}</span> • en le {{ \Carbon\Carbon::parse($expenses->createdAt)->format('d/m/Y à H\hi') }}</p>
+                            <div class="text-right">
+                                <h4 class="text-lg font-extrabold text-[#1A1A1A]">{{ $expenses->amount }} MAD</h4>
+                                <span class="text-xs font-semibold text-gray-400">Pour
+                                    {{ count($expenses->participants) + 1 }} personnes</span>
                             </div>
                         </div>
-                        <div class="text-right">
-                            <h4 class="text-lg font-extrabold text-[#1A1A1A]">{{ $expenses->amount }} MAD</h4>
-                            <span class="text-xs font-semibold text-gray-400">Pour 3 personnes</span>
-                        </div>
-                    </div>
 
                     @endforeach
                 </div>
@@ -208,19 +210,25 @@
                         </div>
                     </div>
 
+
+
                     <div
                         class="bg-white p-6 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100">
-                        <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-lg font-bold text-[#1A1A1A]">Colocataires</h3>
-                            <button @click="showAddMemberModal = true"
-                                class="text-sm font-bold text-orange-500 bg-orange-50 hover:bg-orange-100 px-3 py-1.5 rounded-full transition-colors flex items-center gap-1.5 border border-orange-100">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 4v16m8-8H4"></path>
-                                </svg>
-                                Ajouter
-                            </button>
-                        </div>
+
+                        @if (Auth::user()->isOwner($colocation->id))
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-bold text-[#1A1A1A]">Colocataires</h3>
+                                <button @click="showAddMemberModal = true"
+                                    class="text-sm font-bold text-orange-500 bg-orange-50 hover:bg-orange-100 px-3 py-1.5 rounded-full transition-colors flex items-center gap-1.5 border border-orange-100">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 4v16m8-8H4"></path>
+                                    </svg>
+                                    Ajouter
+                                </button>
+                            </div>
+                        @endif
+
 
                         <ul class="space-y-3">
 
