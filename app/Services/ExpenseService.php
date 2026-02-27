@@ -53,14 +53,16 @@ class ExpenseService
 
         foreach ($dto->participants as $participantId) {
             if ($participantId != $dto->payerId) {
-                $dto = new SettlementDTO(
+                // dd($dto);
+                $seettlementdto = new SettlementDTO(
                     colocationId: $dto->colocationId,
                     debtorId: $participantId,
                     creditorId: $dto->payerId,
                     amount: $shareAmount , 
+                    expenseId: $dto->id , 
                 ) ;
 
-                $this->settlementService->createSettlement($dto) ;
+                $this->settlementService->createSettlement($seettlementdto) ;
             }
         }
         

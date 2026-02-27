@@ -20,6 +20,10 @@ class ExpenseMapper
             categoryId: $expense->category_id,
             title: $expense->title, 
             amount: (float) $expense->amount, 
+            participants: $expense->participants ? $expense->participants->map(fn($participant) => UserMapper::toDTO($participant))->toArray() : null,
+            createdAt: $expense->created_at ? $expense->created_at->toDateTimeString() : null,
+            payername: $expense->payer ? $expense->payer->first_name . ' ' . $expense->payer->last_name : null,
+            categoryName: $expense->category ? $expense->category->name : null,
         );
     }
 

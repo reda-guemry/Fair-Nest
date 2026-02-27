@@ -12,6 +12,10 @@ class ExpenseDTO
         public int $amount,
         public ?int $id,
         public ?array $settlements = null,
-
+        public ?array $participants = null,
+        public ?string $payername = null,
+        public ?string $categoryName = null,
+        public ?string $createdAt = null,
+        
     ) {}
 }

@@ -144,7 +144,8 @@
                         </button>
                     </div>
 
-                    <div
+                    @foreach ($colocation->expenses as $expenses)
+                        <div
                         class="bg-white p-5 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center justify-between hover:border-gray-200 transition-colors group cursor-pointer">
                         <div class="flex items-center gap-4">
                             <div
@@ -156,38 +157,18 @@
                                 </svg>
                             </div>
                             <div>
-                                <h4 class="text-md font-bold text-[#1A1A1A]">Courses Marjane</h4>
+                                <h4 class="text-md font-bold text-[#1A1A1A]">{{ $expenses->title }}</h4>
                                 <p class="text-sm text-gray-500 mt-0.5">Payé par <span
-                                        class="font-semibold text-gray-700">Yassine</span> • Il y a 2 jours</p>
+                                        class="font-semibold text-gray-700">{{ $expenses->payername }}</span> • en le {{ \Carbon\Carbon::parse($expenses->createdAt)->format('d/m/Y à H\hi') }}</p>
                             </div>
                         </div>
                         <div class="text-right">
-                            <h4 class="text-lg font-extrabold text-[#1A1A1A]">450 MAD</h4>
+                            <h4 class="text-lg font-extrabold text-[#1A1A1A]">{{ $expenses->amount }} MAD</h4>
                             <span class="text-xs font-semibold text-gray-400">Pour 3 personnes</span>
                         </div>
                     </div>
 
-                    <div
-                        class="bg-white p-5 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center justify-between hover:border-gray-200 transition-colors group cursor-pointer">
-                        <div class="flex items-center gap-4">
-                            <div
-                                class="w-12 h-12 bg-teal-50 text-teal-500 rounded-full flex items-center justify-center">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 class="text-md font-bold text-[#1A1A1A]">Facture d'Électricité</h4>
-                                <p class="text-sm text-gray-500 mt-0.5">Payé par <span
-                                        class="font-semibold text-[#1A1A1A]">Moi</span> • Il y a 5 jours</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <h4 class="text-lg font-extrabold text-[#1A1A1A]">300 MAD</h4>
-                            <span class="text-xs font-semibold text-gray-400">Pour tout le monde</span>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
 
                 <div class="space-y-6">

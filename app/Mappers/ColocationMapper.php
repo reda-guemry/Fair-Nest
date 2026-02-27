@@ -15,8 +15,10 @@ class ColocationMapper
             name: $colocation->name,
             description : $colocation->description , 
             status: $colocation->status, 
-            membership: $colocation->members ? $colocation->members->map(fn($member) => ColocationUserMapper::toDtoFromUser($member))->toArray() : null
-        );
+            membership: $colocation->members ? $colocation->members->map(fn($member) => ColocationUserMapper::toDtoFromUser($member))->toArray() : null , 
+            expenses: $colocation->expenses ? $colocation->expenses->map(fn($expense) => ExpenseMapper::toDTO($expense))->toArray() : null ,
+            settlements: $colocation->settlements ? $colocation->settlements->map(fn($settlement) => SettlementMapper::toDTO($settlement))->toArray() : null , 
+        );  
     }
 
     public static function toDTOFromUser(Colocation $colocation): ColocationDTO

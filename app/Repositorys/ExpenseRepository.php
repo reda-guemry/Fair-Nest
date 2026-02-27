@@ -28,6 +28,8 @@ class ExpenseRepository
             ]
         ) ;
 
+        $dto -> id = $expenses -> id ; 
+
         return $expenses ;
 
     }

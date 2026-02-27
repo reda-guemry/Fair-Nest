@@ -24,6 +24,7 @@ class ColocationUserMapper
 
     public static function toDtoFromUser(User $user): ColocationUserDTO 
     {
+        // dd($user) ;
         return new ColocationUserDTO(
             userId: $user->id,
             colocationId: $user->pivot->colocation_id,
