@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\DTOs\CreateExpenseDTO;
+use App\DTOs\SettlementDTO;
+use App\Mappers\SettlementMapper;
 use App\Repositorys\ExpenseRepository;
 use DB;
 
@@ -30,9 +32,13 @@ class ExpenseService
 
             $ExpensesModel = $this -> expenseRepository -> attachParticipants($participants , $ExpensesModel) ;
 
-            // dd($ExpensesModel) ;
-
+            
             $this -> processSplits($dto) ;
+            
+            $ExpensesModel->load('participants.debts' , 'participants.credits') ; 
+            
+            dd($ExpensesModel) ;
+            
 
 
         }) ; 
@@ -49,12 +55,14 @@ class ExpenseService
 
         foreach ($dto->participants as $participantId) {
             if ($participantId != $dto->payerId) {
-                $this -> settlementService -> createSettlement(
+                $dto = new SettlementDTO(
                     colocationId: $dto->colocationId,
                     debtorId: $participantId,
                     creditorId: $dto->payerId,
-                    amount: $shareAmount
+                    amount: $shareAmount , 
                 ) ;
+
+                $this->settlementService->createSettlement($dto) ;
             }
         }
         

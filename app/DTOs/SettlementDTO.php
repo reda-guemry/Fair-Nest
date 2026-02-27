@@ -9,9 +9,9 @@ class SettlementDTO
         public int $debtorId,  
         public int $creditorId, 
         public float $amount,   
-        public string $status,  
-        public ?int $id, 
-        public ?int $expenseId,
+        public bool $status = false ,  
+        public ?int $id = null , 
+        public ?int $expenseId = null ,
     ) {}
     
 }
