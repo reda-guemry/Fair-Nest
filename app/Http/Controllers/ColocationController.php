@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ColocationRequest;
 use App\Services\CategorieService;
 use App\Services\ColocationService;
+use App\Services\SettlementService;
 use Illuminate\Http\Request;
 
 class ColocationController extends Controller
@@ -12,7 +13,8 @@ class ColocationController extends Controller
 
     public function __construct(
         private ColocationService $colocationService , 
-        private CategorieService $categorieService 
+        private CategorieService $categorieService  , 
+        private SettlementService $settlementService , 
     )
     {}
 
@@ -22,9 +24,11 @@ class ColocationController extends Controller
 
         $categories = $this->categorieService->getAllCategories();
 
+        $WhoPaysWhos = $this-> settlementService->getPaysUsers($colocation->membership) ;
+
         // dd($colocation) ;
 
-        return view('colocation.colocation', compact('colocation', 'categories'));
+        return view('colocation.colocation', compact('colocation', 'categories', 'WhoPaysWhos'));
     }
     
     public function store(ColocationRequest $request)

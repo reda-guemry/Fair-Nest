@@ -20,4 +20,18 @@ class SettlementRepository
         return $settlement ; 
 
     }
+
+
+    public function getTotalAmountBetweenTwoUsers($debtorId , $creditorId) 
+    {
+        return Settlement::where('debtor_id' , $debtorId)
+            ->where('creditor_id' , $creditorId)
+            ->sum('amount') ;
+
+    }
+
+
+
+
+
 }

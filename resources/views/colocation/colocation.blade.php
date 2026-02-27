@@ -185,28 +185,22 @@
                             Équilibres
                         </h3>
 
-                        <div class="space-y-4">
-                            <div
-                                class="flex items-center justify-between bg-red-50 p-3 rounded-2xl border border-red-100">
+                        @foreach ($WhoPaysWhos as $item)
+                            <div class="flex items-center justify-between bg-red-50 p-3 rounded-2xl border border-red-100">
                                 <div class="flex items-center gap-3">
                                     <div
                                         class="w-8 h-8 rounded-full bg-red-200 flex items-center justify-center text-red-700 font-bold text-xs">
                                         Y</div>
-                                    <p class="text-sm font-semibold text-red-700">Je dois à Yassine</p>
+                                    <p class="text-sm font-semibold text-red-700">{{ $item->userA_name }} dois à {{ $item->userB_name }}</p>
                                 </div>
-                                <span class="font-bold text-red-700">150 MAD</span>
+                                <span class="font-bold text-red-700">{{ $item->amount }} MAD</span>
                             </div>
+                        @endforeach
 
-                            <div
-                                class="flex items-center justify-between bg-green-50 p-3 rounded-2xl border border-green-100">
-                                <div class="flex items-center gap-3">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-green-200 flex items-center justify-center text-green-700 font-bold text-xs">
-                                        A</div>
-                                    <p class="text-sm font-semibold text-green-700">Ahmed me doit</p>
-                                </div>
-                                <span class="font-bold text-green-700">50 MAD</span>
-                            </div>
+                        <div class="space-y-4">
+
+
+                            
                         </div>
                     </div>
 
