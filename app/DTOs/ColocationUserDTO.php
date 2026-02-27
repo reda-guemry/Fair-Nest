@@ -13,6 +13,8 @@ class ColocationUserDTO
         public ?string $leftAt = null,
         public ?string $name = null,
         public ?string $email = null,   
+        public ?array $expenses = null , 
+        
     ) {}
 
     

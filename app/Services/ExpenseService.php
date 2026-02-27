@@ -37,9 +37,7 @@ class ExpenseService
             
             $ExpensesModel->load('participants.debts' , 'participants.credits') ; 
             
-            dd($ExpensesModel) ;
-            
-
+            // dd($ExpensesModel) ;
 
         }) ; 
 

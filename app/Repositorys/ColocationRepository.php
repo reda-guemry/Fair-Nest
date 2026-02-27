@@ -21,7 +21,7 @@ class ColocationRepository
 
     public function getColocationWithMembers($colocationId)
     {
-        return Colocation::with('members')->find($colocationId);
+        return Colocation::with('members' , 'expenses' , 'settlements' )->find($colocationId);
     }
 
     public function findById($id)
