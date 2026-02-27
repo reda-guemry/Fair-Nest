@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function() {
 
     Route::post('/settlements/pay' , [InvitationController::class , 'cancel']) -> name('settlements.pay')  ;
 
-    Route::get('/colocation/settings' , [InvitationController::class , 'show']) -> name('colocation.settings')  ;
+    Route::get('/colocation/settings/{colocation}' , [ColocationController::class , 'setting']) -> name('colocation.settings')  ;
 
 
 }) ; 

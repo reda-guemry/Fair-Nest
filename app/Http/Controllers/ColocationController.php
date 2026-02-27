@@ -43,4 +43,14 @@ class ColocationController extends Controller
     }
 
 
+    public function setting($colocationId)
+    {
+
+        $colocation = $this->colocationService->colocationSettings($colocationId) ;
+
+
+        return view('colocation.colocation-owner-settings', compact('colocation')   ) ;
+    }
+
+
 }

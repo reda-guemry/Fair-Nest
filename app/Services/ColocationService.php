@@ -74,6 +74,15 @@ class ColocationService
         }
     }
 
+    public function colocationSettings($colocationId)
+    {
+        $colocation = $this->colocationRepository->getColocationSetting($colocationId);
+
+        // dd($colocation) ;
+
+        return ColocationMapper::toDTO($colocation);
+    }
+
     public function getColocationDetails($colocationId)
     {
         $colocation = $this->colocationRepository->getColocationWithMembers($colocationId);
@@ -107,6 +116,7 @@ class ColocationService
         $model = ColocationUserMapper::toModel($colcoationUser) ;
 
         $this -> colocationUserRepository -> save($model) ;
+
 
     } 
 

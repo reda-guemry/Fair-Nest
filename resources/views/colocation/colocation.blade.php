@@ -1,5 +1,11 @@
 <x-app-layout>
 
+    @if ($colocation && Auth::user()->isOwner($colocation->id))
+        <x-nav-link href="{{ route('colocation.settings', $colocation->id) }}"
+            class="text-sm font-medium text-gray-600 hover:text-[#1A1A1A] transition-colors border-none">
+            {{ __('Categories') }}
+        </x-nav-link>
+    @endif
 
 
     <x-slot name="header">
@@ -192,7 +198,8 @@
                                         class="w-8 h-8 rounded-full bg-red-200 flex items-center justify-center text-red-700 font-bold text-xs">
                                         Y</div>
                                     <p class="text-sm font-semibold text-red-700">{{ $debt->userA_name }} dois à
-                                        {{ $debt->userB_name }}</p>
+                                        {{ $debt->userB_name }}
+                                    </p>
                                 </div>
                                 <span class="font-bold text-red-700">{{ $debt->amount }} MAD</span>
 
@@ -207,7 +214,7 @@
 
                         <div class="space-y-4">
 
-                            
+
 
                         </div>
                     </div>

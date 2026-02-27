@@ -24,12 +24,6 @@
                     <x-nav-link href="#" class="text-sm font-medium text-gray-600 hover:text-[#1A1A1A] transition-colors border-none">
                         {{ __('Dépenses') }}
                     </x-nav-link>
-                    @if (Auth::user()->isOwner($colocation->id))
-                        <x-nav-link href="{{ route('colocation.settings', $colocation->id) }}" class="text-sm font-medium text-gray-600 hover:text-[#1A1A1A] transition-colors border-none">
-                            {{ __('Categories') }}
-                        </x-nav-link>
-                    @endif
-
                     @if (Auth::user()->is_global_admin)
                         <x-nav-link href="{{route('dashboard.admin')}}" class="text-sm font-medium text-gray-600 hover:text-[#1A1A1A] transition-colors border-none">
                         {{ __('Admin') }}

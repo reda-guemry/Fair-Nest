@@ -35,4 +35,9 @@ class ColocationRepository
         return $colocation ; 
     }
 
+    public function getColocationSetting($colocationId)
+    {
+        return Colocation::with('categories')->find($colocationId);
+    }
+
 }

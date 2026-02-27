@@ -52,7 +52,7 @@
 
                     {{-- Liste des catégories --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        @foreach($categories as $category)
+                        @foreach($colocation->categories as $category)
                             <div x-data="{ editing: false, name: '{{ $category->name }}' }" 
                                  class="flex items-center justify-between p-4 rounded-2xl border border-gray-100 bg-white hover:border-orange-200 transition-all group">
                                 

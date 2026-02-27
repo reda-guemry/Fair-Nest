@@ -18,6 +18,8 @@ class ColocationMapper
             membership: $colocation->members ? $colocation->members->map(fn($member) => ColocationUserMapper::toDtoFromUser($member))->toArray() : null , 
             expenses: $colocation->expenses ? $colocation->expenses->map(fn($expense) => ExpenseMapper::toDTO($expense))->toArray() : null ,
             settlements: $colocation->settlements ? $colocation->settlements->map(fn($settlement) => SettlementMapper::toDTO($settlement))->toArray() : null , 
+            categories: $colocation->categories ? $colocation->categories->map(fn($category) => CategoryMapper::toDTO($category))->toArray() : null , 
+        
         );  
     }
 
@@ -28,7 +30,8 @@ class ColocationMapper
             name: $colocation->name,
             description : $colocation->description , 
             status: $colocation->status, 
-            membership: $colocation->pivot ? [ColocationUserMapper::toDTO($colocation->pivot)] : null
+            membership: $colocation->pivot ? [ColocationUserMapper::toDTO($colocation->pivot)] : null, 
+            
         );
     }
 
