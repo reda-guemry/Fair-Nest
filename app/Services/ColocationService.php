@@ -120,5 +120,13 @@ class ColocationService
 
     } 
 
+    public function addCategoryToColocation($colocationId , $categoryName)
+    {
+        $colocation = $this->colocationRepository->findById($colocationId) ;
+
+        return $this -> colocationRepository -> saveCategory($colocation , $categoryName) ;
+
+    }
+
 
 }

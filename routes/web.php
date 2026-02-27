@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\ColocationController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvitationController;
@@ -44,6 +45,7 @@ Route::middleware('auth')->group(function() {
     Route::post('/settlements/pay' , [InvitationController::class , 'cancel']) -> name('settlements.pay')  ;
 
     Route::get('/colocation/settings/{colocation}' , [ColocationController::class , 'setting']) -> name('colocation.settings')  ;
+    Route::post('/colocation/settings/{colocation}' , [CategorieController::class , 'store']) -> name('colocation.categories.store')  ;
 
 
 }) ; 

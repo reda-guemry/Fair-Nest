@@ -37,7 +37,7 @@
 
                 <div class="p-8">
                     {{-- Formulaire: Ajouter une catégorie --}}
-                    <form action="#" method="POST" class="flex flex-wrap items-end gap-4 mb-10 bg-gray-50/50 p-6 rounded-3xl border border-dashed border-gray-200">
+                    <form action="{{ route('colocation.categories.store', $colocation->id) }}" method="POST" class="flex flex-wrap items-end gap-4 mb-10 bg-gray-50/50 p-6 rounded-3xl border border-dashed border-gray-200">
                         @csrf
                         <div class="flex-1 min-w-[250px]">
                             <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2 ml-1">Nouvelle Catégorie</label>

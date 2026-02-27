@@ -40,4 +40,11 @@ class ColocationRepository
         return Colocation::with('categories')->find($colocationId);
     }
 
+    public function saveCategory(Colocation $colocation , $categoryName)
+    {
+        $category = $colocation->categories()->create(['name' => $categoryName]) ;
+
+        return $category ;
+    }
+
 }
