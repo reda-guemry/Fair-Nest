@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\DTOs\SettlementDTO;
-use App\DTOs\TotalSettlementBettwenTwoUserDTO;
+use App\DTOs\TotalPaysBettwenTwoUserDTO;
 use App\Mappers\SettlementMapper;
 use App\Repositorys\SettlementRepository;
 
@@ -32,7 +32,7 @@ class SettlementService
             if ($debtor->userId !== $creditor->userId) {
                 $totalAmount = $this->NetBalanceBetweenUsers($debtor->userId, $creditor->userId);
                 if ($totalAmount > 0 ) {
-                    $results[] = new TotalSettlementBettwenTwoUserDTO(
+                    $results[] = new TotalPaysBettwenTwoUserDTO(
                         userA_Id: $debtor->userId,
                         userB_Id: $creditor->userId ,
                         userA_name: $debtor->name ,
@@ -87,6 +87,18 @@ class SettlementService
         return $solde ;
 
 
+    }
+
+    public function paye($userA_Id , $userB_Id , $colocationId) 
+    {
+        $settlement = new (
+            id: null,
+            userA_Id: $userA_Id,
+            userB_Id: $userB_Id,
+            colocationId: $colocationId,
+        ) ;
+
+        $this -> createSettlement($settlement) ;
     }
 
 

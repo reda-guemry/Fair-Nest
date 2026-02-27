@@ -10,6 +10,7 @@ class UserMapper
 
     public static function toDTO(User $user): UserDTO
     {
+        // dd($user) ;
         return new UserDTO(
             userId: $user->id,
             name: $user->first_name . ' ' . $user->last_name ,

@@ -16,7 +16,7 @@ class UserService
 
     public function getFilteredUsers($query)
     {
-        return $this -> userRepository -> search($query) ->map(fn($user) => UserMapper::toDTO($user)) ; 
+        return $this -> userRepository -> search($query) -> map(fn($user) => UserMapper::toDTO($user)) ; 
     }
 
     public function FindById($id)

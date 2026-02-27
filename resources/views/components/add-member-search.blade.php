@@ -19,6 +19,8 @@ new class extends Component {
         if(strlen($this->search) < 1) return view('components.add-member-search' , compact('users')) ; 
 
         $users = app('App\Services\UserService')->getFilteredUsers($this->search) ;
+
+        // dd($users) ;
         
         return view('components.add-member-search' , compact('users')) ;
         
@@ -57,7 +59,7 @@ new class extends Component {
             <form action="{{ route('invitation.store') }}" method="POST" >
                 @csrf
 
-                <input type="hidden" name="user_id" value="{{ $user->id }}">
+                <input type="hidden" name="user_id" value="{{ $user->userId }}">
                 <input type="hidden" name="colocation_id" value="{{ $colocationId }}" >
 
                 <button type="submit"

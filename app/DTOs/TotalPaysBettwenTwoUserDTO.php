@@ -2,7 +2,7 @@
 
 namespace App\DTOs;
 
-class TotalSettlementBettwenTwoUserDTO
+class TotalPaysBettwenTwoUserDTO
 {
     public function __construct(
         public int $userA_Id,
