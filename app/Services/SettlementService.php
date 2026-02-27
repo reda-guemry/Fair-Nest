@@ -31,7 +31,6 @@ class SettlementService
         foreach ($members as $creditor) {
             if ($debtor->userId !== $creditor->userId) {
                 $totalAmount = $this->NetBalanceBetweenUsers($debtor->userId, $creditor->userId);
-                if ($totalAmount > 0 ) {
                     $results[] = new TotalPaysBettwenTwoUserDTO(
                         userA_Id: $debtor->userId,
                         userB_Id: $creditor->userId ,
@@ -39,7 +38,6 @@ class SettlementService
                         userB_name: $creditor->name ,
                         amount: $totalAmount , 
                     );
-                }
             }
         }
 
@@ -54,6 +52,8 @@ class SettlementService
         foreach ($members as $debtor) {
             $results = array_merge($results , $this->PayBettwenUserAndMemnbers($debtor , $members)) ;
         }
+
+        $results = array_filter($results , fn($item) => $item->amount > 0 ) ;
 
         // dd($results) ; 
 
@@ -91,14 +91,8 @@ class SettlementService
 
     public function paye($userA_Id , $userB_Id , $colocationId) 
     {
-        $settlement = new (
-            id: null,
-            userA_Id: $userA_Id,
-            userB_Id: $userB_Id,
-            colocationId: $colocationId,
-        ) ;
-
-        $this -> createSettlement($settlement) ;
+        return $this -> settlementRepository->paye($userA_Id , $userB_Id , $colocationId) ;
+        
     }
 
 

@@ -200,8 +200,8 @@
                                         <div
                                             class="w-8 h-8 rounded-full bg-red-200 flex items-center justify-center text-red-700 font-bold text-xs">
                                             {{ substr($debt->userA_name, 0, 1) }}</div>
-                                        <p class="text-sm font-semibold text-red-700">{{ $debt->userA_name }} doit à
-                                            {{ $debt->userB_name }}
+                                        <p class="text-sm font-semibold text-red-700">{{ $debt->userA_Id == Auth::id() ? 'Vous' : $debt->userA_name }} doit à
+                                            {{ $debt->userB_Id == Auth::id() ? 'Vous' : $debt->userB_name }}
                                         </p>
                                     </div>
                                     <span class="font-bold text-red-700">{{ $debt->amount }} MAD</span>

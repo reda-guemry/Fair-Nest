@@ -3,6 +3,7 @@
 namespace App\Repositorys;
 
 use App\Models\Settlement;
+use phpDocumentor\Reflection\PseudoTypes\True_;
 
 class SettlementRepository
 {
@@ -11,25 +12,40 @@ class SettlementRepository
      */
     public function __construct(
 
-    ){}
+    ) {
+    }
 
-    public function createSettlement(Settlement $settlement) 
+    public function createSettlement(Settlement $settlement)
     {
         // dd($settlement) ; 
-        $settlement->save() ; 
-        return $settlement ; 
+        $settlement->save();
+        return $settlement;
 
     }
 
 
-    public function getTotalAmountBetweenTwoUsers($debtorId , $creditorId) 
+    public function getTotalAmountBetweenTwoUsers($debtorId, $creditorId)
     {
-        return Settlement::where('debtor_id' , $debtorId)
-            ->where('creditor_id' , $creditorId)
-            ->sum('amount') ;
+        return Settlement::where('debtor_id', $debtorId)
+            ->where('creditor_id', $creditorId)
+            ->sum('amount');
 
     }
 
+
+    public function paye($userA_Id, $userB_Id, $colocationId)
+    {
+        return Settlement::where(function ($query) use ($userA_Id, $userB_Id) {
+            $query->where(function ($q) use($userA_Id , $userB_Id) {
+                $q->where('debtor_id' , $userA_Id) 
+                ->where('creditor_id' , $userB_Id) ; 
+            })->orwhere(function ($q) use($userA_Id , $userB_Id) {
+                $q->where('debtor_id' , $userA_Id) 
+                ->where('creditor_id' , $userB_Id) ; 
+            }) ;
+        })->where('colocation_id' ,  $colocationId) 
+        ->update(['status' => true]);
+    }
 
 
 
