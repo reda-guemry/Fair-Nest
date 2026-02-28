@@ -14,7 +14,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware('auth') -> group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard/admin' , [AdminController::class , 'index'])->name('dashboard.admin') ;
     Route::get('/dashboard/categories' , [AdminController::class , 'categoriesShow'])->name('admin.categories') ;
 }) ;
