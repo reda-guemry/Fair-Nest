@@ -15,9 +15,9 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/dashboard/admin' , [AdminController::class , 'index'])->name('dashboard.admin') ;
-    Route::get('/dashboard/categories' , [AdminController::class , 'categoriesShow'])->name('admin.categories') ;
-}) ;
+    Route::get('/dashboard/admin', [AdminController::class, 'index'])->name('dashboard.admin');
+    Route::get('/dashboard/categories', [AdminController::class, 'categoriesShow'])->name('admin.categories');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -25,30 +25,33 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware('auth')->group(function() {
+Route::middleware('auth')->group(function () {
 
-    Route::get('/dashboard',[UserController::class , 'index'] )->name('dashboard'); 
-    Route::post('/create/colocation' , [ColocationController::class , 'store']) ->name('create.colocation') ;
-    Route::get('/colocation/{colocation}' , [ColocationController::class , 'show']) ->name('colocation.show') ;
+    Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
+    Route::post('/create/colocation', [ColocationController::class, 'store'])->name('create.colocation');
+    Route::get('/colocation/{colocation}', [ColocationController::class, 'show'])->name('colocation.show');
 
-    Route::post('/expenses/store' , [ExpenseController::class , 'store'])->name('expenses.store') ;
-
-
-}) ; 
-
-Route::middleware('auth')->group(function() {
-
-    Route::post('/invitation/store' , [InvitationController::Class , 'store']) -> name('invitation.store') ;
-    Route::get('/invitation' , [InvitationController::Class , 'process']) -> name('invitation.show') ;
-    Route::post('/invitation' , [InvitationController::class , 'decide']) -> name('invitation.process')  ; 
+    Route::post('/expenses/store', [ExpenseController::class, 'store'])->name('expenses.store');
 
 
-    Route::post('/settlements/pay' , [SettlementController::class , 'paye']) -> name('settlements.pay')  ;
+});
 
-    Route::get('/colocation/settings/{colocation}' , [ColocationController::class , 'setting']) -> name('colocation.settings')  ;
-    Route::post('/colocation/settings/{colocation}' , [CategorieController::class , 'store']) -> name('colocation.categories.store')  ;
+Route::middleware('auth')->group(function () {
+
+    Route::get('/invitation', [InvitationController::class, 'process'])->name('invitation.show');
+    Route::post('/invitation', [InvitationController::class, 'decide'])->name('invitation.process');
+    
+    Route::post('/settlements/pay', [SettlementController::class, 'paye'])->name('settlements.pay');
+
+});
+
+Route::middleware(['auth', 'colocation.owner'])->group(function () {
+
+    Route::get('/colocation/settings/{colocation}', [ColocationController::class, 'setting'])->name('colocation.settings');
+    Route::post('/colocation/settings/{colocation}', [CategorieController::class, 'store'])->name('colocation.categories.store');
+    Route::post('/invitation/store', [InvitationController::class, 'store'])->name('invitation.store');
 
 
-}) ; 
+});
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

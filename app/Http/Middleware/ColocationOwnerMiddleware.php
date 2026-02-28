@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use Auth;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +16,10 @@ class ColocationOwnerMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if(!Auth::user()->isOwner($request->route('colocation'))) {
+            abort(403, 'Unauthorized action.');
+        }
+
         return $next($request);
     }
 }
