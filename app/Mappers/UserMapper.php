@@ -17,6 +17,7 @@ class UserMapper
             email: $user->email,
             reputation: $user->reputation,
             isBanned: $user->is_banned , 
+            profilePhoto: $user->profile_photo ,
             colocations: $user->colocations ? $user->colocations->map(function($colocation) {
                 return ColocationMapper::toDTOFromUser($colocation);
             })->toArray() : null

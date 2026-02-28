@@ -33,25 +33,10 @@ class ColocationUserMapper
             role: $user->pivot->role,
             joinedAt: $user->pivot->joined_at,
             leftAt: $user->pivot->left_at,
-            status: $user->pivot->status 
+            status: $user->pivot->status , 
+            profilePhoto: $user->profile_photo ,
         );
     }
-
-    // public static function toDtoFromColocation(Colocation $colocation)
-    // {
-    //     return new ColocationUserDTO(
-    //         userId: $colocation->pivot->user_id,
-    //         colocationId: $colocation->pivot->colocation_id,
-    //         role: $colocation->pivot->role,
-    //         firstName: $colocation->user->first_name,
-    //         lastName: $colocation->user->last_name,
-    //         email: $colocation->user->email,
-    //         status: $colocation->pivot->status,
-    //         joinedAt: $colocation->pivot->joined_at ? (string) $colocation->pivot->joined_at : null,
-    //         leftAt: $colocation->pivot->left_at ? (string) $colocation->pivot->left_at : null,
-    //     );
-
-    // }
 
     public static function toModel(ColocationUserDTO $dto, ?ColocationUser $existingPivot = null): ColocationUser
     {

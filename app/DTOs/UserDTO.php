@@ -16,5 +16,6 @@ class UserDTO
         public ?array $colocations = null , 
         public ?array $debts = null , 
         public ?array $credits = null ,
+        public ?string $profilePhoto = null , 
     ) {}
 }

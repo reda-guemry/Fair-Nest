@@ -40,9 +40,7 @@
         <main class="flex-1 p-10 overflow-y-auto relative">
             <div class="absolute top-0 right-0 w-64 h-64 bg-orange-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30 -z-10 animate-blob"></div>
             
-            <header class="mb-10">
-                {{ $header }}
-            </header>
+           
 
             {{ $slot }}
         </main>
