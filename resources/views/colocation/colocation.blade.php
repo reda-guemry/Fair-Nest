@@ -327,7 +327,7 @@
                             <label class="block text-sm font-semibold text-[#1A1A1A] mb-1.5">Catégorie</label>
                             <select name="category_id"
                                 class="w-full rounded-2xl border-gray-200 shadow-sm focus:border-orange-400 focus:ring focus:ring-orange-400/20 text-sm py-3 px-4 transition-all bg-white">
-                                @foreach ($categories as $categorie)
+                                @foreach ($colocation->categories as $categorie)
                                     <option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
                                 @endforeach
                             </select>

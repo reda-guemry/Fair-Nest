@@ -22,7 +22,6 @@ class ColocationController extends Controller
     {
         $colocation = $this->colocationService->getColocationDetails($colocationId);
 
-        $categories = $this->categorieService->getAllCategories();
 
         $WhoPaysWhos = $this-> settlementService->PaysUsers($colocation->membership) ;
 
@@ -30,7 +29,7 @@ class ColocationController extends Controller
 
         // dd($colocation) ;
 
-        return view('colocation.colocation', compact('colocation', 'categories', 'WhoPaysWhos' , 'monSold'));
+        return view('colocation.colocation', compact('colocation', 'WhoPaysWhos' , 'monSold'));
     }
     
     public function store(ColocationRequest $request)

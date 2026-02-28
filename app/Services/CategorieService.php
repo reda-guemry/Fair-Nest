@@ -19,5 +19,19 @@ class CategorieService
         return $this->categorieRepository->all() -> map(fn($cat) => CategoryMapper::toDTO($cat) );
     }
 
-
+    public function updateCategory($colocationId, $categoryId, $name)
+    {
+        $category = $this->categorieRepository->findById($categoryId);
+        if ($category && $category->colocation_id == $colocationId) {
+            $this->categorieRepository->update($categoryId, $name);
+            return [
+                'success' => true,
+                'message' => 'Catégorie mise à jour avec succès',
+            ];
+        }
+        return [
+            'success' => false,
+            'message' => 'Catégorie non trouvée ou ne correspondant pas à la colocation',
+        ];
+    }
 }
