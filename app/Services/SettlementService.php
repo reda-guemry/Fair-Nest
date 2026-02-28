@@ -24,18 +24,18 @@ class SettlementService
         
     }
 
-    public function PayBettwenUserAndMemnbers($debtor , $members) 
+    public function PayBettwenUserAndMemnbers($creditor , $members) 
     {
         $results = [] ; 
 
-        foreach ($members as $creditor) {
-            if ($debtor->userId !== $creditor->userId) {
-                $totalAmount = $this->NetBalanceBetweenUsers($debtor->userId, $creditor->userId);
+        foreach ($members as $debtor) {
+            if ($creditor->userId !== $debtor->userId) {
+                $totalAmount = $this->NetBalanceBetweenUsers($creditor->userId, $debtor->userId);
                     $results[] = new TotalPaysBettwenTwoUserDTO(
-                        userA_Id: $debtor->userId,
-                        userB_Id: $creditor->userId ,
-                        userA_name: $debtor->name ,
-                        userB_name: $creditor->name ,
+                        userA_Id: $creditor->userId,
+                        userB_Id: $debtor->userId ,
+                        userA_name: $creditor->name ,
+                        userB_name: $debtor->name ,
                         amount: $totalAmount , 
                     );
             }
@@ -49,8 +49,8 @@ class SettlementService
     {
         $results = [] ; 
 
-        foreach ($members as $debtor) {
-            $results = array_merge($results , $this->PayBettwenUserAndMemnbers($debtor , $members)) ;
+        foreach ($members as $creditor) {
+            $results = array_merge($results , $this->PayBettwenUserAndMemnbers($creditor , $members)) ;
         }
 
         $results = array_filter($results , fn($item) => $item->amount > 0 ) ;
@@ -62,13 +62,13 @@ class SettlementService
     }
 
 
-    public function NetBalanceBetweenUsers($debtorId , $creditorId) 
+    public function NetBalanceBetweenUsers($creditorId , $debtorId) 
     {
-        $userDeptor = $this -> settlementRepository->getTotalAmountBetweenTwoUsers($debtorId , $creditorId) ;
+        $userDeptor = $this -> settlementRepository->getTotalAmountBetweenTwoUsers($creditorId , $debtorId) ;
 
-        $usercrediotr = $this -> settlementRepository-> getTotalAmountBetweenTwoUsers($creditorId , $debtorId) ;
+        $userCreditor = $this -> settlementRepository-> getTotalAmountBetweenTwoUsers($debtorId , $creditorId) ;
 
-        return $userDeptor - $usercrediotr ; 
+        return $userDeptor - $userCreditor ; 
     }
 
     public function MonSoldeOncolocation($userId , $members) 

@@ -24,7 +24,7 @@ class SettlementRepository
     }
 
 
-    public function getTotalAmountBetweenTwoUsers($debtorId, $creditorId)
+    public function getTotalAmountBetweenTwoUsers($creditorId, $debtorId)
     {
         return Settlement::where('debtor_id', $debtorId)
             ->where('creditor_id', $creditorId)
@@ -41,8 +41,8 @@ class SettlementRepository
                 $q->where('debtor_id' , $userA_Id) 
                 ->where('creditor_id' , $userB_Id) ; 
             })->orwhere(function ($q) use($userA_Id , $userB_Id) {
-                $q->where('debtor_id' , $userA_Id) 
-                ->where('creditor_id' , $userB_Id) ; 
+                $q->where('debtor_id' , $userB_Id) 
+                ->where('creditor_id' , $userA_Id) ; 
             }) ;
         })->where('colocation_id' ,  $colocationId) 
         ->update(['status' => true]);
