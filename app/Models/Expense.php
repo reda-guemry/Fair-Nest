@@ -13,7 +13,7 @@ class Expense extends Model
         'colocation_id',
         'payer_id',
         'category_id',
-        'title', 
+        'title',
         'amount',
     ];
 
@@ -34,11 +34,11 @@ class Expense extends Model
     public function participants()
     {
         return $this->belongsToMany(User::class, 'expense_participants')
-                    ->withTimestamps();
+            ->withTimestamps();
     }
     public function settlements()
     {
         return $this->hasMany(Settlement::class);
     }
-    
+
 }

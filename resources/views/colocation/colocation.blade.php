@@ -25,13 +25,16 @@
                     </p>
                 </div>
             </div>
-            
+
             @if ($colocation && Auth::user()->isOwner($colocation->id))
                 <a href="{{ route('colocation.settings', $colocation->id) }}"
                     class="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-bold rounded-xl transition-all border border-gray-200">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                        </path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
                     {{ __('Paramètres') }}
                 </a>
@@ -40,10 +43,11 @@
     </x-slot>
 
     <div x-data="{ showExpenseModal: false, showAddMemberModal: false }" class="py-10 relative">
-        
+
         <div class="fixed top-5 right-5 z-[100] space-y-3 w-full max-w-sm">
             @if(session('success'))
-                <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)" x-transition.duration.500ms
+                <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)"
+                    x-transition.duration.500ms
                     class="flex items-center gap-4 p-5 bg-green-50 border border-green-100 rounded-[2rem] shadow-sm">
                     <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center shrink-0">
                         <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -58,7 +62,8 @@
             @endif
 
             @if($errors->any() || session('error'))
-                <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)" x-transition.duration.500ms
+                <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)"
+                    x-transition.duration.500ms
                     class="flex items-center gap-4 p-5 bg-red-50 border border-red-100 rounded-[2rem] shadow-sm">
                     <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center shrink-0">
                         <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -86,7 +91,8 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-                <div class="bg-white p-6 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center gap-5">
+                <div
+                    class="bg-white p-6 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center gap-5">
                     <div class="w-14 h-14 bg-gray-50 rounded-full flex items-center justify-center shrink-0">
                         <svg class="w-7 h-7 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -100,7 +106,8 @@
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center gap-5">
+                <div
+                    class="bg-white p-6 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center gap-5">
                     <div class="w-14 h-14 bg-orange-50 rounded-full flex items-center justify-center shrink-0">
                         <svg class="w-7 h-7 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -113,11 +120,14 @@
                     </div>
                 </div>
 
-                <div class="{{ $monSold >= 0 ? 'bg-green-50 border-green-100' : 'bg-red-50 border-red-100' }} p-6 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border flex items-center gap-5 relative overflow-hidden">
-                    <div class="w-14 h-14 {{ $monSold >= 0 ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600' }} rounded-full flex items-center justify-center shrink-0 z-10">
+                <div
+                    class="{{ $monSold >= 0 ? 'bg-green-50 border-green-100' : 'bg-red-50 border-red-100' }} p-6 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border flex items-center gap-5 relative overflow-hidden">
+                    <div
+                        class="w-14 h-14 {{ $monSold >= 0 ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600' }} rounded-full flex items-center justify-center shrink-0 z-10">
                         @if($monSold >= 0)
                             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
+                                </path>
                             </svg>
                         @else
                             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -126,7 +136,8 @@
                         @endif
                     </div>
                     <div class="z-10">
-                        <p class="text-sm font-semibold {{ $monSold >= 0 ? 'text-green-500' : 'text-red-400' }}">Mon Solde</p>
+                        <p class="text-sm font-semibold {{ $monSold >= 0 ? 'text-green-500' : 'text-red-400' }}">Mon
+                            Solde</p>
                         <h4 class="text-2xl font-bold {{ $monSold >= 0 ? 'text-green-600' : 'text-red-600' }}">
                             {{ $monSold >= 0 ? '+' : '- ' }} {{ abs($monSold) }} MAD
                         </h4>
@@ -134,8 +145,8 @@
                             {{ $monSold >= 0 ? 'On me doit de l\'argent' : 'Je dois de l\'argent' }}
                         </p>
                     </div>
-                    <svg class="absolute -bottom-4 -right-4 w-32 h-32 opacity-50 {{ $monSold >= 0 ? 'text-green-100' : 'text-red-100' }}" fill="currentColor"
-                        viewBox="0 0 24 24">
+                    <svg class="absolute -bottom-4 -right-4 w-32 h-32 opacity-50 {{ $monSold >= 0 ? 'text-green-100' : 'text-red-100' }}"
+                        fill="currentColor" viewBox="0 0 24 24">
                         <path
                             d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.31-8.86c-1.77-.45-2.34-.94-2.34-1.67 0-.84.79-1.43 2.1-1.43 1.38 0 1.9.66 1.94 1.64h1.71c-.05-1.34-.87-2.57-2.49-2.97V5H10.9v1.69c-1.51.32-2.72 1.3-2.72 2.81 0 1.79 1.49 2.69 3.66 3.21 1.95.46 2.34 1.15 2.34 1.87 0 .53-.39 1.64-2.25 1.64-1.74 0-2.1-.96-2.15-1.92H8.03c.05 1.68 1.15 2.87 2.87 3.25V19h2.36v-1.67c1.68-.34 2.88-1.48 2.88-3.04 0-2.23-1.85-2.92-3.83-3.15z">
                         </path>
@@ -146,7 +157,8 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
                 <div class="lg:col-span-2 space-y-6">
-                    <div class="flex items-center justify-between bg-white p-4 rounded-3xl shadow-sm border border-gray-100">
+                    <div
+                        class="flex items-center justify-between bg-white p-4 rounded-3xl shadow-sm border border-gray-100">
                         <h3 class="text-xl font-bold text-[#1A1A1A] ml-2">Dépenses Récentes</h3>
                         <button @click="showExpenseModal = true"
                             class="bg-[#1A1A1A] text-[#FAF9F6] px-5 py-2.5 rounded-full text-sm font-bold hover:bg-gray-800 transition-all shadow-md flex items-center gap-2">
@@ -159,9 +171,11 @@
                     </div>
 
                     @foreach ($colocation->expenses as $expenses)
-                        <div class="bg-white p-6 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center justify-between hover:border-orange-200 transition-colors group cursor-pointer">
+                        <div
+                            class="bg-white p-6 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center justify-between hover:border-orange-200 transition-colors group cursor-pointer">
                             <div class="flex items-center gap-5">
-                                <div class="w-14 h-14 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center group-hover:bg-orange-50 group-hover:text-orange-500 transition-colors">
+                                <div
+                                    class="w-14 h-14 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center group-hover:bg-orange-50 group-hover:text-orange-500 transition-colors">
                                     <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
@@ -170,13 +184,16 @@
                                 </div>
                                 <div>
                                     <h4 class="text-lg font-extrabold text-[#1A1A1A]">{{ $expenses->title }}</h4>
-                                    <p class="text-sm text-gray-500 mt-1">Payé par <span class="font-bold text-gray-700">{{ $expenses->payername }}</span> • {{ \Carbon\Carbon::parse($expenses->createdAt)->format('d/m/Y à H\hi') }}
+                                    <p class="text-sm text-gray-500 mt-1">Payé par <span
+                                            class="font-bold text-gray-700">{{ $expenses->payername }}</span> •
+                                        {{ \Carbon\Carbon::parse($expenses->createdAt)->format('d/m/Y à H\hi') }}
                                     </p>
                                 </div>
                             </div>
                             <div class="text-right">
                                 <h4 class="text-2xl font-black text-[#1A1A1A]">{{ $expenses->amount }} MAD</h4>
-                                <span class="text-xs font-bold text-gray-400 uppercase tracking-tighter mt-1 block">Pour {{ count($expenses->participants) + 1 }} personnes</span>
+                                <span class="text-xs font-bold text-gray-400 uppercase tracking-tighter mt-1 block">Pour
+                                    {{ count($expenses->participants) + 1 }} personnes</span>
                             </div>
                         </div>
                     @endforeach
@@ -184,7 +201,8 @@
 
                 <div class="space-y-6">
 
-                    <div class="bg-white p-6 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100">
+                    <div
+                        class="bg-white p-6 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100">
                         <h3 class="text-lg font-bold text-[#1A1A1A] mb-4 flex items-center gap-2">
                             <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -195,30 +213,39 @@
 
                         <div class="space-y-3">
                             @foreach ($WhoPaysWhos as $debt)
-                                <div class="flex items-center justify-between bg-red-50 p-3 rounded-2xl border border-red-100">
+                                <div
+                                    class="flex items-center justify-between bg-red-50 p-3 rounded-2xl border border-red-100">
                                     <div class="flex items-center gap-3">
                                         <div
                                             class="w-8 h-8 rounded-full bg-red-200 flex items-center justify-center text-red-700 font-bold text-xs">
-                                            {{ substr($debt->userA_name, 0, 1) }}</div>
-                                        <p class="text-sm font-semibold text-red-700">{{ $debt->userA_Id == Auth::id() ? 'Vous' : $debt->userA_name }} doit à
+                                            {{ substr($debt->userA_name, 0, 1) }}
+                                        </div>
+                                        <p class="text-sm font-semibold text-red-700">
+                                            {{ $debt->userA_Id == Auth::id() ? 'Vous' : $debt->userA_name }} doit à
                                             {{ $debt->userB_Id == Auth::id() ? 'Vous' : $debt->userB_name }}
                                         </p>
                                     </div>
                                     <span class="font-bold text-red-700">{{ $debt->amount }} MAD</span>
 
-                                    <form action="{{ route('settlements.pay') }}" method="POST">
-                                        @csrf
-                                        <input type="hidden" name="user_a" value="{{ $debt->userA_Id }}">
-                                        <input type="hidden" name="user_b" value="{{ $debt->userB_Id }}">
-                                        <input type="hidden" name='colocation_id' value="{{ $colocation->id }}" >
-                                        <button type="submit" class="text-xs font-bold bg-white text-red-600 px-2 py-1 rounded-lg border border-red-200 hover:bg-red-600 hover:text-white transition-colors">Payé</button>
-                                    </form>
+                                    @if ($debt->userB_Id == Auth::id())
+                                        <form action="{{ route('settlements.pay') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="user_a" value="{{ $debt->userA_Id }}">
+                                            <input type="hidden" name="user_b" value="{{ $debt->userB_Id }}">
+                                            <input type="hidden" name='colocation_id' value="{{ $colocation->id }}">
+                                            <button type="submit"
+                                                class="text-xs font-bold bg-white text-red-600 px-2 py-1 rounded-lg border border-red-200 hover:bg-red-600 hover:text-white transition-colors">Payé</button>
+                                        </form>
+
+                                    @endif
+
                                 </div>
                             @endforeach
                         </div>
                     </div>
 
-                    <div class="bg-white p-6 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100">
+                    <div
+                        class="bg-white p-6 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100">
                         @if (Auth::user()->isOwner($colocation->id))
                             <div class="flex items-center justify-between mb-4">
                                 <h3 class="text-lg font-bold text-[#1A1A1A]">Colocataires</h3>
@@ -239,7 +266,8 @@
                                     <div class="flex items-center gap-3">
                                         <div
                                             class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-sm">
-                                            {{ substr($member->name, 0, 1) }}</div>
+                                            {{ substr($member->name, 0, 1) }}
+                                        </div>
                                         <div>
                                             <p class="text-sm font-bold text-[#1A1A1A]">{{ $member->name }}</p>
                                             <p class="text-xs text-gray-400 font-semibold">{{ $member->role }}</p>
@@ -289,7 +317,8 @@
                         <input type="hidden" name="colocation_id" value="{{ $colocation->id }}">
 
                         <div>
-                            <label class="block text-sm font-semibold text-[#1A1A1A] mb-1.5">Qu'avez-vous acheté ?</label>
+                            <label class="block text-sm font-semibold text-[#1A1A1A] mb-1.5">Qu'avez-vous acheté
+                                ?</label>
                             <input type="text" name="title" placeholder="ex: Courses de la semaine"
                                 class="w-full rounded-2xl border-gray-200 shadow-sm focus:border-orange-400 focus:ring focus:ring-orange-400/20 text-sm py-3 px-4 transition-all">
                         </div>
@@ -326,7 +355,8 @@
                         </div>
 
                         <div>
-                            <label class="block text-sm font-semibold text-[#1A1A1A] mb-2">Pour qui ? (Diviser entre)</label>
+                            <label class="block text-sm font-semibold text-[#1A1A1A] mb-2">Pour qui ? (Diviser
+                                entre)</label>
                             <div class="space-y-2 max-h-40 overflow-y-auto">
                                 @foreach ($colocation->membership as $member)
                                     <label

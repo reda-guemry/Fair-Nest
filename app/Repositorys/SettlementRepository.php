@@ -28,6 +28,7 @@ class SettlementRepository
     {
         return Settlement::where('debtor_id', $debtorId)
             ->where('creditor_id', $creditorId)
+            ->where('status' , false) 
             ->sum('amount');
 
     }
