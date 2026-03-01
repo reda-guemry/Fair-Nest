@@ -63,36 +63,36 @@ class InvitationService
 
         if (!$invitation) 
         {
-            return false;
+            return ['status' => false, 'message' => 'Invitation not found'];
         }
 
         $invitation = InvitationMapper::toDTO($invitation) ;
 
         if ($invitation->status === 'refuse') {
-            return false;
+            return ['status' => false, 'message' => 'Invitation is refused'];
         }
 
         if (Carbon::parse($invitation->expiresAt)->isPast()) {
             // dd('slm');
 
-            return false;
+            return ['status' => false, 'message' => 'Invitation is expired'];
         }
 
 
         if (!$invitation->email === $user->email) {
             // dd('slm') ;
 
-            return false;
+            return ['status' => false, 'message' => 'Invitation is not for you'];
         }
 
         if (!$user->is_global_admin) {
             if (!$user->isFree()) {
                 // dd('slm') ;
-                return false;
+                return ['status' => false, 'message' => 'You are in Colocation'];
             }
         }
 
-        return $invitation;
+        return ['status' => true, 'message' => 'Invitation is valid', 'invitation' => $invitation];
 
     }
 
