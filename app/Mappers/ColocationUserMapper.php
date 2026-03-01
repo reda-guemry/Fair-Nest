@@ -19,6 +19,7 @@ class ColocationUserMapper
             status: $pivot->status,
             joinedAt: $pivot->joined_at ? (string) $pivot->joined_at : null,
             leftAt: $pivot->left_at ? (string) $pivot->left_at : null,
+            id: $pivot->id,
         );
     }
 
@@ -40,7 +41,7 @@ class ColocationUserMapper
 
     public static function toModel(ColocationUserDTO $dto, ?ColocationUser $existingPivot = null): ColocationUser
     {
-        $pivot = $existingPivot ?? new ColocationUser();
+        $pivot = $existingPivot ?? ($dto->id ? ColocationUser::find($dto->id) : null) ?? new ColocationUser();
 
         $pivot->user_id = $dto->userId;
         $pivot->colocation_id = $dto->colocationId;

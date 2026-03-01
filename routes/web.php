@@ -52,7 +52,8 @@ Route::middleware(['auth', 'colocation.owner'])->group(function () {
     Route::get('/colocation/{colocation}/settings', [ColocationController::class, 'setting'])->name('colocation.settings');
     Route::post('/colocation/{colocation}/settings', [CategorieController::class, 'store'])->name('colocation.categories.store');
     Route::post('/colocation/{colocation}/categories/{category}/modifier', [CategorieController::class, 'modifier'])->name('colocation.categories.update');
-
+    
+    Route::post('/colocation/{colocation}/kick/{member}', [ColocationController::class, 'kick'])->name('colocations.kick');
 });
 
 require __DIR__ . '/auth.php';

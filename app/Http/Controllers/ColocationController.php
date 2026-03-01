@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ColocationRequest;
+use App\Http\Requests\KickRequest;
 use App\Services\CategorieService;
 use App\Services\ColocationService;
 use App\Services\SettlementService;
@@ -51,5 +52,11 @@ class ColocationController extends Controller
         return view('colocation.colocation-owner-settings', compact('colocation')   ) ;
     }
 
+    public function kick(KickRequest $request)
+    {
+        $this -> colocationService -> kickMember($request->validated()['colocation_id'] , $request->validated()['member_id']) ;
+
+        return redirect()->route('colocation.settings' , $request->validated()['colocation_id'])->with('success' , 'Membre expulsé avec succès') ;
+    }
 
 }

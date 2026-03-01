@@ -15,7 +15,7 @@ class ColocationUserDTO
         public ?string $email = null,   
         public ?array $expenses = null , 
         public ?string $profilePhoto = null ,
-        
+        public ?int $id = null ,
     ) {}
 
     

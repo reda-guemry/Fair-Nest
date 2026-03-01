@@ -262,7 +262,7 @@
 
                         <ul class="space-y-3">
                             @foreach ($colocation->membership as $member)
-                                <li x-data="{ confirming: false }" class="flex items-center justify-between">
+                                <li class="flex items-center justify-between">
                                     <div class="flex items-center gap-3">
                                         <div
                                             class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-sm">
@@ -274,45 +274,25 @@
                                         </div>
                                     </div>
 
-                                    @if(auth()->id() == $colocation->owner_id && $member->id != auth()->id())
+                                    @if(auth()->user()->isOwner($colocation->id) && $member->userId != auth()->id())
+                                        <form method="POST"
+                                            action="{{ route('colocations.kick', [$colocation->id, $member->userId]) }}">
+                                            @csrf
 
-                                        <div class="flex items-center">
-                                            <button x-show="!confirming" @click="confirming = true"
-                                                class="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-400 hover:text-red-500 hover:border-red-200 shadow-sm transition-all"
-                                                title="Expulser le membre">
+                                            <input type="hidden" name="colocation_id" value="{{ $colocation->id }}">
+                                            <input type="hidden" name="member_id" value="{{ $member->userId }}" >
+
+                                            <button type="submit"
+                                                class="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-400 hover:text-red-600 hover:border-red-200 hover:bg-red-50 shadow-sm transition-all"
+                                                title="Expulser immédiatement">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                         d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
                                                     </path>
                                                 </svg>
                                             </button>
-
-                                            <form x-show="confirming" x-transition method="POST"
-                                                action="{{ route('admin.colocations.kick', [$colocation->id, $member->id]) }}"
-                                                class="flex items-center gap-2 bg-red-50 p-1 rounded-xl border border-red-100">
-                                                @csrf
-                                                @method('DELETE')
-
-                                                <input type="text" name="reason" placeholder="Motif..." required
-                                                    class="text-[10px] px-2 py-1 border-none focus:ring-0 bg-transparent w-24 font-medium"
-                                                    @keydown.escape="confirming = false">
-
-                                                <button type="submit"
-                                                    class="bg-red-600 text-white text-[10px] px-2 py-1 rounded-lg font-bold">
-                                                    Kick
-                                                </button>
-
-                                                <button type="button" @click="confirming = false"
-                                                    class="text-gray-400 hover:text-gray-600 px-1">
-                                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                            d="M6 18L18 6M6 6l12 12"></path>
-                                                    </svg>
-                                                </button>
-                                            </form>
-                                        </div>
+                                        </form>
                                     @endif
-
                                 </li>
                             @endforeach
                         </ul>

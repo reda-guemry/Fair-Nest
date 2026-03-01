@@ -127,6 +127,22 @@ class ColocationService
         return $this -> colocationRepository -> saveCategory($colocation , $categoryName) ;
 
     }
+    
 
+
+    public function kickMember($colocationId , $memberId)
+    {
+        // dd($this ->colocationUserRepository->findByColocationAndUser($colocationId , $memberId)) ;
+        $colocationUser = ColocationUserMapper::toDTO($this->colocationUserRepository->findByColocationAndUser($colocationId , $memberId)) ;
+
+        if(!$colocationUser) {
+            return ['status' => 'error' , 'message' => 'Membre non trouvé dans cette colocation'] ;
+        }
+
+        $colocationUser->status = 'kicked' ;
+        $colocationUser->left_at = now()->toDateString() ;
+
+        $this -> colocationUserRepository -> save(ColocationUserMapper::toModel($colocationUser)) ;
+    }
 
 }

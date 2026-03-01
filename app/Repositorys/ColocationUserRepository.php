@@ -21,5 +21,12 @@ class ColocationUserRepository
         $colocationUser->save() ; 
         return $colocationUser ; 
     }
+
+    public function findByColocationAndUser($colocationId , $userId)
+    {
+        return ColocationUser::where('colocation_id' , $colocationId)->where('user_id' , $userId)->first() ;
+    }
+
+
     
 }
