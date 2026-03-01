@@ -35,4 +35,15 @@ class UserService
         return $users ;
     }
 
+    public function banUser($userId , $reason = null)
+    {
+        $this -> userRepository -> banUser($userId , $reason) ;
+        
+    }
+
+    public function unbanUser($userId)
+    {
+        $this->userRepository->unbanUser($userId);
+    }
+
 }

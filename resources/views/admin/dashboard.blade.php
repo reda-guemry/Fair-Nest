@@ -99,8 +99,9 @@
                                             class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
 
                                             @if($user->isBanned)
-                                                <form method="POST" action="{{ route('admin.users.unban', $user->userId) }}">
+                                                <form method="POST" action="{{ route('admin.users.unban') }}">
                                                     @csrf @method('PATCH')
+                                                    <input type="hidden" name="user_id" value="{{ $user->userId }}">
                                                     <button type="submit"
                                                         class="w-8 h-8 rounded-full bg-white border border-green-200 flex items-center justify-center text-green-500 hover:bg-green-500 hover:text-white shadow-sm transition-all"
                                                         title="Débannir">
@@ -128,12 +129,13 @@
                                                     </button>
 
                                                     <form x-show="confirming" x-transition method="POST"
-                                                        action="{{ route('admin.users.ban', $user->userId) }}"
+                                                        action="{{ route('admin.users.ban') }}"
                                                         class="flex items-center gap-2 bg-gray-50 p-1 rounded-xl border border-orange-200 shadow-inner">
                                                         @csrf
                                                         @method('PATCH')
 
-                                                        <input type="text" name="ban_reason" required
+                                                        <input type="hidden" name="user_id" value="{{ $user->userId }}">
+                                                        <input type="text" name="ban_reason"
                                                             placeholder="Raison du ban..."
                                                             class="text-[10px] px-2 py-1 border-none focus:ring-0 bg-transparent w-32 font-medium"
                                                             @keydown.escape="confirming = false">
@@ -191,4 +193,48 @@
             </div>
         </div>
     </div>
+
+    <div class="fixed top-5 right-5 z-[100] space-y-3 w-full max-w-sm">
+            @if(session('success'))
+                <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)"
+                    x-transition.duration.500ms
+                    class="flex items-center gap-4 p-5 bg-green-50 border border-green-100 rounded-[2rem] shadow-sm">
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center shrink-0">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="text-md font-bold text-green-800">C'est fait !</h4>
+                        <p class="text-sm text-green-600">{{ session('success') }}</p>
+                    </div>
+                </div>
+            @endif
+
+            @if($errors->any() || session('error'))
+                <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)"
+                    x-transition.duration.500ms
+                    class="flex items-center gap-4 p-5 bg-red-50 border border-red-100 rounded-[2rem] shadow-sm">
+                    <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center shrink-0">
+                        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-md font-bold text-red-800">Attention</h4>
+                        <ul class="text-sm text-red-600 list-disc list-inside">
+                            @if(session('error'))
+                                <li>{{ session('error') }}</li>
+                            @endif
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            @endif
+        </div>
+
 </x-admin>

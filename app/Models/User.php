@@ -61,6 +61,8 @@ class User extends Authenticatable
         return $this -> activeColocation() -> doesntExist() ; 
     }
 
+
+
     public function isOwner($colocationId = null)
     {
         $coloc = $this->activeColocation()->where('colocation_id', $colocationId)->first(); ;

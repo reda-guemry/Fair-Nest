@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BanRequest;
+use App\Http\Requests\UnBanRequest;
 use App\Services\CategorieService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -23,11 +25,18 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('users')) ;
     }
 
-    public function banUser($userId)
+    public function banUser(BanRequest $request)
     {
-        $this->userService->banUser($userId);
+        $this -> userService -> banUser($request->input('user_id') , $request->input('ban_reason')) ;
 
         return redirect()->route('dashboard.admin')->with('success', 'Utilisateur banni avec succès');
+    }
+
+    public function unbanUser(UnBanRequest $request)
+    {
+        $this -> userService -> unbanUser($request->input('user_id')) ;
+
+        return redirect()->route('dashboard.admin')->with('success', 'Utilisateur débanni avec succès');
     }
 
 }

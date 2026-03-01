@@ -18,8 +18,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard/admin', [AdminController::class, 'index'])->name('dashboard.admin');
     Route::get('/dashboard/categories', [AdminController::class, 'categoriesShow'])->name('admin.categories');
 
-    Route::patch('/admin/dashboard/users/{user}/ban', [AdminController::class, 'banUser'])->name('admin.users.ban');
-    Route::patch('/admin/dashboard/users/{user}/unban', [AdminController::class, 'unbanUser'])->name('admin.users.unban');
+    Route::patch('/admin/dashboard/users/ban', [AdminController::class, 'banUser'])->name('admin.users.ban');
+    Route::patch('/admin/dashboard/users/unban', [AdminController::class, 'unbanUser'])->name('admin.users.unban');
 });
 
 Route::middleware('auth')->group(function () {
