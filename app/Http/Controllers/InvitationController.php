@@ -24,13 +24,13 @@ class InvitationController extends Controller
             return redirect()->route('dashboard')->with('error', 'Token d\'invitation manquant.');
         }
 
-        $invitation = $this->invitationService->processInvitation($token);
+        $reponse = $this->invitationService->processInvitation($token);
 
-        if (!$invitation) {
-            return redirect()->route('dashboard')->with('error', "Invitations dont exist");
+        if (!$reponse['status']) {
+            return redirect()->route('dashboard')->with('error', $reponse['message']);
         }
 
-        // dd($invitation) ; 
+        $invitation = $reponse['data'];
 
         return View('invitation.decide', compact('invitation'));
     }
