@@ -24,4 +24,15 @@ class UserService
         return UserMapper::toDTO($this->userRepository->findById($id)) ;
     }
 
+    public function AllUsersPagenated()
+    {
+        $users =  $this->userRepository->paginated() ;
+
+        // dd($users) ;
+
+        $users->getCollection()->transform(fn($user) => UserMapper::toDTO($user)) ;
+        
+        return $users ;
+    }
+
 }

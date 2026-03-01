@@ -18,7 +18,8 @@ class UserMapper
             reputation: $user->reputation,
             isBanned: $user->is_banned , 
             profilePhoto: $user->profile_photo ,
-            colocations: $user->colocations ? $user->colocations->map(function($colocation) {
+            createdAt: $user->created_at ? $user->created_at->toDateTimeString() : null ,
+            colocations: $user->relationLoaded('colocations') ? $user->colocations->map(function($colocation) {
                 return ColocationMapper::toDTOFromUser($colocation);
             })->toArray() : null
         );

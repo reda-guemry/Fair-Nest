@@ -32,6 +32,11 @@ class UserRepository
                     ->get();
     }
 
+    public function paginated()
+    {
+        return User::paginate(10) ;
+    }
+
 
 
 }

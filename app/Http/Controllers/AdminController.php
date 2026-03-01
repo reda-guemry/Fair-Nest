@@ -10,23 +10,24 @@ class AdminController extends Controller
 {
     public function __construct(
         private CategorieService $categorieService , 
-        private UserService $adminService
+        private UserService $userService
     ) {}
 
     public function index() 
     {
 
-        
+        $users = $this -> userService -> AllUsersPagenated() ;
 
-        return view('admin.dashboard') ;
+        // dd($users) ;
+
+        return view('admin.dashboard', compact('users')) ;
     }
 
-
-    public function categoriesShow() 
+    public function banUser($userId)
     {
-        $categories = $this->categorieService->getAllCategories() ;
+        $this->userService->banUser($userId);
 
-        return view('admin.categorie', compact('categories')) ;
+        return redirect()->route('dashboard.admin')->with('success', 'Utilisateur banni avec succès');
     }
 
 }

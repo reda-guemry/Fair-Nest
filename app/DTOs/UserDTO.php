@@ -17,5 +17,6 @@ class UserDTO
         public ?array $debts = null , 
         public ?array $credits = null ,
         public ?string $profilePhoto = null , 
+        public ?string $createdAt = null
     ) {}
 }
