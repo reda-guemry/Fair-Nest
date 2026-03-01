@@ -7,6 +7,7 @@ use App\Http\Requests\KickRequest;
 use App\Services\CategorieService;
 use App\Services\ColocationService;
 use App\Services\SettlementService;
+use Auth;
 use Illuminate\Http\Request;
 
 class ColocationController extends Controller
@@ -54,9 +55,10 @@ class ColocationController extends Controller
 
     public function kick(KickRequest $request)
     {
-        $this -> colocationService -> kickMember($request->validated()['colocation_id'] , $request->validated()['member_id']) ;
+        // $return = $this -> colocationService -> kickMember($request->validated()['colocation_id'] , $request->validated()['member_id'] , Auth::user()) ;
 
-        return redirect()->route('colocation.settings' , $request->validated()['colocation_id'])->with('success' , 'Membre expulsé avec succès') ;
+        // return redirect() -> back() -> with($return['status'] ? 'success' : 'error' , $return['message'] ) ;
+        
     }
 
 }

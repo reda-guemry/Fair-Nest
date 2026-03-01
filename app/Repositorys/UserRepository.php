@@ -14,6 +14,11 @@ class UserRepository
         //
     }
 
+    public function save(User $user) 
+    {
+        return $user->save() ;
+    }
+
     public function findByID($userId)
     {
         return User::find($userId);

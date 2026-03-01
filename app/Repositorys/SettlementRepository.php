@@ -48,6 +48,17 @@ class SettlementRepository
         ->update(['status' => true]);
     }
 
+    public function transferDebts($userId , $userTranferId )
+    {
+        return Settlement::where('debtor_id' , $userId)
+                        -> update(['debtor_id' => $userTranferId]) ;
+    }
+
+    public function transferCreditors($userId , $userTransferId)
+    {
+        return Settlement::where('creditor_id' , $userId)
+        ->update(['creditor_id' => $userTransferId]);
+    }
 
 
 

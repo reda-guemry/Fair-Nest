@@ -24,6 +24,7 @@ class ColocationService
         private ColocationRepository $colocationRepository,
         private ColocationUserRepository $colocationUserRepository,
         private UserRepository $userRepository,
+        private SettlementService $settlementService , 
     ) {
     }
 
@@ -101,6 +102,13 @@ class ColocationService
         return UserMapper::toDTO($userCol);
     }
 
+    public function getUserFromColocationUser($colocationUser) 
+    {
+        $model = ColocationMapper::toModel($colocationUser) ;
+        return $model -> user ; 
+
+    }
+
     public function addMemberToColocation($colocationId , $userId)
     {
         // dd($colocationId , $userId) ;
@@ -130,19 +138,38 @@ class ColocationService
     
 
 
-    public function kickMember($colocationId , $memberId)
+    public function kickMember($colocationId , $memberId , $owner)
     {
+        if($owner->isOwner($colocationId))
+        {
+            return ['status' => false , 'message' => 'only owner can kick'] ;
+        }
         // dd($this ->colocationUserRepository->findByColocationAndUser($colocationId , $memberId)) ;
+
         $colocationUser = ColocationUserMapper::toDTO($this->colocationUserRepository->findByColocationAndUser($colocationId , $memberId)) ;
+        $user = $this ->getUserFromColocationUser($colocationId) ; 
 
         if(!$colocationUser) {
-            return ['status' => 'error' , 'message' => 'Membre non trouvé dans cette colocation'] ;
+            return ['status' => false , 'message' => 'Membre non trouvé dans cette colocation'] ;
         }
 
-        $colocationUser->status = 'kicked' ;
-        $colocationUser->left_at = now()->toDateString() ;
+        DB::transaction(function() use ($colocationUser , $owner , $user) {
+            
+            $this -> settlementService -> transferDebts($colocationUser , $owner ) ;
+    
+            $colocationUser->status = 'kicked' ;
+            $colocationUser->left_at = now()->toDateString() ;
 
-        $this -> colocationUserRepository -> save(ColocationUserMapper::toModel($colocationUser)) ;
+            $user -> reputation += 1 ; 
+
+            $this -> userRepository -> save($user) ; 
+
+            $this -> colocationUserRepository -> save(ColocationUserMapper::toModel($colocationUser)) ;
+
+        }) ; 
+
+        return ['status' => true , 'message' => 'Membre expulsé avec succès'  ] ;
+ 
     }
 
 }
