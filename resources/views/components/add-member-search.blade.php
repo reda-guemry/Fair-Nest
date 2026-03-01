@@ -56,7 +56,7 @@ new class extends Component {
                 </div>
             </div>
 
-            <form action="{{ route('invitation.store') }}" method="POST" >
+            <form action="{{ route('invitation.store' , $colocationId) }}" method="POST" >
                 @csrf
 
                 <input type="hidden" name="user_id" value="{{ $user->userId }}">

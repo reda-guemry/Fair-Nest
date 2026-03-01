@@ -15,11 +15,11 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/dashboard/admin', [AdminController::class, 'index'])->name('dashboard.admin');
-    Route::get('/dashboard/categories', [AdminController::class, 'categoriesShow'])->name('admin.categories');
 
+    Route::get('/dashboard/admin', [AdminController::class, 'index'])->name('dashboard.admin');
     Route::patch('/admin/dashboard/users/ban', [AdminController::class, 'banUser'])->name('admin.users.ban');
     Route::patch('/admin/dashboard/users/unban', [AdminController::class, 'unbanUser'])->name('admin.users.unban');
+    
 });
 
 Route::middleware('auth')->group(function () {
@@ -32,11 +32,14 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
     Route::post('/create/colocation', [ColocationController::class, 'store'])->name('create.colocation');
-    Route::get('/colocation/{colocation}', [ColocationController::class, 'show'])->name('colocation.show');
-    Route::post('/invitation/store', [InvitationController::class, 'store'])->name('invitation.store');
+
     Route::post('/expenses/store', [ExpenseController::class, 'store'])->name('expenses.store');
 
 
+});
+
+Route::middleware(['auth' , 'colocation.mamber'])->group(function () {
+    Route::get('/colocation/{colocation}', [ColocationController::class, 'show'])->name('colocation.show');
 });
 
 Route::middleware('auth')->group(function () {
@@ -52,7 +55,7 @@ Route::middleware(['auth', 'colocation.owner'])->group(function () {
     Route::get('/colocation/{colocation}/settings', [ColocationController::class, 'setting'])->name('colocation.settings');
     Route::post('/colocation/{colocation}/settings', [CategorieController::class, 'store'])->name('colocation.categories.store');
     Route::post('/colocation/{colocation}/categories/{category}/modifier', [CategorieController::class, 'modifier'])->name('colocation.categories.update');
-    
+    Route::post('/colocation/{colocation}/invitation/store', [InvitationController::class, 'store'])->name('invitation.store');
     Route::post('/colocation/{colocation}/kick/{member}', [ColocationController::class, 'kick'])->name('colocations.kick');
 });
 

@@ -26,7 +26,7 @@ class UserRepository
 
     public function getUserWithColocations($userId)
     {
-        return User::with('colocations')->find($userId);
+        return User::with(['colocations' => fn($query) => $query->wherePivot('status' , 'active')  ])->find($userId);
     }
 
     public function search($query)

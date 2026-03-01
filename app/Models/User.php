@@ -72,7 +72,7 @@ class User extends Authenticatable
 
     public function isMember($colocationId = null)
     {
-        $coloc = $this->activeColocation()->where('colocation_id' , $colocationId);
+        $coloc = $this->activeColocation()->where('colocation_id' , $colocationId)->first() ;
         return $coloc ;
     }
 
