@@ -13,7 +13,8 @@ class InvitationController extends Controller
 
     public function __construct(
         private InvitationService $invitationService
-    ) {
+        )
+    {
     }
 
     public function process(Request $request)
@@ -26,13 +27,15 @@ class InvitationController extends Controller
 
         $reponse = $this->invitationService->processInvitation($token);
 
-        if (!$reponse['status']) {
-            return redirect()->route('dashboard')->with('error', $reponse['message']);
+
+        if (!$invitation['status']) {
+            return redirect()->route('dashboard')->with('error', $invitation['message']);
         }
 
-        $invitation = $reponse['data'];
+        $invitation = $invitation['invitation'];
 
         return View('invitation.decide', compact('invitation'));
+
     }
 
 

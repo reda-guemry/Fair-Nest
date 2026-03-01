@@ -88,11 +88,12 @@ class InvitationService
         if (!$user->is_global_admin) {
             if (!$user->isFree()) {
                 // dd('slm') ;
-                return ['status' => false, 'message' => 'You have an active Colocation'];
+
+                return ['status' => false, 'message' => 'You are in Colocation'];
             }
         }
 
-        return ['status' => true, 'message' => 'Invitation is valid', 'data' => $invitation];
+        return ['status' => true, 'message' => 'Invitation is valid', 'invitation' => $invitation];
 
     }
 
