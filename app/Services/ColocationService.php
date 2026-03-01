@@ -88,7 +88,9 @@ class ColocationService
     {
         $colocation = $this->colocationRepository->getColocationWithMembers($colocationId);
 
-        // dd($colocation) ;
+        // dd($colocation) ; 
+
+        $colocation -> members = $colocation->members->filter(fn($member) => $member->pivot->status == 'active')  ;
 
         return ColocationMapper::toDTO($colocation);
     }
@@ -102,10 +104,9 @@ class ColocationService
         return UserMapper::toDTO($userCol);
     }
 
-    public function getUserFromColocationUser($colocationUser) 
+    public function getUserFromColocationUser($colocationUserId) 
     {
-        $model = ColocationMapper::toModel($colocationUser) ;
-        return $model -> user ; 
+        return $this -> userRepository -> findByID($colocationUserId) ;
 
     }
 
@@ -140,14 +141,14 @@ class ColocationService
 
     public function kickMember($colocationId , $memberId , $owner)
     {
-        if($owner->isOwner($colocationId))
+        if(!$owner->isOwner($colocationId))
         {
             return ['status' => false , 'message' => 'only owner can kick'] ;
         }
         // dd($this ->colocationUserRepository->findByColocationAndUser($colocationId , $memberId)) ;
 
         $colocationUser = ColocationUserMapper::toDTO($this->colocationUserRepository->findByColocationAndUser($colocationId , $memberId)) ;
-        $user = $this ->getUserFromColocationUser($colocationId) ; 
+        $user = $this ->getUserFromColocationUser($colocationUser->userId) ; 
 
         if(!$colocationUser) {
             return ['status' => false , 'message' => 'Membre non trouvé dans cette colocation'] ;

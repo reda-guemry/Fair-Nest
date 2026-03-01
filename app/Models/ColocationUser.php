@@ -37,4 +37,5 @@ class ColocationUser extends Pivot
         return $this -> belongsTo(Colocation::class) ;
     }
 
+    
 }

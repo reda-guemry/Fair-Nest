@@ -55,9 +55,9 @@ class ColocationController extends Controller
 
     public function kick(KickRequest $request)
     {
-        // $return = $this -> colocationService -> kickMember($request->validated()['colocation_id'] , $request->validated()['member_id'] , Auth::user()) ;
+        $return = $this -> colocationService -> kickMember($request->validated()['colocation_id'] , $request->validated()['member_id'] , Auth::user()) ;
 
-        // return redirect() -> back() -> with($return['status'] ? 'success' : 'error' , $return['message'] ) ;
+        return redirect() -> back() -> with($return['status'] ? 'success' : 'error' , $return['message'] ) ;
         
     }
 
