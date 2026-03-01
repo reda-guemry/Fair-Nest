@@ -53,7 +53,7 @@ class User extends Authenticatable
 
     public function activeColocation() 
     {
-        return $this ->colocations()->wherePivot('status' , 'active') ;
+        return $this ->colocations()->wherePivot('status' , 'active');
     }
 
     public function isFree() 
@@ -70,10 +70,10 @@ class User extends Authenticatable
         return $coloc && $coloc->pivot->role === 'owner';
     }
 
-    public function isMember()
+    public function isMember($colocationId = null)
     {
-        $coloc = $this->activeColocation();
-        return $coloc && $coloc->pivot->role === 'member';
+        $coloc = $this->activeColocation()->where('colocation_id' , $colocationId);
+        return $coloc ;
     }
 
     public function sharedExpenses()
