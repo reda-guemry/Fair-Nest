@@ -36,6 +36,7 @@ class ColocationUserMapper
             leftAt: $user->pivot->left_at,
             status: $user->pivot->status , 
             profilePhoto: $user->profile_photo ,
+            reputation: $user->reputation
         );
     }
 

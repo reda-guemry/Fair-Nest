@@ -143,7 +143,7 @@ class ColocationService
     }
 
     public function kickMember($colocationId, $memberId, $owner)
-    {
+    {   
         if (!$owner->isOwner($colocationId)) {
             return ['status' => false, 'message' => 'only owner can kick'];
         }
@@ -195,6 +195,18 @@ class ColocationService
         }
 
         $colocationUser = ColocationUserMapper::toDTO($this->colocationUserRepository->findByColocationAndUser($colocationId, $userId));
+
+        $colocation = ColocationMapper::toDTO($this -> colocationRepository -> getColocationMembers($colocationId)); 
+
+        $userSold = $this -> settlementService ->  MonSoldeOncolocation($userId , $colocation->membership )  ; 
+
+        // dd($userSold) ;
+
+        if($userSold < 0 )  {
+            $this -> userRepository-> decrementReputationById($userId) ; 
+        }else{
+            $this -> userRepository ->incrementReputationById($userId) ; 
+        }
 
         if (!$colocationUser) {
             return ['status' => false, 'message' => 'Member not found'];

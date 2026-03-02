@@ -14,9 +14,9 @@ class UserRepository
         //
     }
 
-    public function save(User $user) 
+    public function save(User $user)
     {
-        return $user->save() ;
+        return $user->save();
     }
 
     public function findByID($userId)
@@ -26,12 +26,12 @@ class UserRepository
 
     public function getUserWithColocations($userId)
     {
-        return User::with(['colocations' => fn($query) => $query->wherePivot('status' , 'active')  ])->find($userId);
+        return User::with(['colocations' => fn($query) => $query->wherePivot('status', 'active')])->find($userId);
     }
 
     public function getUserWithColocationUser($userId)
     {
-        return User::with(['colocations.members' => fn($query) => $query->wherePivot('status' , 'active')])->find($userId);
+        return User::with(['colocations.members' => fn($query) => $query->wherePivot('status', 'active')])->find($userId);
     }
 
     public function search($query)
@@ -49,12 +49,28 @@ class UserRepository
 
     public function banUser($userId, $reason = null)
     {
-        return User::where('id', $userId)->update(['is_banned' => true,'reason' => $reason]);
+        return User::where('id', $userId)->update(['is_banned' => true, 'reason' => $reason]);
     }
 
     public function unbanUser($userId)
     {
-        return User::where('id', $userId)->update(['is_banned' => false,'reason' => null]);
+        return User::where('id', $userId)->update(['is_banned' => false, 'reason' => null]);
+    }
+
+    public function incrementReputationById($userId)
+    {
+        // dd($userId) ;
+
+        return User::where('id', $userId)
+            ->increment('reputation', 1);
+    }
+
+    public function decrementReputationById($userId)
+    {
+        // dd($userId) ;
+        
+        return User::where('id', $userId)
+            ->decrement('reputation', 1);
     }
 
 }
