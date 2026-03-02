@@ -26,7 +26,7 @@ class ColocationRepository
 
     public function getColocationMembers($colocationId)
     {
-        return ColocationMapper::toDTO(Colocation::with('members')->find($colocationId));
+        return Colocation::with('members')->find($colocationId);
     }
 
     public function findById($id)

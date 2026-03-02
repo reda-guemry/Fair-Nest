@@ -219,8 +219,8 @@ class ColocationService
     public function transferOwnership($colocationId , $newOwnerId , $oldOwnerId)
     {
         return DB::transaction(function () use ($colocationId, $newOwnerId , $oldOwnerId) {
-            $oldColocationOwner = $this -> colocationUserRepository -> findByColocationIdAndUserId($colocationId , $oldOwnerId) ;
-            $newColocationOwner = $this -> colocationUserRepository -> findByColocationIdAndUserId($colocationId , $newOwnerId) ;
+            $oldColocationOwner = $this -> colocationUserRepository -> findByColocationAndUser($colocationId , $oldOwnerId) ;
+            $newColocationOwner = $this -> colocationUserRepository -> findByColocationAndUser($colocationId , $newOwnerId) ;
 
             $oldColocationOwner->role = 'member' ;
             $newColocationOwner->role = 'owner' ;
@@ -230,6 +230,12 @@ class ColocationService
             
             return true;
         });
+    }
+
+
+    public function getColocationMembers($colocationId)
+    {
+        return ColocationMapper::toDTO($this -> colocationRepository -> getColocationMembers($colocationId) ) ;
     }
 
 }

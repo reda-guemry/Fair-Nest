@@ -15,7 +15,8 @@ class AdminController extends Controller
 {
     public function __construct(
         private UserService $userService,
-        public ColocationService $colocationService
+        private ColocationService $colocationService , 
+
         )
     {
     }
@@ -51,7 +52,7 @@ class AdminController extends Controller
 
     public function colocationUsers($colocationId)
     {
-        $colocation = $this->colocationRepository->getColocationMembers($colocationId);
+        $colocation = $this->colocationService->getColocationMembers($colocationId);
 
         // dd($colocation) ;
 
