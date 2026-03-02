@@ -281,49 +281,62 @@
                             </div>
                         @endif
 
-                       <ul class="space-y-3">
-    @foreach ($colocation->membership as $member)
-        <li class="flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-sm">
-                    {{ substr($member->name, 0, 1) }}
-                </div>
+                        <ul class="space-y-4">
+                            @foreach ($colocation->membership as $member)
+                                <li class="flex items-center justify-between group">
+                                    <div class="flex items-center gap-3">
+                                        <div class="relative shrink-0">
+                                            <img src="{{ asset('storage/profiles/' . $member->profilePhoto) }}"
+                                                alt="{{ $member->name }}"
+                                                class="w-11 h-11 rounded-full object-cover border-2 border-white shadow-sm ring-1 ring-gray-100">
 
-                <div>
-                    <p class="text-sm font-bold text-[#1A1A1A]">{{ $member->name }}</p>
-                    <div class="flex items-center gap-2">
-                        <p class="text-xs text-gray-400 font-semibold">{{ $member->role }}</p>
-                        
-                        <span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-orange-50 text-orange-600 text-[10px] font-bold rounded-md border border-orange-100">
-                            <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                            {{ $member->reputation ?? 0 }}
-                        </span>
-                    </div>
-                </div>
-            </div>
 
-            @if(auth()->user()->isOwner($colocation->id) && $member->userId != auth()->id())
-                <form method="POST" action="{{ route('colocations.kick', [$colocation->id, $member->userId]) }}">
-                    @csrf
-                    <input type="hidden" name="colocation_id" value="{{ $colocation->id }}">
-                    <input type="hidden" name="member_id" value="{{ $member->userId }}">
+                                            <span
+                                                class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-white rounded-full"></span>
+                                        </div>
 
-                    <button type="submit"
-                        class="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-400 hover:text-red-600 hover:border-red-200 hover:bg-red-50 shadow-sm transition-all"
-                        title="Expulser immédiatement">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
-                            </path>
-                        </svg>
-                    </button>
-                </form>
-            @endif
-        </li>
-    @endforeach
-</ul>
+                                        <div>
+                                            <p class="text-sm font-bold text-[#1A1A1A] leading-tight">{{ $member->name }}
+                                            </p>
+                                            <div class="flex items-center gap-2 mt-0.5">
+                                                <p class="text-[11px] text-gray-400 font-bold uppercase tracking-wide">
+                                                    {{ $member->role }}
+                                                </p>
+
+                                                <span
+                                                    class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-orange-50 text-orange-600 text-[10px] font-black rounded-md border border-orange-100 shadow-sm">
+                                                    <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                                    </svg>
+                                                    {{ $member->reputation ?? 0 }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @if(auth()->user()->isOwner($colocation->id) && $member->userId != auth()->id())
+                                        <form method="POST"
+                                            action="{{ route('colocations.kick', [$colocation->id, $member->userId]) }}"
+                                            class="opacity-0 group-hover:opacity-100 transition-opacity">
+                                            @csrf
+                                            <input type="hidden" name="colocation_id" value="{{ $colocation->id }}">
+                                            <input type="hidden" name="member_id" value="{{ $member->userId }}">
+
+                                            <button type="submit"
+                                                class="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-400 hover:text-red-600 hover:border-red-200 hover:bg-red-50 shadow-sm transition-all"
+                                                title="Expulser">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                                                    </path>
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    @endif
+                                </li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
             </div>
