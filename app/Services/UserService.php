@@ -37,7 +37,21 @@ class UserService
 
     public function banUser($userId , $reason = null)
     {
+        $userColocation = $this -> userRepository -> getUserWithColocationUser($userId) ;
+
+        // dd($userColocation) ;
+
+        foreach($userColocation->colocations as $colocation)
+        {
+            if($colocation->pivot->role == 'owner')
+            {
+                return ['status' => false , 'message' => 'Vous ne pouvez pas bannir un propriétaire' , 'colocationId' => $colocation->id] ;
+            }
+        }
+
         $this -> userRepository -> banUser($userId , $reason) ;
+
+        return ['status' => true , 'message' => 'Utilisateur banni avec succès'] ;
         
     }
 

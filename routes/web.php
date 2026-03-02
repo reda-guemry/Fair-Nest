@@ -19,6 +19,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard/admin', [AdminController::class, 'index'])->name('dashboard.admin');
     Route::patch('/admin/dashboard/users/ban', [AdminController::class, 'banUser'])->name('admin.users.ban');
     Route::patch('/admin/dashboard/users/unban', [AdminController::class, 'unbanUser'])->name('admin.users.unban');
+    Route::get('/admin/dashboard/transferownership/{colocation}', [AdminController::class, 'colocationUsers'])->name('transfer.ownership');
+    Route::patch('/admin/dashboard/transferownership/{colocation}', [AdminController::class, 'transferOwnership'])->name('colocation.transfer-ownership');
     
 });
 

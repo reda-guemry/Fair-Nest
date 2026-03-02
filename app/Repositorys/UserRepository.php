@@ -29,6 +29,11 @@ class UserRepository
         return User::with(['colocations' => fn($query) => $query->wherePivot('status' , 'active')  ])->find($userId);
     }
 
+    public function getUserWithColocationUser($userId)
+    {
+        return User::with(['colocations.members' => fn($query) => $query->wherePivot('status' , 'active')])->find($userId);
+    }
+
     public function search($query)
     {
         return User::whereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ["%{$query}%"])

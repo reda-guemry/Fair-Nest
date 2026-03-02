@@ -91,7 +91,7 @@ class ColocationService
 
     public function getColocationDetails($colocationId)
     {
-        $colocation = $this->colocationRepository->getColocationWithMembers($colocationId);
+        $colocation = $this->colocationRepository->getColocationWithDeatils($colocationId);
 
         // dd($colocation) ; 
 
@@ -214,6 +214,22 @@ class ColocationService
         }
         $this ->colocationRepository->delete($colocationId);
         return ['status' => true, 'message' => 'colocation deleted'];
+    }
+
+    public function transferOwnership($colocationId , $newOwnerId , $oldOwnerId)
+    {
+        return DB::transaction(function () use ($colocationId, $newOwnerId , $oldOwnerId) {
+            $oldColocationOwner = $this -> colocationUserRepository -> findByColocationIdAndUserId($colocationId , $oldOwnerId) ;
+            $newColocationOwner = $this -> colocationUserRepository -> findByColocationIdAndUserId($colocationId , $newOwnerId) ;
+
+            $oldColocationOwner->role = 'member' ;
+            $newColocationOwner->role = 'owner' ;
+
+            $this -> colocationUserRepository -> save($oldColocationOwner) ;
+            $this -> colocationUserRepository -> save($newColocationOwner) ;
+            
+            return true;
+        });
     }
 
 }

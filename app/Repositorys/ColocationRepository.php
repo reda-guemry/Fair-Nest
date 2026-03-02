@@ -2,6 +2,7 @@
 
 namespace App\Repositorys;
 
+use App\Mappers\ColocationMapper;
 use App\Models\Colocation ;
 
 class ColocationRepository
@@ -10,7 +11,6 @@ class ColocationRepository
      * Create a new class instance.
      */
     public function __construct(
-
     )
     {}
 
@@ -19,9 +19,14 @@ class ColocationRepository
     //     return Colocation::create($data);
     // }
 
-    public function getColocationWithMembers($colocationId)
+    public function getColocationWithDeatils($colocationId)
     {
         return Colocation::with('members' , 'expenses.payer' , 'expenses.category' , 'expenses.participants' ,  'settlements' , 'categories')->find($colocationId);
+    }
+
+    public function getColocationMembers($colocationId)
+    {
+        return ColocationMapper::toDTO(Colocation::with('members')->find($colocationId));
     }
 
     public function findById($id)
@@ -56,5 +61,7 @@ class ColocationRepository
     {
         return Colocation::find($colocationId)->delete();
     }
+
+    
 
 }

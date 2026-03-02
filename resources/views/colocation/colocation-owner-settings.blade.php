@@ -129,9 +129,7 @@
                     </p>
                 </div>
             </div>
-        </div>
-
-        <div
+            <div
             class="bg-white shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] sm:rounded-[2rem] border border-red-100 overflow-hidden mt-12">
             <div class="p-8 border-b border-red-50 flex items-center justify-between bg-red-50/30">
                 <div>
@@ -172,6 +170,10 @@
                 </form>
             </div>
         </div>
+        
+        </div>
+
+        
 
     </div>
 </x-app-layout>

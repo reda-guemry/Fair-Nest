@@ -23,6 +23,8 @@ class ColocationUserRepository
         return $colocationUser ; 
     }
 
+    
+
     public function findByColocationAndUser($colocationId , $userId)
     {
         return ColocationUser::where('colocation_id' , $colocationId)
