@@ -77,4 +77,16 @@ class ColocationController extends Controller
 
     } 
 
+    public function delete($colocation) 
+    {
+        $result = $this -> colocationService -> deletColocation($colocation) ;
+
+        if($result['status']) {
+            return redirect()->route('dashboard') -> with('succes' , $result['message'] ) ;
+        }else {
+            return redirect()->back()->with('error' , $result['message'] );
+        }
+
+    }
+
 }

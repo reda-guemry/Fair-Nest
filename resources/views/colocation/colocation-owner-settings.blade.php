@@ -65,7 +65,7 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         @foreach($colocation->categories as $category)
-                            
+
                             <form action="{{ route('colocation.categories.update', [$colocation->id, $category->id]) }}"
                                 method="POST" x-data="{ editing: false, name: '{{ $category->name }}' }"
                                 class="flex items-center justify-between p-4 rounded-2xl border border-gray-100 bg-white hover:border-orange-200 transition-all group">
@@ -130,5 +130,48 @@
                 </div>
             </div>
         </div>
+
+        <div
+            class="bg-white shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] sm:rounded-[2rem] border border-red-100 overflow-hidden mt-12">
+            <div class="p-8 border-b border-red-50 flex items-center justify-between bg-red-50/30">
+                <div>
+                    <h3 class="text-xl font-bold text-red-600">Zone de Danger</h3>
+                    <p class="text-sm text-red-500/80">Faites attention, ces actions sont irréversibles.</p>
+                </div>
+                <div class="w-12 h-12 bg-red-100 rounded-2xl flex items-center justify-center text-red-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                        </path>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="p-8 flex items-center justify-between gap-6">
+                <div class="max-w-xl">
+                    <h4 class="font-bold text-[#1A1A1A]">Supprimer définitivement la colocation</h4>
+                    <p class="text-sm text-gray-500 mt-1">
+                        Une fois supprimée, toutes les données (dépenses, catégories, membres) seront effacées à jamais.
+                        Il n'y a pas de retour en arrière possible.
+                    </p>
+                </div>
+
+                <form action="{{ route('colocation.destroy', $colocation->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+
+                    <button type="submit"
+                        class="bg-red-600 text-white px-8 py-3 rounded-2xl text-sm font-bold hover:bg-red-700 transition-all shadow-md shadow-red-200 flex items-center gap-2 whitespace-nowrap">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                            </path>
+                        </svg>
+                        Supprimer la colocation
+                    </button>
+                </form>
+            </div>
+        </div>
+
     </div>
 </x-app-layout>

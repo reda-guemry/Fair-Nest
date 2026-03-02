@@ -52,4 +52,9 @@ class ColocationRepository
         return Colocation::find($colocationId)->owner()->first()->id ; 
     }
 
+    public function delete($colocationId)
+    {
+        return Colocation::find($colocationId)->delete();
+    }
+
 }

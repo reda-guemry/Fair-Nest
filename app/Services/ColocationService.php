@@ -206,4 +206,14 @@ class ColocationService
 
     }
 
+    public function deletColocation($colocationId)
+    {
+        if(!Auth::user()->isOwner($colocationId))
+        {
+            return ['status' => false, 'message' => 'only owner can delete'];
+        }
+        $this ->colocationRepository->delete($colocationId);
+        return ['status' => true, 'message' => 'colocation deleted'];
+    }
+
 }
