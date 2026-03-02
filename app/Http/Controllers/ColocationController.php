@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ColocationRequest;
 use App\Http\Requests\KickRequest;
+use App\Http\Requests\LeaveRequest;
 use App\Services\CategorieService;
 use App\Services\ColocationService;
 use App\Services\SettlementService;
@@ -60,5 +61,11 @@ class ColocationController extends Controller
         return redirect() -> back() -> with($return['status'] ? 'success' : 'error' , $return['message'] ) ;
         
     }
+
+    public function leaveColocation(LeaveRequest $request)
+    {  
+        
+
+    } 
 
 }

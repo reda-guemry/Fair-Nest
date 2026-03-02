@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth' , 'colocation.mamber'])->group(function () {
     Route::get('/colocation/{colocation}', [ColocationController::class, 'show'])->name('colocation.show');
+    Route::post('/colocation/{colocation}/leave' , [ColocationController::class , 'leaveColocation'])->name('colocation.leave') ;
 });
 
 Route::middleware('auth')->group(function () {

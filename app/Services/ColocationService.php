@@ -24,7 +24,7 @@ class ColocationService
         private ColocationRepository $colocationRepository,
         private ColocationUserRepository $colocationUserRepository,
         private UserRepository $userRepository,
-        private SettlementService $settlementService , 
+        private SettlementService $settlementService,
     ) {
     }
 
@@ -90,7 +90,7 @@ class ColocationService
 
         // dd($colocation) ; 
 
-        $colocation -> members = $colocation->members->filter(fn($member) => $member->pivot->status == 'active')  ;
+        $colocation->members = $colocation->members->filter(fn($member) => $member->pivot->status == 'active');
 
         return ColocationMapper::toDTO($colocation);
     }
@@ -104,73 +104,75 @@ class ColocationService
         return UserMapper::toDTO($userCol);
     }
 
-    public function getUserFromColocationUser($colocationUserId) 
+    public function getUserFromColocationUser($colocationUserId)
     {
-        return $this -> userRepository -> findByID($colocationUserId) ;
+        return $this->userRepository->findByID($colocationUserId);
 
     }
 
-    public function addMemberToColocation($colocationId , $userId)
+    public function addMemberToColocation($colocationId, $userId)
     {
         // dd($colocationId , $userId) ;
 
         $colcoationUser = new ColocationUserDTO(
-            colocationId: $colocationId , 
-            userId: $userId ,
-            role: 'member' ,
-            status: 'active' ,
+            colocationId: $colocationId,
+            userId: $userId,
+            role: 'member',
+            status: 'active',
             joinedAt: now()->toDateString()
-        ) ;
+        );
 
-        $model = ColocationUserMapper::toModel($colcoationUser) ;
+        $model = ColocationUserMapper::toModel($colcoationUser);
 
-        $this -> colocationUserRepository -> save($model) ;
+        $this->colocationUserRepository->save($model);
 
-
-    } 
-
-    public function addCategoryToColocation($colocationId , $categoryName)
-    {
-        $colocation = $this->colocationRepository->findById($colocationId) ;
-
-        return $this -> colocationRepository -> saveCategory($colocation , $categoryName) ;
 
     }
-    
 
-
-    public function kickMember($colocationId , $memberId , $owner)
+    public function addCategoryToColocation($colocationId, $categoryName)
     {
-        if(!$owner->isOwner($colocationId))
-        {
-            return ['status' => false , 'message' => 'only owner can kick'] ;
+        $colocation = $this->colocationRepository->findById($colocationId);
+
+        return $this->colocationRepository->saveCategory($colocation, $categoryName);
+
+    }
+
+
+
+    public function kickMember($colocationId, $memberId, $owner)
+    {
+        if (!$owner->isOwner($colocationId)) {
+            return ['status' => false, 'message' => 'only owner can kick'];
         }
         // dd($this ->colocationUserRepository->findByColocationAndUser($colocationId , $memberId)) ;
 
-        $colocationUser = ColocationUserMapper::toDTO($this->colocationUserRepository->findByColocationAndUser($colocationId , $memberId)) ;
-        $user = $this ->getUserFromColocationUser($colocationUser->userId) ; 
+        $colocationUser = ColocationUserMapper::toDTO($this->colocationUserRepository->findByColocationAndUser($colocationId, $memberId));
 
-        if(!$colocationUser) {
-            return ['status' => false , 'message' => 'Membre non trouvé dans cette colocation'] ;
+        $user = $this->getUserFromColocationUser($colocationUser->userId);
+
+
+        if (!$colocationUser) {
+            return ['status' => false, 'message' => 'Membre non trouvé dans cette colocation'];
         }
 
-        DB::transaction(function() use ($colocationUser , $owner , $user) {
-            
-            $this -> settlementService -> transferDebts($colocationUser , $owner ) ;
-    
-            $colocationUser->status = 'kicked' ;
-            $colocationUser->left_at = now()->toDateString() ;
+        DB::transaction(function () use ($colocationUser, $owner, $user) {
 
-            $user -> reputation += 1 ; 
+            $this->settlementService->transferDebts($colocationUser, $owner);
 
-            $this -> userRepository -> save($user) ; 
+            $colocationUser->status = 'kicked';
+            $colocationUser->leftAt = now()->toDateString();
 
-            $this -> colocationUserRepository -> save(ColocationUserMapper::toModel($colocationUser)) ;
+            $user->reputation += 1;
+            // dd($colocationUser) ; 
 
-        }) ; 
+            $this->userRepository->save($user);
 
-        return ['status' => true , 'message' => 'Membre expulsé avec succès'  ] ;
- 
+            $this->colocationUserRepository->save(ColocationUserMapper::toModel($colocationUser));
+
+        });
+
+        return ['status' => true, 'message' => 'Membre expulsé avec succès'];
+
     }
 
 }

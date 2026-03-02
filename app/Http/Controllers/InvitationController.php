@@ -25,7 +25,7 @@ class InvitationController extends Controller
             return redirect()->route('dashboard')->with('error', 'Token d\'invitation manquant.');
         }
 
-        $reponse = $this->invitationService->processInvitation($token);
+        $invitation = $this->invitationService->processInvitation($token);
 
 
         if (!$invitation['status']) {
