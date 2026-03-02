@@ -66,7 +66,7 @@ class ColocationService
 
     public function findColocationOwner($colocationId)
     {
-        return $this -> colocationRepository -> findOwnerByColocationId($colocationId) ;
+        return $this->colocationRepository->findOwnerByColocationId($colocationId);
     }
 
     public function CheckUserIsFree()
@@ -142,7 +142,7 @@ class ColocationService
 
     }
 
-    public function kickMember($colocationId, $memberId, $owner) 
+    public function kickMember($colocationId, $memberId, $owner)
     {
         if (!$owner->isOwner($colocationId)) {
             return ['status' => false, 'message' => 'only owner can kick'];
@@ -154,7 +154,7 @@ class ColocationService
             return ['status' => false, 'message' => 'Membre non trouvé dans cette colocation'];
         }
 
-        $this -> processLeaving($colocationUser , $owner , 'kicked') ; 
+        $this->processLeaving($colocationUser, $owner->id, 'kicked');
 
         return ['status' => true, 'message' => 'Membre expulsé avec succès'];
 
@@ -162,19 +162,20 @@ class ColocationService
 
 
 
-    public function processLeaving($colocationUser , $actor , $status )
+    public function processLeaving($colocationUser, $actorId , $status)
     {
 
         $user = $this->getUserFromColocationUser($colocationUser->userId);
 
-        DB::transaction(function () use ($colocationUser, $actor, $user , $status) {
+        DB::transaction(function () use ($colocationUser, $actorId, $user, $status) {
 
-            $this->settlementService->transferDebts($colocationUser, $actor);
+            $this->settlementService->transferDebts($colocationUser, $actorId);
 
-            $colocationUser->status = $status ;
+            $colocationUser->status = $status;
             $colocationUser->leftAt = now()->toDateString();
 
             $user->reputation += 1;
+
             // dd($colocationUser) ; 
 
             $this->userRepository->save($user);
@@ -186,6 +187,23 @@ class ColocationService
 
     }
 
-    public function 
+    public function quitColocation($colocationId, $userId , $ownerId)
+    {
+
+        if (Auth::user()->isOwner($colocationId)) {
+            return ['status' => false, 'message' => 'Owner cannot quit directly'];
+        }
+
+        $colocationUser = ColocationUserMapper::toDTO($this->colocationUserRepository->findByColocationAndUser($colocationId, $userId));
+
+        if (!$colocationUser) {
+            return ['status' => false, 'message' => 'Member not found'];
+        }
+
+        $this->processLeaving($colocationUser, $ownerId , 'left');
+
+        return ['status' => true, 'message' => 'quitter avec succes'];
+
+    }
 
 }

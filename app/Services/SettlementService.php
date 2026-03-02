@@ -101,10 +101,10 @@ class SettlementService
 
 
 
-    public function transferDebts($colocationUser, $owner)
+    public function transferDebts($colocationUser, $ownerId)
     {
-        $this->settlementRepository->transferDebts($colocationUser->userId, $owner->id);
-        $this->settlementRepository->transferCreditors($colocationUser->userId, $owner->id);
+        $this->settlementRepository->transferDebts($colocationUser->userId, $ownerId);
+        $this->settlementRepository->transferCreditors($colocationUser->userId, $ownerId);
 
     }
 

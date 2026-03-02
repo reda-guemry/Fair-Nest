@@ -56,7 +56,7 @@ class ColocationController extends Controller
 
     public function kick(KickRequest $request)
     {
-        
+
         $return = $this -> colocationService -> kickMember($request->validated()['colocation_id'] , $request->validated()['member_id'] , Auth::user()) ;
 
         return redirect() -> back() -> with($return['status'] ? 'success' : 'error' , $return['message'] ) ;
@@ -67,7 +67,13 @@ class ColocationController extends Controller
     {  
         $ownerId = $this -> colocationService ->findColocationOwner($request->validated()['colocation_id']) ;
 
-        $return = $this -> colocationService -> kickMember($request->validated()['colocation_id'] , $request->validated()['user_id'] , $ownerId) ;
+        $return = $this -> colocationService -> quitColocation($request->validated()['colocation_id'] , $request->validated()['user_id'] , $ownerId) ;
+
+        if($return['status']) {
+            return redirect()->route('dashboard') -> with('succes' , $return['message'] ) ;
+        }else {
+            return redirect()->back()->with('error' , $return['message'] );
+        }
 
     } 
 
