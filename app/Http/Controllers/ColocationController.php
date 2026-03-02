@@ -30,7 +30,7 @@ class ColocationController extends Controller
 
         $monSold = $this->settlementService->MonSoldeOncolocation(auth()->id() , $colocation->membership) ;
 
-        dd($colocation) ;
+        // dd($colocation) ;
 
         return view('colocation.colocation', compact('colocation', 'WhoPaysWhos' , 'monSold'));
     }

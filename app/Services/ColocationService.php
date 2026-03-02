@@ -174,7 +174,6 @@ class ColocationService
             $colocationUser->status = $status;
             $colocationUser->leftAt = now()->toDateString();
 
-            $user->reputation += 1;
 
             // dd($colocationUser) ; 
 
@@ -207,6 +206,8 @@ class ColocationService
         }else{
             $this -> userRepository ->incrementReputationById($userId) ; 
         }
+
+        // dd($result) ;
 
         if (!$colocationUser) {
             return ['status' => false, 'message' => 'Member not found'];

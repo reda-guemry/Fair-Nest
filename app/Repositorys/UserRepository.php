@@ -59,18 +59,17 @@ class UserRepository
 
     public function incrementReputationById($userId)
     {
-        // dd($userId) ;
+        // dd($userId);
 
         return User::where('id', $userId)
-            ->increment('reputation', 1);
+            ->increment('reputation');
+
     }
 
     public function decrementReputationById($userId)
     {
-        // dd($userId) ;
-        
         return User::where('id', $userId)
-            ->decrement('reputation', 1);
+            ->decrement('reputation');
     }
 
 }
