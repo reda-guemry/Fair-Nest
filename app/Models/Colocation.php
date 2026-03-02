@@ -44,5 +44,9 @@ class Colocation extends Model
         return $this->hasMany(Settlement::class);
     }
 
+    public function owner()
+    {
+        return $this->members()->wherePivot('role' , 'owner') ; 
+    }
 
 }

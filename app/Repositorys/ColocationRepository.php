@@ -47,4 +47,9 @@ class ColocationRepository
         return $category ;
     }
 
+    public function findOwnerByColocationId($colocationId)
+    {
+        return Colocation::find($colocationId)->owner()->first()->id ; 
+    }
+
 }

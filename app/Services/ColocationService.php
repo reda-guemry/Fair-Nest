@@ -64,6 +64,11 @@ class ColocationService
 
     }
 
+    public function findColocationOwner($colocationId)
+    {
+        return $this -> colocationRepository -> findOwnerByColocationId($colocationId) ;
+    }
+
     public function CheckUserIsFree()
     {
         if (!Auth::user()->is_global_admin) {
@@ -137,29 +142,36 @@ class ColocationService
 
     }
 
-
-
-    public function kickMember($colocationId, $memberId, $owner)
+    public function kickMember($colocationId, $memberId, $owner) 
     {
         if (!$owner->isOwner($colocationId)) {
             return ['status' => false, 'message' => 'only owner can kick'];
         }
-        // dd($this ->colocationUserRepository->findByColocationAndUser($colocationId , $memberId)) ;
 
         $colocationUser = ColocationUserMapper::toDTO($this->colocationUserRepository->findByColocationAndUser($colocationId, $memberId));
-
-        $user = $this->getUserFromColocationUser($colocationUser->userId);
-
 
         if (!$colocationUser) {
             return ['status' => false, 'message' => 'Membre non trouvé dans cette colocation'];
         }
 
-        DB::transaction(function () use ($colocationUser, $owner, $user) {
+        $this -> processLeaving($colocationUser , $owner , 'kicked') ; 
 
-            $this->settlementService->transferDebts($colocationUser, $owner);
+        return ['status' => true, 'message' => 'Membre expulsé avec succès'];
 
-            $colocationUser->status = 'kicked';
+    }
+
+
+
+    public function processLeaving($colocationUser , $actor , $status )
+    {
+
+        $user = $this->getUserFromColocationUser($colocationUser->userId);
+
+        DB::transaction(function () use ($colocationUser, $actor, $user , $status) {
+
+            $this->settlementService->transferDebts($colocationUser, $actor);
+
+            $colocationUser->status = $status ;
             $colocationUser->leftAt = now()->toDateString();
 
             $user->reputation += 1;
@@ -171,8 +183,9 @@ class ColocationService
 
         });
 
-        return ['status' => true, 'message' => 'Membre expulsé avec succès'];
 
     }
+
+    public function 
 
 }
