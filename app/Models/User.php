@@ -82,6 +82,12 @@ class User extends Authenticatable
                     ->withTimestamps();
     }
 
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+
     /**
      * The attributes that should be hidden for serialization.
      *

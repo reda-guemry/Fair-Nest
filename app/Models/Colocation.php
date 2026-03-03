@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Colocation extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
         'description',
@@ -17,14 +18,14 @@ class Colocation extends Model
     public function members()
     {
         return $this->belongsToMany(User::class)
-        ->using(ColocationUser::class)
-        ->withPivot(['id', 'role', 'joined_at', 'left_at', 'status'])
-        ->withTimestamps();
+            ->using(ColocationUser::class)
+            ->withPivot(['id', 'role', 'joined_at', 'left_at', 'status'])
+            ->withTimestamps();
     }
 
     public function categories()
     {
-        return $this->hasMany(Category::class) ;
+        return $this->hasMany(Category::class);
     }
 
     public function expenses()
@@ -32,12 +33,10 @@ class Colocation extends Model
         return $this->hasMany(Expense::class);
     }
 
-
     public function invitations()
     {
         return $this->hasMany(Invitation::class);
     }
-
 
     public function settlements()
     {
@@ -46,7 +45,12 @@ class Colocation extends Model
 
     public function owner()
     {
-        return $this->members()->wherePivot('role' , 'owner') ; 
+        return $this->members()->wherePivot('role', 'owner');
     }
 
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+    
 }
