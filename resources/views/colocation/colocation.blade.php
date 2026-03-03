@@ -122,8 +122,8 @@
                         </svg>
                     </div>
                     <div>
-                        <p class="text-sm font-semibold text-gray-400">Total Maison (Ce mois)</p>
-                        <h4 class="text-2xl font-bold text-[#1A1A1A]">1 450 MAD</h4>
+                        <p class="text-sm font-semibold text-gray-400">Total Maison </p>
+                        <h4 class="text-2xl font-bold text-[#1A1A1A]">{{ $totalSold }} MAD</h4>
                     </div>
                 </div>
 
@@ -137,7 +137,7 @@
                     </div>
                     <div>
                         <p class="text-sm font-semibold text-gray-400">Ma Part Financière</p>
-                        <h4 class="text-2xl font-bold text-[#1A1A1A]">483 MAD</h4>
+                        <h4 class="text-2xl font-bold text-[#1A1A1A]">{{ $userPartSold }} MAD</h4>
                     </div>
                 </div>
 

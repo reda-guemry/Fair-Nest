@@ -49,7 +49,8 @@ class UserRepository
 
     public function banUser($userId, $reason = null)
     {
-        return User::where('id', $userId)->update(['is_banned' => true, 'reason' => $reason]);
+        // dd($reason);
+        return User::where('id', $userId)->update(['is_banned' => true, 'reason' => $reason ?? 'You are banned from using this website.']);
     }
 
     public function unbanUser($userId)

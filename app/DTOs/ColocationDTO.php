@@ -7,8 +7,8 @@ class ColocationDTO
     
     public function __construct(
         public string $name,
-        public ?int $id,
         public ?string $description , 
+        public ?int $id = null ,
         public ?string $status = null ,
         public ?array $membership = [] , 
         public ?array $expenses = [] , 

@@ -7,6 +7,7 @@ use App\Http\Requests\KickRequest;
 use App\Http\Requests\LeaveRequest;
 use App\Services\CategorieService;
 use App\Services\ColocationService;
+use App\Services\ExpenseService;
 use App\Services\SettlementService;
 use Auth;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ class ColocationController extends Controller
         private ColocationService $colocationService , 
         private CategorieService $categorieService  , 
         private SettlementService $settlementService , 
+        private ExpenseService $expenseService , 
     )
     {}
 
@@ -30,9 +32,13 @@ class ColocationController extends Controller
 
         $monSold = $this->settlementService->MonSoldeOncolocation(auth()->id() , $colocation->membership) ;
 
+        $totalSold = $this -> expenseService -> TotalExpensesForColocation($colocation->id) ;
+
+        $userPartSold = $this -> expenseService -> TotalExpensesForUserParticiper($colocation->id , auth()->id()) ;
+
         // dd($colocation) ;
 
-        return view('colocation.colocation', compact('colocation', 'WhoPaysWhos' , 'monSold'));
+        return view('colocation.colocation', compact('colocation', 'WhoPaysWhos' , 'monSold' , 'totalSold' , 'userPartSold'));
     }
     
     public function store(ColocationRequest $request)
