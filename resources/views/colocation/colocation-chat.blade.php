@@ -13,7 +13,8 @@
                     <h2 class="font-extrabold text-2xl text-[#1A1A1A] tracking-tight line-height-1">Discussion d'équipe
                     </h2>
                     <p class="text-xs font-medium text-gray-400">{{ $colocation->name }} •
-                        {{ count($colocation->membership) }} membres</p>
+                        {{ count($colocation->membership) }} membres
+                    </p>
                 </div>
             </div>
 
@@ -35,71 +36,112 @@
         <div x-data="chatHandler()"
             class="bg-white rounded-[2.5rem] shadow-[0_20px_50px_-20px_rgba(0,0,0,0.05)] border border-gray-100 flex flex-col overflow-hidden h-[calc(100vh-200px)]">
 
-            <div class="flex-1 overflow-y-auto p-6 space-y-6 bg-[#FAF9F6]/30" id="chat-window">
-    @foreach($colocation->messages as $message)
-        @php
-            $isMe = $message->userId === auth()->id();
-            $sender = collect($colocation->membership)->firstWhere('id', $message->userId);
-        @endphp
+            <div class="flex-1 overflow-y-auto p-6 space-y-6 bg-[#FAF9F6]/30 custom-scrollbar scroll-smooth"
+                id="chat-window">
+                <div class="flex flex-col gap-4">
+                    @forelse($colocation->messages as $message)
+                                    @php
+                                        $isMe = $message->userId === auth()->id();
+                                        $sender = collect($colocation->membership)->firstWhere('userId', $message->userId);
+                                        $fileUrl = $message->filePath ? asset('storage/attachments/' . $message->filePath) : null;
+                                    @endphp
 
-        <div class="flex items-end gap-3 max-w-[80%] {{ $isMe ? 'ml-auto flex-row-reverse' : '' }}">
-            <img src="{{ $sender && $sender->profilePhoto ? asset('storage/profiles/' . $sender->profilePhoto) : 'https://ui-avatars.com/api/?name=' . ($sender->name ?? 'User') }}" 
-                 class="w-8 h-8 rounded-full shadow-sm mb-1">
+                                    <div class="flex w-full {{ $isMe ? 'justify-end' : 'justify-start' }}">
+                                        <div
+                                            class="flex max-w-[85%] sm:max-w-[75%] {{ $isMe ? 'flex-row-reverse' : 'flex-row' }} items-end gap-3">
 
-            <div class="flex flex-col {{ $isMe ? 'items-end' : '' }}">
-                @if(!$isMe)
-                    <p class="text-[10px] font-bold text-gray-400 ml-1 mb-1 uppercase tracking-widest">
-                        {{ $sender->name ?? 'Membre' }}
-                    </p>
-                @endif
+                                            <img src="{{ asset('storage/profiles/' . ($sender->profilePhoto ?? 'default.png')) }}"
+                                                class="w-8 h-8 rounded-full object-cover border border-gray-100 shadow-sm shrink-0 mb-1">
 
-                <div class="{{ $isMe ? 'bg-[#1A1A1A] text-white' : 'bg-white border border-gray-100 text-gray-700' }} p-4 rounded-[1.5rem] {{ $isMe ? 'rounded-br-none' : 'rounded-bl-none' }} shadow-sm">
-                    
-                    @if($message->type === 'text')
-                        <p class="text-sm leading-relaxed">{{ $message->content }}</p>
-                    @endif
+                                            <div class="flex flex-col {{ $isMe ? 'items-end' : 'items-start' }}">
 
-                    @if($message->type === 'file' && $message->filePath)
-                        @php
-                            $extension = pathinfo($message->filePath, PATHINFO_EXTENSION);
-                            $isImage = in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif', 'webp']);
-                            $isVideo = in_array(strtolower($extension), ['mp4', 'mov', 'ogg']);
-                        @endphp
+                                                @if(!$isMe)
+                                                    <span class="text-[10px] font-bold text-gray-400 ml-1 mb-1 uppercase tracking-tighter">
+                                                        {{ $sender->name ?? 'Membre' }}
+                                                    </span>
+                                                @endif
 
-                        <div class="mt-2">
-                            @if($isImage)
-                                <img src="{{ asset('storage/' . $message->filePath) }}" 
-                                     class="rounded-xl max-w-full h-auto border border-gray-200">
-                            @elseif($isVideo)
-                                <video controls class="rounded-xl max-w-full">
-                                    <source src="{{ asset('storage/' . $message->filePath) }}" type="video/{{ $extension }}">
-                                    Your browser does not support the video tag.
-                                </video>
-                            @else
-                                <a href="{{ asset('storage/' . $message->filePath) }}" target="_blank" 
-                                   class="flex items-center gap-2 p-2 bg-gray-50/10 rounded-lg border border-white/20 hover:bg-white/20 transition-colors">
-                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
-                                    </svg>
-                                    <span class="text-xs font-medium underline">Voir le document ({{ strtoupper($extension) }})</span>
-                                </a>
-                            @endif
+                                                <div class="px-4 py-3 rounded-[1.5rem] shadow-sm text-sm leading-relaxed overflow-hidden
+                                            {{ $isMe
+                        ? 'bg-[#1A1A1A] text-white rounded-br-none'
+                        : 'bg-white text-gray-700 border border-gray-100 rounded-bl-none' }}">
 
-                            @if($message->content)
-                                <p class="text-sm mt-2 opacity-90">{{ $message->content }}</p>
-                            @endif
+                                                    @if($message->content)
+                                                        <p class="{{ $message->filePath ? 'mb-3' : '' }}">
+                                                            {{ $message->content }}
+                                                        </p>
+                                                    @endif
+
+                                                    @if($message->filePath)
+                                                        <div class="mt-1">
+                                                            @if($message->type === 'image')
+                                                                <a href="{{ $fileUrl }}" target="_blank" class="block group relative">
+                                                                    <img src="{{  $fileUrl }}"
+                                                                        class="rounded-xl max-h-64 w-auto object-cover border border-black/10 group-hover:opacity-90 transition-opacity">
+                                                                </a>
+
+                                                            @elseif($message->type === 'video')
+                                                                <video controls class="rounded-xl max-h-64 w-full bg-black">
+                                                                    <source src="{{ $fileUrl }}">
+                                                                    Your browser does not support the video tag.
+                                                                </video>
+
+                                                            @else
+                                                                <a href="{{ $fileUrl }}" download target="_blank"
+                                                                    class="flex items-center gap-3 p-3 rounded-xl transition-all
+                                                                   {{ $isMe ? 'bg-white/10 hover:bg-white/20' : 'bg-gray-50 hover:bg-gray-100 border border-gray-100' }}">
+
+                                                                    <div
+                                                                        class="w-10 h-10 rounded-full flex items-center justify-center shrink-0
+                                                                        {{ $isMe ? 'bg-white/20 text-white' : 'bg-orange-100 text-orange-600' }}">
+                                                                        <svg class="w-5 h-5" fill="none" stroke="currentColor"
+                                                                            viewBox="0 0 24 24">
+                                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                                stroke-width="2"
+                                                                                d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z">
+                                                                            </path>
+                                                                        </svg>
+                                                                    </div>
+
+                                                                    <div class="flex flex-col min-w-0 flex-1">
+                                                                        <span class="text-xs font-bold truncate pr-2">Document</span>
+                                                                        <span class="text-[10px] opacity-70 uppercase font-black">
+                                                                            {{ pathinfo($message->filePath, PATHINFO_EXTENSION) ?: 'FILE' }}
+                                                                        </span>
+                                                                    </div>
+
+                                                                    <svg class="w-5 h-5 opacity-50 shrink-0" fill="none" stroke="currentColor"
+                                                                        viewBox="0 0 24 24">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4">
+                                                                        </path>
+                                                                    </svg>
+                                                                </a>
+                                                            @endif
+                                                        </div>
+                                                    @endif
+                                                </div>
+
+                                                <span class="text-[9px] font-medium text-gray-400 mt-1 px-1">
+                                                    {{ \Carbon\Carbon::parse($message->createdAt)->format('h:i A') }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                    @empty
+                        <div class="flex flex-col items-center justify-center h-full py-20 opacity-40">
+                            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <p class="text-gray-500 font-medium text-sm">Aucun message pour le moment</p>
                         </div>
-                    @endif
+                    @endforelse
                 </div>
-
-                <span class="text-[9px] text-gray-400 mt-1 {{ $isMe ? 'mr-1' : 'ml-1' }}">
-                    {{ \Carbon\Carbon::parse($message->createdAt)->format('H:i A') }}
-                    {{ $isMe ? ' • Lu' : '' }}
-                </span>
             </div>
-        </div>
-    @endforeach
-</div>
 
             <div class="p-4 bg-white border-t border-gray-100">
                 <form action="{{ route('colocation.chat.send', $colocation->id) }}" method="POST"
@@ -129,7 +171,7 @@
                                 </div>
                             </template>
                             <div>
-                                <p class="text-sm font-bold text-orange-800 x-text="fileName"
+                                <p class="text-sm font-bold text-orange-800 x-text=" fileName"
                                     class="truncate max-w-[150px]"></p>
                                 <p class="text-[10px] text-orange-600 uppercase font-black" x-text="fileSize"></p>
                             </div>
@@ -168,8 +210,7 @@
 
                         <button type="submit"
                             class="shrink-0 w-12 h-12 bg-[#1A1A1A] text-white rounded-full flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-lg shadow-black/10">
-                            <svg class="w-5 h-5 translate-x-0.5" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
                             </svg>

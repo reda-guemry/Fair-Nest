@@ -23,6 +23,7 @@ class MessageService
             content : $message,
             colocationId : $colocation_id,
             userId : $user_id,
+            type: 'message' ,
         );
 
         if ($attachment) {
