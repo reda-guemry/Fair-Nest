@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\DTOs\MessageDTO;
 use App\Models\Message;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -20,7 +21,7 @@ class NewMessageSent implements ShouldBroadcastNow
      * Create a new event instance.
      */
     public function __construct(
-        public Message $message
+        public MessageDTO $message
     )
     {}
 
@@ -32,7 +33,7 @@ class NewMessageSent implements ShouldBroadcastNow
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('colocation.' . $this -> message -> colocation_id),
+            new PrivateChannel('colocation.' . $this -> message -> colocationId),
         ];
     }
 
