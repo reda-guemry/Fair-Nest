@@ -14,6 +14,7 @@ class MessageDTO
         public ?string $type = null,
         public ?string $createdAt = null ,
         public ?string $updatedAt = null,
+        public ?UserDTO $userDTO = null , 
     ) {}
 
 }

@@ -62,7 +62,7 @@
                                                 @endif
 
                                                 <div class="px-4 py-3 rounded-[1.5rem] shadow-sm text-sm leading-relaxed overflow-hidden
-                                            {{ $isMe
+                                                            {{ $isMe
                         ? 'bg-[#1A1A1A] text-white rounded-br-none'
                         : 'bg-white text-gray-700 border border-gray-100 rounded-bl-none' }}">
 
@@ -89,11 +89,11 @@
                                                             @else
                                                                 <a href="{{ $fileUrl }}" download target="_blank"
                                                                     class="flex items-center gap-3 p-3 rounded-xl transition-all
-                                                                   {{ $isMe ? 'bg-white/10 hover:bg-white/20' : 'bg-gray-50 hover:bg-gray-100 border border-gray-100' }}">
+                                                                                           {{ $isMe ? 'bg-white/10 hover:bg-white/20' : 'bg-gray-50 hover:bg-gray-100 border border-gray-100' }}">
 
                                                                     <div
                                                                         class="w-10 h-10 rounded-full flex items-center justify-center shrink-0
-                                                                        {{ $isMe ? 'bg-white/20 text-white' : 'bg-orange-100 text-orange-600' }}">
+                                                                                                {{ $isMe ? 'bg-white/20 text-white' : 'bg-orange-100 text-orange-600' }}">
                                                                         <svg class="w-5 h-5" fill="none" stroke="currentColor"
                                                                             viewBox="0 0 24 24">
                                                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -221,6 +221,8 @@
         </div>
     </div>
 
+    <div id="app" data-colocation-id="{{ $colocation->id }}"></div>
+
     <script>
         function chatHandler() {
             return {
@@ -255,5 +257,8 @@
                 }
             }
         }
+
+
+
     </script>
 </x-app-layout>

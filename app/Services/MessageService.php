@@ -2,9 +2,12 @@
 
 namespace App\Services;
 use App\DTOs\MessageDTO;
+use App\Events\NewMessageSent;
 use App\Mappers\MessageMapper;
+use App\Mappers\UserMapper;
 use App\Models\Message;
 use App\Repositorys\MessageRepository;
+use Auth;
 
 class MessageService
 {
@@ -24,6 +27,7 @@ class MessageService
             colocationId : $colocation_id,
             userId : $user_id,
             type: 'message' ,
+            userDTO: UserMapper::toDTO(Auth::user()) 
         );
 
         if ($attachment) {
@@ -46,6 +50,8 @@ class MessageService
         // dd($dto);
 
         $this->messageRepository->store(MessageMapper::toModel($dto)) ;
+
+        broadcast(new NewMessageSent($dto)) ; 
         
     }
 
