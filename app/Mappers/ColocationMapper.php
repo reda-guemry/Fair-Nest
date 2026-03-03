@@ -19,6 +19,7 @@ class ColocationMapper
             expenses: $colocation->expenses ? $colocation->expenses->map(fn($expense) => ExpenseMapper::toDTO($expense))->toArray() : null ,
             settlements: $colocation->settlements ? $colocation->settlements->map(fn($settlement) => SettlementMapper::toDTO($settlement))->toArray() : null , 
             categories: $colocation->categories ? $colocation->categories->map(fn($category) => CategoryMapper::toDTO($category))->toArray() : null , 
+            messages: $colocation->messages ? $colocation->messages->map(fn($message) => MessageMapper::toDTO($message))->toArray() : null , 
         
         );  
     }

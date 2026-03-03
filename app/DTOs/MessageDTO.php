@@ -6,14 +6,14 @@ class MessageDTO
 {
     
     public function __construct(
-        public int $id,
         public int $colocationId,
         public int $userId,
         public string $content,
+        public ?int $id = null,
         public ?string $filePath = null,
-        public string $type,
-        public string $createdAt,
-        public string $updatedAt,
+        public ?string $type = null,
+        public ?string $createdAt = null ,
+        public ?string $updatedAt = null,
     ) {}
 
 }
