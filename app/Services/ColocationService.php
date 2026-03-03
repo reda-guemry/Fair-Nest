@@ -252,4 +252,9 @@ class ColocationService
         return ColocationMapper::toDTO($this -> colocationRepository -> getColocationMembers($colocationId) ) ;
     }
 
+    public function getColocationChat($colocationId)
+    {
+        return ColocationMapper::toDTO($this -> colocationRepository -> getColocationChat($colocationId) ) ;
+    }
+
 }
