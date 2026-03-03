@@ -23,10 +23,15 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 COPY . /var/www/html
 
-RUN chown -R www-data:www-data /var/www/html && chmod -R 775 /var/www/html/storage
 
 
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+&& apt-get install -y nodejs
+
+RUN chown -R www-data:www-data /var/www/html && chmod -R 775 /var/www/html/storage
+
 
 EXPOSE 9000
 
