@@ -66,13 +66,13 @@
     <div x-data="{ showExpenseModal: false, showAddMemberModal: false }" class="py-10 relative">
 
         <div class="fixed top-5 right-5 z-[100] space-y-3 w-full max-w-sm">
-            @if(session('success'))
-                <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)"
-                    x-transition.duration.500ms
+            @if (session('success'))
+                <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)" x-transition.duration.500ms
                     class="flex items-center gap-4 p-5 bg-green-50 border border-green-100 rounded-[2rem] shadow-sm">
                     <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center shrink-0">
                         <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
                         </svg>
                     </div>
                     <div>
@@ -82,9 +82,8 @@
                 </div>
             @endif
 
-            @if($errors->any() || session('error'))
-                <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)"
-                    x-transition.duration.500ms
+            @if ($errors->any() || session('error'))
+                <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)" x-transition.duration.500ms
                     class="flex items-center gap-4 p-5 bg-red-50 border border-red-100 rounded-[2rem] shadow-sm">
                     <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center shrink-0">
                         <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,7 +95,7 @@
                     <div class="flex-1">
                         <h4 class="text-md font-bold text-red-800">Attention</h4>
                         <ul class="text-sm text-red-600 list-disc list-inside">
-                            @if(session('error'))
+                            @if (session('error'))
                                 <li>{{ session('error') }}</li>
                             @endif
                             @foreach ($errors->all() as $error)
@@ -111,7 +110,6 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-8">
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-
                 <div
                     class="bg-white p-6 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center gap-5">
                     <div class="w-14 h-14 bg-gray-50 rounded-full flex items-center justify-center shrink-0">
@@ -122,7 +120,7 @@
                         </svg>
                     </div>
                     <div>
-                        <p class="text-sm font-semibold text-gray-400">Total Maison </p>
+                        <p class="text-sm font-semibold text-gray-400">Total Maison</p>
                         <h4 class="text-2xl font-bold text-[#1A1A1A]">{{ $totalSold }} MAD</h4>
                     </div>
                 </div>
@@ -145,14 +143,15 @@
                     class="{{ $monSold >= 0 ? 'bg-green-50 border-green-100' : 'bg-red-50 border-red-100' }} p-6 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border flex items-center gap-5 relative overflow-hidden">
                     <div
                         class="w-14 h-14 {{ $monSold >= 0 ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600' }} rounded-full flex items-center justify-center shrink-0 z-10">
-                        @if($monSold >= 0)
+                        @if ($monSold >= 0)
                             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4">
-                                </path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 4v16m8-8H4"></path>
                             </svg>
                         @else
                             <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4">
+                                </path>
                             </svg>
                         @endif
                     </div>
@@ -162,7 +161,8 @@
                         <h4 class="text-2xl font-bold {{ $monSold >= 0 ? 'text-green-600' : 'text-red-600' }}">
                             {{ $monSold >= 0 ? '+' : '- ' }} {{ abs($monSold) }} MAD
                         </h4>
-                        <p class="text-xs font-semibold mt-0.5 {{ $monSold >= 0 ? 'text-green-500' : 'text-red-500' }}">
+                        <p
+                            class="text-xs font-semibold mt-0.5 {{ $monSold >= 0 ? 'text-green-500' : 'text-red-500' }}">
                             {{ $monSold >= 0 ? 'On me doit de l\'argent' : 'Je dois de l\'argent' }}
                         </p>
                     </div>
@@ -178,22 +178,43 @@
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
                 <div class="lg:col-span-2 space-y-6">
+
                     <div
-                        class="flex items-center justify-between bg-white p-4 rounded-3xl shadow-sm border border-gray-100">
+                        class="flex flex-col sm:flex-row sm:items-center justify-between bg-white p-4 rounded-[2rem] shadow-sm border border-gray-100 gap-4">
                         <h3 class="text-xl font-bold text-[#1A1A1A] ml-2">Dépenses Récentes</h3>
-                        <button @click="showExpenseModal = true"
-                            class="bg-[#1A1A1A] text-[#FAF9F6] px-5 py-2.5 rounded-full text-sm font-bold hover:bg-gray-800 transition-all shadow-md flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 4v16m8-8H4"></path>
-                            </svg>
-                            Ajouter
-                        </button>
+
+                        <div class="flex items-center gap-3">
+                            <div class="relative group">
+                                <select id="categoryFilter" onchange="filterExpenses()"
+                                    class="appearance-none w-full sm:w-auto bg-gray-50 text-gray-600 text-sm font-bold border border-gray-200 rounded-full py-2.5 pl-5 pr-10 cursor-pointer hover:border-gray-300 focus:outline-none focus:border-orange-500 focus:ring-4 focus:ring-orange-500/10 transition-all">
+                                    <option value="">Toutes les catégories</option>
+                                    @foreach ($colocation->categories as $category)
+                                        <option value="cat-{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                                <div
+                                    class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 group-hover:text-gray-600 transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <button @click="showExpenseModal = true"
+                                class="bg-[#1A1A1A] text-[#FAF9F6] px-5 py-2.5 rounded-full text-sm font-bold hover:bg-gray-800 transition-all shadow-md hover:-translate-y-0.5 flex items-center gap-2 shrink-0">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 4v16m8-8H4"></path>
+                                </svg>
+                                <span class="hidden sm:inline">Ajouter</span>
+                            </button>
+                        </div>
                     </div>
 
                     @foreach ($colocation->expenses as $expenses)
                         <div
-                            class="bg-white p-6 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center justify-between hover:border-orange-200 transition-colors group cursor-pointer">
+                            class="expense-item cat-{{ $expenses->categoryId }} bg-white p-6 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100 flex items-center justify-between hover:border-orange-200 transition-colors group cursor-pointer">
                             <div class="flex items-center gap-5">
                                 <div
                                     class="w-14 h-14 bg-blue-50 text-blue-500 rounded-2xl flex items-center justify-center group-hover:bg-orange-50 group-hover:text-orange-500 transition-colors">
@@ -207,13 +228,13 @@
                                     <h4 class="text-lg font-extrabold text-[#1A1A1A]">{{ $expenses->title }}</h4>
                                     <p class="text-sm text-gray-500 mt-1">Payé par <span
                                             class="font-bold text-gray-700">{{ $expenses->payername }}</span> •
-                                        {{ \Carbon\Carbon::parse($expenses->createdAt)->format('d/m/Y à H\hi') }}
-                                    </p>
+                                        {{ $expenses->createdAt }}</p>
                                 </div>
                             </div>
                             <div class="text-right">
                                 <h4 class="text-2xl font-black text-[#1A1A1A]">{{ $expenses->amount }} MAD</h4>
-                                <span class="text-xs font-bold text-gray-400 uppercase tracking-tighter mt-1 block">Pour
+                                <span
+                                    class="text-xs font-bold text-gray-400 uppercase tracking-tighter mt-1 block">Pour
                                     {{ count($expenses->participants) + 1 }} personnes</span>
                             </div>
                         </div>
@@ -225,7 +246,8 @@
                     <div
                         class="bg-white p-6 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100">
                         <h3 class="text-lg font-bold text-[#1A1A1A] mb-4 flex items-center gap-2">
-                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
                             </svg>
@@ -247,19 +269,17 @@
                                         </p>
                                     </div>
                                     <span class="font-bold text-red-700">{{ $debt->amount }} MAD</span>
-
                                     @if ($debt->userB_Id == Auth::id())
                                         <form action="{{ route('settlements.pay') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="user_a" value="{{ $debt->userA_Id }}">
                                             <input type="hidden" name="user_b" value="{{ $debt->userB_Id }}">
-                                            <input type="hidden" name='colocation_id' value="{{ $colocation->id }}">
+                                            <input type="hidden" name='colocation_id'
+                                                value="{{ $colocation->id }}">
                                             <button type="submit"
                                                 class="text-xs font-bold bg-white text-red-600 px-2 py-1 rounded-lg border border-red-200 hover:bg-red-600 hover:text-white transition-colors">Payé</button>
                                         </form>
-
                                     @endif
-
                                 </div>
                             @endforeach
                         </div>
@@ -267,9 +287,20 @@
 
                     <div
                         class="bg-white p-6 rounded-[2rem] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-gray-100">
-                        @if (Auth::user()->isOwner($colocation->id))
-                            <div class="flex items-center justify-between mb-4">
-                                <h3 class="text-lg font-bold text-[#1A1A1A]">Colocataires</h3>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-bold text-[#1A1A1A]">Colocataires</h3>
+
+                            <a href="#"
+                                class="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-400 hover:text-blue-600 hover:bg-blue-50 hover:border-blue-200 shadow-sm transition-all"
+                                title="Discuter">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z">
+                                    </path>
+                                </svg>
+                            </a>
+
+                            @if (Auth::user()->isOwner($colocation->id))
                                 <button @click="showAddMemberModal = true"
                                     class="text-sm font-bold text-orange-500 bg-orange-50 hover:bg-orange-100 px-3 py-1.5 rounded-full transition-colors flex items-center gap-1.5 border border-orange-100">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -278,8 +309,8 @@
                                     </svg>
                                     Ajouter
                                 </button>
-                            </div>
-                        @endif
+                            @endif
+                        </div>
 
                         <ul class="space-y-4">
                             @foreach ($colocation->membership as $member)
@@ -289,20 +320,15 @@
                                             <img src="{{ asset('storage/profiles/' . $member->profilePhoto) }}"
                                                 alt="{{ $member->name }}"
                                                 class="w-11 h-11 rounded-full object-cover border-2 border-white shadow-sm ring-1 ring-gray-100">
-
-
                                             <span
                                                 class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-white rounded-full"></span>
                                         </div>
-
                                         <div>
-                                            <p class="text-sm font-bold text-[#1A1A1A] leading-tight">{{ $member->name }}
-                                            </p>
+                                            <p class="text-sm font-bold text-[#1A1A1A] leading-tight">
+                                                {{ $member->name }}</p>
                                             <div class="flex items-center gap-2 mt-0.5">
                                                 <p class="text-[11px] text-gray-400 font-bold uppercase tracking-wide">
-                                                    {{ $member->role }}
-                                                </p>
-
+                                                    {{ $member->role }}</p>
                                                 <span
                                                     class="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-orange-50 text-orange-600 text-[10px] font-black rounded-md border border-orange-100 shadow-sm">
                                                     <svg class="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 20 20">
@@ -315,25 +341,31 @@
                                         </div>
                                     </div>
 
-                                    @if(auth()->user()->isOwner($colocation->id) && $member->userId != auth()->id())
-                                        <form method="POST"
-                                            action="{{ route('colocations.kick', [$colocation->id, $member->userId]) }}"
-                                            class="opacity-0 group-hover:opacity-100 transition-opacity">
-                                            @csrf
-                                            <input type="hidden" name="colocation_id" value="{{ $colocation->id }}">
-                                            <input type="hidden" name="member_id" value="{{ $member->userId }}">
+                                    <div class="flex items-center gap-2">
 
-                                            <button type="submit"
-                                                class="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-400 hover:text-red-600 hover:border-red-200 hover:bg-red-50 shadow-sm transition-all"
-                                                title="Expulser">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
-                                                    </path>
-                                                </svg>
-                                            </button>
-                                        </form>
-                                    @endif
+                                        @if (auth()->user()->isOwner($colocation->id) && $member->userId != auth()->id())
+                                            <form method="POST"
+                                                action="{{ route('colocations.kick', [$colocation->id, $member->userId]) }}">
+                                                @csrf
+                                                <input type="hidden" name="colocation_id"
+                                                    value="{{ $colocation->id }}">
+                                                <input type="hidden" name="member_id"
+                                                    value="{{ $member->userId }}">
+
+                                                <button type="submit"
+                                                    class="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-400 hover:text-red-600 hover:border-red-200 hover:bg-red-50 shadow-sm transition-all"
+                                                    title="Expulser">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                                                        </path>
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        @endif
+                                    </div>
                                 </li>
                             @endforeach
                         </ul>
@@ -362,7 +394,8 @@
 
                     <button @click="showExpenseModal = false"
                         class="absolute top-6 right-6 text-gray-400 hover:text-[#1A1A1A] transition-colors">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
@@ -422,9 +455,11 @@
                                 @foreach ($colocation->membership as $member)
                                     <label
                                         class="flex items-center p-3 border border-orange-200 bg-orange-50 rounded-2xl cursor-pointer hover:bg-orange-100 transition-colors">
-                                        <input type="checkbox" name="split_with[]" value="{{ $member->userId }}" checked
+                                        <input type="checkbox" name="split_with[]" value="{{ $member->userId }}"
+                                            checked
                                             class="w-4 h-4 text-orange-500 border-gray-300 rounded focus:ring-orange-500">
-                                        <span class="ml-3 text-sm font-semibold text-[#1A1A1A]">{{ $member->name }}</span>
+                                        <span
+                                            class="ml-3 text-sm font-semibold text-[#1A1A1A]">{{ $member->name }}</span>
                                     </label>
                                 @endforeach
                             </div>
@@ -467,7 +502,8 @@
 
                     <button @click="showAddMemberModal = false"
                         class="absolute top-6 right-6 text-gray-400 hover:text-[#1A1A1A] transition-colors">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
@@ -483,5 +519,20 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function filterExpenses() {
+            const selectedCategory = document.getElementById('categoryFilter').value;
+            const items = document.querySelectorAll('.expense-item');
+
+            items.forEach(item => {
+                if (selectedCategory === "" || item.classList.contains(selectedCategory)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
 
 </x-app-layout>
