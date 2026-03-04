@@ -68,6 +68,15 @@ class ExpenseService
         
     }
 
+    public function TotalExpensesForColocation($colocationId)
+    {
+        return $this->expenseRepository->getTotalExpenses($colocationId);
+    }
+
+    public function TotalExpensesForUserParticiper($colocationId , $userId)
+    {
+        return $this->expenseRepository->getTotalExpensesForUserParticiper($colocationId , $userId);
+    }
 
 
 }

@@ -34,7 +34,6 @@ class ColocationService
 
         return DB::transaction(function () use ($data) {
             $coloDto = new ColocationDTO(
-                id: null,
                 name: $data['name'],
                 description: $data['description'] ?? null,
                 status: null,
@@ -54,6 +53,8 @@ class ColocationService
             );
 
             $coloUserModel = ColocationUserMapper::toModel($coloUserDto);
+
+            $this->colocationRepository->saveCategory($saveModel, 'Autre') ;
 
             $this->colocationUserRepository->save($coloUserModel);
 
@@ -249,6 +250,11 @@ class ColocationService
     public function getColocationMembers($colocationId)
     {
         return ColocationMapper::toDTO($this -> colocationRepository -> getColocationMembers($colocationId) ) ;
+    }
+
+    public function getColocationChat($colocationId)
+    {
+        return ColocationMapper::toDTO($this -> colocationRepository -> getColocationChat($colocationId) ) ;
     }
 
 }

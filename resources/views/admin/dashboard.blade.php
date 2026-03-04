@@ -48,6 +48,9 @@
                         <tbody class="divide-y divide-gray-50">
 
                             @foreach($users as $user)
+                                @if ($user ->userId == Auth::id())
+                                    @continue
+                                @endif
                                 <tr class="group hover:bg-orange-50/30 transition-colors duration-200">
                                     <td class="px-8 py-5">
                                         <div class="flex items-center gap-4">
