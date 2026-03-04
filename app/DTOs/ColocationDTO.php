@@ -14,6 +14,7 @@ class ColocationDTO
         public ?array $expenses = [] , 
         public ?array $settlements = [] ,
         public ?array $categories = [] , 
+        public ?array $messages = [] , 
     ) {}
 
 

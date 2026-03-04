@@ -1,6 +1,10 @@
 {
   "resources/css/app.css": {
+<<<<<<< HEAD
     "file": "assets/app-Cnp4QKt8.css",
+=======
+    "file": "assets/app-2y1Ar7LQ.css",
+>>>>>>> feature/Message
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -9,7 +13,11 @@
     ]
   },
   "resources/js/app.js": {
+<<<<<<< HEAD
     "file": "assets/app-DhtK7KLP.js",
+=======
+    "file": "assets/app-CiK5a05o.js",
+>>>>>>> feature/Message
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true

@@ -15,7 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('colocation_id')->constrained()->onDelete('cascade'); 
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); 
+<<<<<<< HEAD
             $table->text('content'); 
+=======
+            $table->text('content')->nullable(); 
+            $table->string('file_path')->nullable();
+>>>>>>> feature/Message
             $table->string('type')->default('text');
             $table->timestamps();
         });

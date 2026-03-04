@@ -33,9 +33,24 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: rootpassword
     ports : 
+<<<<<<< HEAD
       - "5432:5432"
     volumes : 
       - pg_data:/var/lib/postgresql/data
+=======
+      - "5433:5432"
+    volumes : 
+      - pg_data:/var/lib/postgresql/data
+  reverb:
+    image: fair-nest-app
+    container_name: fair-nest-reverb
+    command: php artisan reverb:start --host=0.0.0.0 --port=8080
+    ports:
+      - "8089:8080"
+    depends_on:
+      - app
+
+>>>>>>> feature/Message
 volumes:
   pg_data: 
     

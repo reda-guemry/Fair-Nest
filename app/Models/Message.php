@@ -10,7 +10,12 @@ class Message extends Model
         'colocation_id',
         'user_id',
         'content',
+<<<<<<< HEAD
         'type'
+=======
+        'file_path',
+        'type' 
+>>>>>>> feature/Message
     ];
 
     public function user()

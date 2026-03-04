@@ -78,8 +78,9 @@ class InvitationService
             return ['status' => false, 'message' => 'Invitation is expired'];
         }
 
+        // dd($invitation->email === $user->email) ;
 
-        if (!$invitation->email === $user->email) {
+        if (!($invitation->email === $user->email)) {
             // dd('slm') ;
 
             return ['status' => false, 'message' => 'Invitation is not for you'];

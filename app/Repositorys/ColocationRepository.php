@@ -62,6 +62,10 @@ class ColocationRepository
         return Colocation::find($colocationId)->delete();
     }
 
+    public function getColocationChat($colocationId)
+    {
+        return Colocation::with('messages')->find($colocationId);
+    }
     
 
 }

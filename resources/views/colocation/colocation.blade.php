@@ -290,7 +290,7 @@
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-lg font-bold text-[#1A1A1A]">Colocataires</h3>
 
-                            <a href="#"
+                            <a href="{{ route('colocation.chat', $colocation->id) }}"
                                 class="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-400 hover:text-blue-600 hover:bg-blue-50 hover:border-blue-200 shadow-sm transition-all"
                                 title="Discuter">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

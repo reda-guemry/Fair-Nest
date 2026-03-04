@@ -5,6 +5,7 @@ use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\ColocationController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvitationController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettlementController;
 use App\Http\Controllers\UserController;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
 
 Route::middleware(['auth' , 'banned'])->group(function () {
 
@@ -37,6 +39,8 @@ Route::middleware(['auth' , 'banned'])->group(function () {
     Route::middleware(['colocation.mamber'])->group(function () {
         Route::get('/colocation/{colocation}', [ColocationController::class, 'show'])->name('colocation.show');
         Route::post('/colocation/{colocation}/leave', [ColocationController::class, 'leaveColocation'])->name('colocation.leave');
+        Route::get('/colocation/{colocation}/message', [MessageController::class, 'index'])->name('colocation.chat');
+        Route::post('/colocation/{colocation}/message/send', [MessageController::class, 'store'])->name('colocation.chat.send');
     });
 
     // colocation owner routes
