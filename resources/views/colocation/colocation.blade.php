@@ -135,7 +135,7 @@
                     </div>
                     <div>
                         <p class="text-sm font-semibold text-gray-400">Ma Part Financière</p>
-                        <h4 class="text-2xl font-bold text-[#1A1A1A]">{{ $userPartSold }} MAD</h4>
+                        <h4 class="text-2xl font-bold text-[#1A1A1A]">{{ number_format($userPartSold, 2) }} MAD</h4>
                     </div>
                 </div>
 

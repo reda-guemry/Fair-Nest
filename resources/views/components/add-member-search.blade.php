@@ -44,6 +44,9 @@ new class extends Component {
 
     <div class="border border-gray-100 rounded-2xl overflow-hidden bg-white shadow-sm mt-4">
         @forelse($users as $user)
+        @if ($user->userId === Auth::id())
+            @continue
+        @endif
         <div
             class="p-3 hover:bg-gray-50 transition-colors flex items-center justify-between border-b border-gray-50 last:border-0">
             <div class="flex items-center gap-3">
