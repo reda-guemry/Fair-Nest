@@ -33,11 +33,6 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: rootpassword
     ports : 
-<<<<<<< HEAD
-      - "5432:5432"
-    volumes : 
-      - pg_data:/var/lib/postgresql/data
-=======
       - "5433:5432"
     volumes : 
       - pg_data:/var/lib/postgresql/data
@@ -50,7 +45,6 @@ services:
     depends_on:
       - app
 
->>>>>>> feature/Message
 volumes:
   pg_data: 
     
