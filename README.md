@@ -147,17 +147,12 @@ This project is licensed under the **MIT License** – see the [LICENSE](LICENSE
 
 ## 📬 Contact Information
 
-**Author:** Naruto (placeholder)  
-**Email:** naruto@example.com  
-**GitHub:** [github.com/naruto](https://github.com/naruto)  
+**Author:** Guemry Reda 
+**Email:** [EMAIL_ADDRESS](guemryreda@gmail.com) 
+**GitHub:** [github.com/guemryreda](https://github.com/guemryreda)  
 
 Feel free to open an issue or reach out directly for questions, suggestions, or collaboration opportunities.
 
----
 
-*Happy coding!*
 
-## 📸 Screenshots
-
-![Fair Nest Dashboard](/home/naruto/.gemini/antigravity/brain/f069df5f-bf25-4138-84c2-98689a784e75/fair_nest_dashboard_1772724896780.png)
 
