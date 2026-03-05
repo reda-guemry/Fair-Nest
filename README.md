@@ -1,59 +1,163 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Fair‑Nest
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+> **A modern Laravel‑based platform for managing shared living spaces (colocations).**
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📖 Project Description
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Fair‑Nest is a web application that simplifies the creation, management, and financial settlement of shared living arrangements (colocations). It solves common pain points for roommates and property owners:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Centralised management** of colocation details, members, and invitations.
+- **Transparent expense tracking** with automated settlement calculations.
+- **Real‑time communication** via an integrated chat system.
+- **Robust admin controls** for moderation, user bans, and ownership transfers.
+- **Secure authentication** and role‑based access control.
 
-## Learning Laravel
+The platform is built on **Laravel 12**, leveraging Livewire for reactive UI components and Docker for reproducible development environments.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🛠️ Installation Instructions
 
-## Laravel Sponsors
+### Prerequisites
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- **PHP 8.2+**
+- **Composer**
+- **Node.js 20+** and **npm**
+- **Docker & Docker Compose** (optional but recommended for a one‑click setup)
 
-### Premium Partners
+### Local Setup (Docker‑less)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```bash
+# 1. Clone the repository
+git clone https://github.com/your‑username/fair‑nest.git
+cd fair‑nest
 
-## Contributing
+# 2. Copy the example environment file and generate an app key
+cp .env.example .env
+php artisan key:generate
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# 3. Install PHP dependencies
+composer install
 
-## Code of Conduct
+# 4. Install front‑end assets
+npm install
+npm run build   # or `npm run dev` for development mode
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+# 5. Run database migrations (SQLite is used by default)
+php artisan migrate --seed
 
-## Security Vulnerabilities
+# 6. Start the development server
+php artisan serve
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Visit `http://127.0.0.1:8000` in your browser.
 
-## License
+### Docker‑Compose Setup (recommended)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+# 1. Build and start containers
+docker compose up -d --build
+
+# 2. Run migrations inside the app container
+docker exec -it fair-nest-app php artisan migrate --seed
+
+# 3. The application will be reachable at http://localhost
+```
+
+To stop the containers:
+
+```bash
+docker compose down
+```
+
+---
+
+## 🚀 Usage Instructions
+
+### Authentication
+
+- Register a new account or log in with an existing one.
+- Email verification is required for full access.
+
+### Core Workflow
+
+1. **Create a Colocation** – Provide a name, address, and optional description.
+2. **Invite Members** – Send email invitations; invitees can accept or decline.
+3. **Add Expenses** – Record shared expenses (amount, description, payer, participants).
+4. **Settle Payments** – The system calculates each member’s balance and generates payment links.
+5. **Chat** – Use the built‑in chat to discuss bills, chores, or any topic.
+
+### Admin Panel (admin users only)
+
+- Access via `/dashboard/admin`.
+- Ban/unban users, transfer colocation ownership, and view system metrics.
+
+---
+
+## ✨ Features / Functionalities
+
+- **User Management** – Registration, email verification, profile editing, and account deletion.
+- **Role‑Based Access** – Regular users, colocation owners, and administrators.
+- **Colocation Lifecycle** – Create, view, edit settings, invite members, and delete.
+- **Invitation System** – Secure token‑based invitations with accept/decline flows.
+- **Expense Tracking** – CRUD operations for expenses with multi‑user split logic.
+- **Automatic Settlement** – Calculates debts and generates payment actions.
+- **Real‑Time Chat** – Message threads per colocation using Livewire components.
+- **Admin Dashboard** – User bans, ownership transfers, and system health overview.
+- **Dockerised Development** – One‑command environment setup.
+- **Comprehensive Test Suite** – PHPUnit & Pest tests for core business logic.
+
+---
+
+## 🛠️ Technologies Used
+
+| Layer | Technology |
+|-------|------------|
+| Backend | **PHP 8.2**, **Laravel 12**, **Livewire**, **Laravel Reverb** |
+| Database | **MySQL** (via Docker) or **SQLite** for local dev |
+| Front‑end | **Blade**, **Tailwind CSS**, **Vite** |
+| DevOps | **Docker**, **Docker Compose**, **GitHub Actions** (CI) |
+| Testing | **PHPUnit**, **Pest**, **Mockery** |
+| CI/CD | **GitHub Actions** for linting, testing, and building assets |
+
+---
+
+## 🤝 Contributing Guidelines
+
+We welcome contributions! Please follow these steps:
+
+1. **Fork the repository** and clone your fork.
+2. **Create a feature branch** (`git checkout -b feature/awesome-feature`).
+3. **Write tests** for any new functionality.
+4. **Run the test suite** (`php artisan test`).
+5. **Commit with clear messages** and push to your fork.
+6. **Open a Pull Request** targeting the `main` branch.
+
+Please adhere to the existing coding style and run `composer lint` before submitting.
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 📬 Contact Information
+
+**Author:** Naruto (placeholder)  
+**Email:** naruto@example.com  
+**GitHub:** [github.com/naruto](https://github.com/naruto)  
+
+Feel free to open an issue or reach out directly for questions, suggestions, or collaboration opportunities.
+
+---
+
+*Happy coding!*
+
+## 📸 Screenshots
+
+![Fair Nest Dashboard](/home/naruto/.gemini/antigravity/brain/f069df5f-bf25-4138-84c2-98689a784e75/fair_nest_dashboard_1772724896780.png)
+

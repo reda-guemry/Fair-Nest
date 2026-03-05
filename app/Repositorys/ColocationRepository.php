@@ -14,11 +14,6 @@ class ColocationRepository
     )
     {}
 
-    // public function create($data)
-    // {
-    //     return Colocation::create($data);
-    // }
-
     public function getColocationWithDeatils($colocationId)
     {
         return Colocation::with('members' , 'expenses.payer' , 'expenses.category' , 'expenses.participants' ,  'settlements' , 'categories')->find($colocationId);

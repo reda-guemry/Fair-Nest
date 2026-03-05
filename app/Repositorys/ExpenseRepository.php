@@ -57,7 +57,7 @@ class ExpenseRepository
         return Expense::with('participants')
             ->where('colocation_id', $colocationId)
             ->where(function ($query) use ($userId) {
-                $query->where('payer_id', $userId)
+                $query->where('payer_id', operator: $userId)
                     ->orWhereHas('participants', fn ($q) => $q->where('user_id', $userId));
             })
             ->get()
